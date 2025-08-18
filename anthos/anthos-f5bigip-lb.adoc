@@ -1,0 +1,197 @@
+---
+sidebar: sidebar 
+permalink: anthos/anthos-f5bigip-lb.html 
+summary: 'F5 BIG-IP は、L4-L7 ロード バランシング、SSL/TLS オフロード、DNS、ファイアウォールなど、幅広い高度な実稼働レベルのトラフィック管理およびセキュリティ サービスを提供するアプリケーション配信コントローラ (ADC) です。これらのサービスにより、アプリケーションの可用性、セキュリティ、パフォーマンスが大幅に向上します。' 
+keywords: Anthos, GKE, Kubernetes, F5, BigIP, LoadBalancer 
+---
+= F5 BIG-IPロードバランサーのインストール
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+F5 BIG-IP は、L4-L7 ロード バランシング、SSL/TLS オフロード、DNS、ファイアウォールなど、幅広い高度な実稼働レベルのトラフィック管理およびセキュリティ サービスを提供するアプリケーション配信コントローラ (ADC) です。これらのサービスにより、アプリケーションの可用性、セキュリティ、パフォーマンスが大幅に向上します。
+
+F5 BIG-IP は、専用ハードウェア、クラウド、オンプレミスの仮想アプライアンスなど、さまざまな方法で導入および使用できます。  F5 BIG-IP を調べて展開するには、ここにあるドキュメントを参照してください。
+
+F5 BIG-IP は、Anthos On-Prem で利用できる最初のバンドル ロードバランサ ソリューションであり、 NetAppを使用した Anthos ソリューションの初期の Anthos Ready パートナー検証で数多く使用されました。
+
+
+NOTE: F5 BIG-IP は、スタンドアロン モードまたはクラスター モードで導入できます。この検証のために、F5 BIG-IP がスタンドアロン モードで導入されました。ただし、実稼働目的では、単一障害点を回避するために BIG-IP インスタンスのクラスターを作成することをNetApp は推奨しています。
+
+
+NOTE: F5 BIG-IP システムは、専用ハードウェア、クラウド、またはバージョン 12.x 以降のオンプレミスの仮想アプライアンスとして導入して、F5 CIS と統合できます。このドキュメントでは、F5 BIG-IP システムが、BIG-IP VE エディションなどを使用して仮想アプライアンスとして検証されました。
+
+
+
+== 検証済みリリース
+
+このソリューションは、VMware vSphere に展開された仮想アプライアンスを利用します。 F5 Big-IP 仮想アプライアンスのネットワークは、ネットワーク環境に基づいて 2 アーム構成または 3 アーム構成で構成できます。このドキュメントの展開は、2 アーム構成に基づいています。  Anthosで使用するための仮想アプライアンスの構成に関する詳細は、 https://cloud.google.com/solutions/partners/installing-f5-big-ip-adc-for-gke-on-prem["ここをクリックしてください。"] 。
+
+NetAppのソリューション エンジニアリング チームは、次の表のリリースが Anthos On-Prem のデプロイメントで動作することをラボで検証しました。
+
+|===
+
+
+| 作る | タイプ | version 
+
+
+| F5 | ビッグIP VE | 15.0.1-0.0.11 
+
+
+| F5 | ビッグIP VE | 16.1.0-0.0.19 
+|===
+
+
+== インストール
+
+F5 BIG-IP をインストールするには、次の手順を実行します。
+
+. F5から仮想アプリケーションのOpen Virtual Appliance（OVA）ファイルをダウンロードします。 https://downloads.f5.com/esd/serveDownload.jsp?path=/big-ip/big-ip_v15.x/15.0.1/english/virtual-edition/&sw=BIG-IP&pro=big-ip_v15.x&ver=15.0.1&container=Virtual-Edition&file=BIGIP-15.0.1-0.0.11.ALL-vmware.ova["ここをクリックしてください。"] 。
++
+
+NOTE: アプライアンスをダウンロードするには、ユーザーは F5 に登録する必要があります。  Big-IP Virtual Edition Load Balancer の 30 日間のデモ ライセンスが提供されます。  NetApp、アプライアンスの実稼働展開には永続的な 10 Gbps ライセンスを推奨しています。
+
+. インフラストラクチャ リソース プールを右クリックし、OVF テンプレートのデプロイを選択します。ウィザードが起動し、手順 1 でダウンロードした OVA ファイルを選択できるようになります。[Next]をクリックします。
++
+image:deploy-big-ip-001.png["Big-IPアプライアンスの導入"]
+
+. 「次へ」をクリックして各ステップを続行し、ストレージ選択画面に到達するまで、表示される各画面のデフォルト値を受け入れます。仮想マシンを展開する VM_Datastore を選択し、[次へ] をクリックします。
+. ウィザードによって表示される次の画面では、環境で使用する仮想ネットワークをカスタマイズできます。外部フィールドで VM_Network を選択し、管理フィールドで Management_Network を選択します。内部および HA は、F5 Big-IP アプライアンスの高度な構成に使用され、構成されていません。これらのパラメータはそのままにしておくことも、インフラストラクチャ以外の分散ポート グループに接続するように構成することもできます。[Next]をクリックします。
++
+image:deploy-big-ip-002.png["Big_IPアプライアンスの導入、パート2"]
+
+. アプライアンスの概要画面を確認し、すべての情報が正しい場合は、「完了」をクリックして展開を開始します。
+. 仮想アプライアンスがデプロイされたら、それを右クリックして電源を入れます。管理ネットワーク上で DHCP アドレスを受信する必要があります。アプライアンスは Linux ベースで、VMware Tools が導入されているため、受信した DHCP アドレスを vSphere クライアントで表示できます。
++
+image:deploy-big-ip-003.png["Big-IPアプライアンスの導入、パート3"]
+
+. Web ブラウザを開き、前の手順の IP アドレスでアプライアンスに接続します。デフォルトのログインは admin/admin であり、最初のログイン後、アプライアンスはすぐに管理者パスワードの変更を求めます。その後、新しい資格情報を使用してログインする必要がある画面に戻ります。
++
+image:big-ip-config-001.png["Big-IP 構成"]
+
+. 最初の画面では、ユーザーにセットアップ ユーティリティを完了するように求めます。  「次へ」をクリックしてユーティリティを開始します。
++
+image:big-ip-config-002.png["Big-IP 構成、パート 2"]
+
+. 次の画面では、アプライアンスのライセンスのアクティベーションを求められます。開始するには「アクティブ化」をクリックします。次のページでプロンプトが表示されたら、ダウンロードの登録時に受け取った 30 日間の評価ライセンス キー、またはアプライアンスの購入時に取得した永続ライセンスのいずれかを貼り付けます。[Next]をクリックします。
++
+image:big-ip-config-003.png["Big-IP 構成、パート 3"]
+
++
+
+NOTE: デバイスがアクティベーションを実行するには、管理インターフェースで定義されたネットワークがインターネットにアクセスできる必要があります。
+
+. 次の画面に、エンド ユーザー ライセンス契約 (EULA) が表示されます。ライセンスの条件に同意できる場合は、「同意する」をクリックします。
+. 次の画面では、これまで行われた構成の変更を確認しながら経過時間をカウントします。初期設定を再開するには、「続行」をクリックします。
++
+image:big-ip-config-004.png["Big-IP 構成、パート 4"]
+
+. 構成変更ウィンドウが閉じ、セットアップ ユーティリティにリソース プロビジョニング メニューが表示されます。このウィンドウには、現在ライセンスされている機能と、仮想アプライアンスおよび実行中の各サービスの現在のリソース割り当てが一覧表示されます。
++
+image:big-ip-config-005.png["Big-IP 構成、パート 5"]
+
+. 左側の「プラットフォーム」メニュー オプションをクリックすると、プラットフォームをさらに変更できます。変更には、DHCP で構成された管理 IP アドレスの設定、アプライアンスがインストールされているホスト名とタイム ゾーンの設定、およびアプライアンスの SSH アクセスの保護が含まれます。
++
+image:big-ip-config-006.png["Big-IP 構成、パート 6"]
+
+. 次に、[ネットワーク] メニューをクリックします。これにより、標準のネットワーク機能を構成できます。  「次へ」をクリックして、標準ネットワーク構成ウィザードを開始します。
++
+image:big-ip-config-007.png["Big-IP 構成、パート 7"]
+
+. ウィザードの最初のページでは冗長性を構成します。デフォルトのままにして、「次へ」をクリックします。次のページでは、ロード バランサーの内部インターフェイスを構成できます。インターフェイス 1.1 は、OVF 展開ウィザードで「Internal」というラベルの付いた VMNIC にマップされます。
++
+image:big-ip-config-008.png["Big-IP 構成、パート 8"]
+
++
+
+NOTE: このページのセルフ IP アドレス、ネットマスク、フローティング IP アドレスのスペースには、プレースホルダーとして使用するためにルーティング不可能な IP を入力できます。 3 アーム構成を展開している場合は、仮想ゲスト用の分散ポート グループとして構成された内部ネットワークを埋め込むこともできます。ウィザードを続行するには、これらを完了する必要があります。
+
+. 次のページでは、Kubernetes にデプロイされたポッドにサービスをマッピングするために使用される外部ネットワークを構成できます。 VM_Network 範囲から静的 IP、適切なサブネット マスク、および同じ範囲から浮動 IP を選択します。インターフェース 1.2 は、OVF 展開ウィザードで「外部」というラベルの付いた VMNIC にマップされます。
++
+image:big-ip-config-009.png["Big-IP 構成、パート 9"]
+
+. 次のページでは、環境内に複数の仮想アプライアンスを展開する場合に、内部 HA ネットワークを構成できます。続行するには、セルフ IP アドレスとネットマスクのフィールドに入力し、OVF テンプレート ウィザードによって定義された HA ネットワークにマップされる VLAN インターフェイスとしてインターフェイス 1.3 を選択する必要があります。
++
+image:big-ip-config-010.png["Big-IP 構成、パート 10"]
+
+. 次のページでは、NTP サーバーを設定できます。次に、「次へ」をクリックして DNS セットアップに進みます。 DNS サーバーとドメイン検索リストは、DHCP サーバーによってすでに設定されているはずです。デフォルトを受け入れて続行するには、「次へ」をクリックします。
+. ウィザードの残りの部分では、[次へ] をクリックして、高度なピアリング設定を続行します。この設定については、このドキュメントの範囲外です。次に、「完了」をクリックしてウィザードを終了します。
+. 環境にデプロイされた Anthos 管理クラスタと各ユーザー クラスタごとに個別のパーティションを作成します。左側のメニューで「システム」をクリックし、「ユーザー」に移動して、「パーティション リスト」をクリックします。
++
+image:big-ip-config-011.png["Big-IP 構成、パート 11"]
+
+. 表示される画面には、現在の共通パーティションのみが表示されます。右側の「作成」をクリックして最初の追加パーティションを作成し、名前を付けます。 `GKE-Admin` 。次に「繰り返し」をクリックし、パーティションに名前を付けます `User-Cluster-1`。次のパーティションに名前を付けるには、もう一度[繰り返し]ボタンをクリックします。 `User-Cluster-2` 。最後に「完了」をクリックしてウィザードを完了します。パーティション リスト画面に戻り、すべてのパーティションがリストされます。
++
+image:big-ip-config-012.png["Big-IP 構成、パート 12"]
+
+
+
+
+
+== Anthosとの統合
+
+各構成ファイルには、管理クラスタと、デプロイすることを選択した各ユーザー クラスタごとに、ロードバランサが Anthos On Prem によって管理されるように構成するためのセクションがあります。
+
+次のスクリプトは、GKE-Admin クラスタのパーティション構成のサンプルです。コメントを解除して変更する必要がある値は、以下に太字で示されています。
+
+[listing, subs="+quotes,+verbatim"]
+----
+# (Required) Load balancer configuration
+*loadBalancer:*
+  # (Required) The VIPs to use for load balancing
+  *vips:*
+    # Used to connect to the Kubernetes API
+    *controlPlaneVIP: "10.61.181.230"*
+    # # (Optional) Used for admin cluster addons (needed for multi cluster features). Must
+    # # be the same across clusters
+    # # addonsVIP: ""
+  # (Required) Which load balancer to use "F5BigIP" "Seesaw" or "ManualLB". Uncomment
+  # the corresponding field below to provide the detailed spec
+  *kind: F5BigIP*
+  # # (Required when using "ManualLB" kind) Specify pre-defined nodeports
+  # manualLB:
+  #   # NodePort for ingress service's http (only needed for user cluster)
+  #   ingressHTTPNodePort: 0
+  #   # NodePort for ingress service's https (only needed for user cluster)
+  #   ingressHTTPSNodePort: 0
+  #   # NodePort for control plane service
+  #   controlPlaneNodePort: 30968
+  #   # NodePort for addon service (only needed for admin cluster)
+  #   addonsNodePort: 31405
+  # # (Required when using "F5BigIP" kind) Specify the already-existing partition and
+  # # credentials
+  *f5BigIP:*
+    *address: "172.21.224.21"*
+    *credentials:*
+      *username: "admin"*
+      *password: "admin-password"*
+    *partition: "GKE-Admin"*
+  #   # # (Optional) Specify a pool name if using SNAT
+  #   # snatPoolName: ""
+  # (Required when using "Seesaw" kind) Specify the Seesaw configs
+  # seesaw:
+    # (Required) The absolute or relative path to the yaml file to use for IP allocation
+    # for LB VMs. Must contain one or two IPs.
+    #  ipBlockFilePath: ""
+    # (Required) The Virtual Router IDentifier of VRRP for the Seesaw group. Must
+    # be between 1-255 and unique in a VLAN.
+    #  vrid: 0
+    # (Required) The IP announced by the master of Seesaw group
+    #  masterIP: ""
+    # (Required) The number CPUs per machine
+    #  cpus: 4
+    # (Required) Memory size in MB per machine
+    #   memoryMB: 8192
+    # (Optional) Network that the LB interface of Seesaw runs in (default: cluster
+    # network)
+    #   vCenter:
+      # vSphere network name
+      #     networkName: VM_Network
+    # (Optional) Run two LB VMs to achieve high availability (default: false)
+    #   enableHA: false
+----

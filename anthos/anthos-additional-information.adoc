@@ -1,0 +1,39 @@
+---
+sidebar: sidebar 
+permalink: anthos/anthos-additional-information.html 
+keywords:  
+summary:  
+---
+= 詳細情報の入手方法
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+このドキュメントに記載されている情報の詳細については、次の Web サイトを参照してください。
+
+* NetAppのマニュアル
++
+https://docs.netapp.com/["https://docs.netapp.com/"^]
+
+* NetApp Tridentドキュメント
++
+https://docs.netapp.com/us-en/trident/index.html["https://docs.netapp.com/us-en/trident/index.html"]
+
+* Anthos Clusters on VMware ドキュメント
++
+https://cloud.google.com/anthos/clusters/docs/on-prem/latest/overview["https://cloud.google.com/anthos/clusters/docs/on-prem/latest/overview"^]
+
+* ベアメタル版 Anthos のドキュメント
++
+https://cloud.google.com/anthos/clusters/docs/bare-metal/latest["https://cloud.google.com/anthos/clusters/docs/bare-metal/latest"]
+
+* VMware vSphereのドキュメント
++
+https://docs.vmware.com["https://docs.vmware.com/"^]
+
+

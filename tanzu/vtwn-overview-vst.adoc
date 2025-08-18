@@ -1,0 +1,36 @@
+---
+sidebar: sidebar 
+permalink: tanzu/vtwn-overview-vst.html 
+keywords: VMware Tanzu, Tanzu, Tanzu Kubernetes Grid Service, vSphere with Kubernetes, vSphere Pods, DevOps 
+summary:  
+---
+= VMware vSphere with Tanzu の概要
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+VMware vSphere with Tanzu (vSphere Pods とも呼ばれます) を使用すると、VMware vSphere 環境内の ESXi ハイパーバイザー ノードをベアメタル Kubernetes 環境のワーカー ノードとして使用できます。
+
+image:vtwn-030.png["VMware vSphere と Kubernetes"]
+
+VMware vSphere with Tanzu 環境は、ネイティブ TKGS クラスターと同様に、ワークロード管理で有効化されます。
+
+Kubernetes に高可用性のコントロール プレーンを提供するために仮想化されたスーパーバイザー クラスターが作成され、ユーザーのリソース分離を確保するためにアプリケーションごとに個別のネームスペースが作成されます。
+
+image:vtwn-029.png["スーパーバイザークラスター"]
+
+VMware vSphere with Tanzu が有効になっている場合、各 ESXi ホストに Spherelet アプリケーションがインストールされ、構成されます。これにより、各ノードは Kubernetes デプロイメントでワーカーとして機能し、各ノードにデプロイされたポッドを管理できるようになります。
+
+image:vtwn-028.png["ネームスペース"]
+
+現在、VMware vSphere with Tanzu および vSphere Pods は、ローカル vSphere CSI ドライバーのみをサポートしています。これは、管理者が vSphere クライアントでストレージ ポリシーを作成し、vSphere データストアとして現在使用可能なストレージ ターゲットから選択することで機能します。これらのポリシーは、コンテナ化されたアプリケーションの永続ボリュームを作成するために使用されます。
+
+
+NOTE: 現在、外部のONTAPおよび Element ストレージ アレイへの直接接続を可能にするNetApp Trident CSI ドライバーはサポートされていませんが、これらのNetAppストレージ システムは vSphere 環境のプライマリ ストレージをサポートするために使用されることが多く、 NetApp の高度なデータ管理およびストレージ効率ツールをこのように使用できます。
+
+VMware vSphere with Tanzuの詳細については、ドキュメントをご覧ください。link:https://docs.vmware.com/en/VMware-vSphere/7.0/vmware-vsphere-with-tanzu/GUID-152BE7D2-E227-4DAA-B527-557B564D9718.html["ここをクリックしてください。"^] 。

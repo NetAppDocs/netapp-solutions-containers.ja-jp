@@ -1,0 +1,41 @@
+---
+settings:
+  name: NetApp container solutions
+  internal:
+    pdf_enabled: true
+    lipi_enabled: true
+  prod:
+    pdf_enabled: true
+    harmony_enabled: false
+    lipi_enabled: true
+  pdf:
+    gen-type: named-only
+    zip-level: 1
+    zip-filename: netapp-solutions-containers.zip
+  langs: ja-jp,us-en,de-de,es-es,fr-fr,it-it,pt-br,ko-kr,zh-cn,zh-tw
+sidebar:
+  entries:
+  - title: コンテナソリューション
+    url: "/index.html"
+  - title: 新機能
+    url: "/whats-new.html"
+  - section: anthos
+  - section: openshift
+  - section: openshift-aws
+  - section: tanzu
+  - title: ビデオ
+    url: "/videos/index.html"
+    entries:
+    - title: アントス
+      url: "/videos/anthos-videos.html"
+    - title: レッドハット オープンシフト
+      url: "/videos/openshift-videos.html"
+    - title: VMware タンズ
+      url: "/videos/tanzu-videos.html"
+  - title: ブログ
+    url: "/blogs.html"
+  - title: 法律上の表示
+    url: "/legal-notices.html"
+product-family:
+  name: NetApp solutions
+  repo: netapp-solutions-family

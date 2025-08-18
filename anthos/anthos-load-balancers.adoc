@@ -1,0 +1,24 @@
+---
+sidebar: sidebar 
+permalink: anthos/anthos-load-balancers.html 
+keywords: Advanced Configuration, Load Balancers, F5, BigIP, SeeSaw 
+summary: このセクションでは、 NetAppを使用して Anthos のデプロイメントをカスタマイズしたいユーザー向けのロードバランサ オプションについて説明します。 
+---
+= ロードバランサーのオプションの検討
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Anthos にデプロイされたアプリケーションは、Anthos オンプレミス環境にデプロイされたロードバランサによって配信されるサービスによって世界に公開されます。
+
+次のページには、Anthos with NetAppソリューションで検証されたロードバランサ オプションに関する追加情報が記載されています。
+
+* link:anthos-f5bigip-lb.html["F5 BIG-IPロードバランサーのインストール"]
+* link:anthos-metallb.html["MetalLBロードバランサーのインストール"]
+* link:anthos-seesaw-lb.html["SeeSaw ロードバランサーのインストール"]
+

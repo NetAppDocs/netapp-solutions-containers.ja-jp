@@ -1,0 +1,56 @@
+---
+sidebar: sidebar 
+permalink: openshift/os-adv-mgmt-deployment.html 
+keywords: OpenShift, OCP, Trident, NetApp ONTAP, ONTAP, Trident, Red Hat OpenShift, Advanced Cluster Management, Advanced Cluster Management for Kubernetes 
+summary: NetAppを使用した Red Hat OpenShift 上の Kubernetes 向けの高度なクラスター管理。 
+---
+= Kubernetes 向けの高度なクラスタ管理を導入する
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+OpenShift クラスターに Advanced Cluster Management for Kubernetes をインストールするには、次の手順を実行します。
+
+. OpenShift クラスターをハブ クラスターとして選択し、cluster-admin 権限でログインします。
+. 「Operators」>「Operators Hub」に移動し、「Advanced Cluster Management for Kubernetes」を検索します。
++
+image:redhat-openshift-066.png["ACMタイル"]
+
+. 「Advanced Cluster Management for Kubernetes」を選択し、「インストール」をクリックします。
++
+image:redhat-openshift-067.png["ACMタイルの詳細"]
+
+. [Install Operator] 画面で、必要な詳細 (NetAppデフォルトのパラメータを保持することを推奨) を入力し、[Install] をクリックします。
++
+image:redhat-openshift-068.png["ACM オペレーター タイルをインストールする"]
+
+. オペレータのインストールが完了するまで待ちます。
++
+image:redhat-openshift-069.png["ACM オペレータのインストール中"]
+
+. オペレーターがインストールされたら、「MultiClusterHub の作成」をクリックします。
++
+image:redhat-openshift-070.png["ACM オペレーター マルチクラスターハブ"]
+
+. 「MultiClusterHub の作成」画面で、詳細を入力した後、「作成」をクリックします。これにより、マルチクラスター ハブのインストールが開始されます。
++
+image:redhat-openshift-071.png["マルチクラスタハブ画面の作成"]
+
+. すべてのポッドが open-cluster-management 名前空間で実行状態に移行し、オペレーターが成功状態に移行すると、Advanced Cluster Management for Kubernetes がインストールされます。
++
+image:redhat-openshift-072.png["ACMオペレータがインストールされました"]
+
+. ハブのインストールが完了するまでには少し時間がかかり、完了すると、MultiCluster ハブは実行状態に移行します。
++
+image:redhat-openshift-073.png["マルチクラスタハブ対応"]
+
+. open-cluster-management 名前空間にルートを作成します。ルート内の URL に接続して、Advanced Cluster Management コンソールにアクセスします。
++
+image:redhat-openshift-074.png["ACMコンソールルート"]
+
+

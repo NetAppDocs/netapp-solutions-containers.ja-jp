@@ -1,0 +1,19 @@
+---
+sidebar: sidebar 
+permalink: openshift/os-adv-mgmt-create-resources.html 
+keywords: OpenShift, OCP, Trident, NetApp ONTAP, ONTAP, Trident, Red Hat OpenShift, Advanced Cluster Management, Advanced Cluster Management for Kubernetes 
+summary: NetAppを使用した Red Hat OpenShift 上の Kubernetes 向け高度なクラスタ管理 
+---
+= 複数のクラスターにリソースを作成する
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Kubernetes の高度なクラスター管理を使用すると、ユーザーはコンソールから 1 つ以上の管理対象クラスター上に同時にリソースを作成できます。たとえば、異なるNetApp ONTAPクラスターでバックアップされた異なるサイトの OpenShift クラスターがあり、両方のサイトで PVC をプロビジョニングする場合は、上部のバーの (+) 記号をクリックします。次に、PVC を作成するクラスターを選択し、リソース YAML を貼り付けて、「作成」をクリックします。
+
+image:redhat-openshift-086.png["リソースを作成する"]

@@ -1,0 +1,31 @@
+---
+sidebar: sidebar 
+permalink: openshift/os-adv-mgmt-overview.html 
+keywords: OpenShift, OCP, Trident, NetApp ONTAP, ONTAP, Trident, Red Hat OpenShift, Advanced Cluster Management, Advanced Cluster Management for Kubernetes 
+summary: NetAppを使用した Red Hat OpenShift 上の Kubernetes 向け高度なクラスタ管理 
+---
+= Kubernetes の高度なクラスタ管理: Red Hat OpenShift とNetApp - 概要
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+コンテナ化されたアプリケーションが開発から本番環境に移行すると、多くの組織では、そのアプリケーションのテストとデプロイメントをサポートするために複数の Red Hat OpenShift クラスターが必要になります。これに関連して、組織は通常、OpenShift クラスター上で複数のアプリケーションまたはワークロードをホストします。したがって、各組織は最終的に一連のクラスターを管理することになり、OpenShift 管理者は複数のオンプレミス データセンターとパブリック クラウドにまたがるさまざまな環境にわたって複数のクラスターを管理および維持するという追加の課題に直面することになります。これらの課題に対処するために、Red Hat は Kubernetes 向けの高度なクラスター管理を導入しました。
+
+Red Hat Advanced Cluster Management for Kubernetes を使用すると、次のタスクを実行できます。
+
+. データセンターとパブリッククラウドにわたる複数のクラスタを作成、インポート、管理します
+. 単一のコンソールから複数のクラスタ上のアプリケーションまたはワークロードを展開および管理します
+. さまざまなクラスターリソースの健全性とステータスを監視および分析します
+. 複数のクラスタにわたってセキュリティコンプライアンスを監視および適用する
+
+
+Red Hat Advanced Cluster Management for Kubernetes は、Red Hat OpenShift クラスターのアドオンとしてインストールされ、このクラスターをすべての操作の中央コントローラーとして使用します。このクラスターはハブ クラスターと呼ばれ、ユーザーが Advanced Cluster Management に接続するための管理プレーンを公開します。 Advanced Cluster Management コンソールを使用してインポートまたは作成された他のすべての OpenShift クラスターは、ハブ クラスターによって管理され、管理対象クラスターと呼ばれます。管理対象クラスターに Klusterlet と呼ばれるエージェントをインストールして、それらをハブ クラスターに接続し、クラスター ライフサイクル管理、アプリケーション ライフサイクル管理、可観測性、セキュリティ コンプライアンスに関連するさまざまなアクティビティの要求に応えます。
+
+image:redhat-openshift-065.png["ACMアーキテクチャ"]
+
+詳細については、ドキュメントを参照してください。 https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.2/["ここをクリックしてください。"] 。

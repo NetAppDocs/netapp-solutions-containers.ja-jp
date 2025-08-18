@@ -1,0 +1,28 @@
+---
+sidebar: sidebar 
+permalink: openshift/os-adv-mgmt-governance-risk.html 
+keywords: OpenShift, OCP, Trident, NetApp ONTAP, ONTAP, Trident, Red Hat OpenShift, Advanced Cluster Management, Advanced Cluster Management for Kubernetes 
+summary: NetAppを使用した Red Hat OpenShift 上の Kubernetes 向け高度なクラスタ管理 
+---
+= ガバナンスとリスク
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+この機能を使用すると、さまざまなクラスターのコンプライアンス ポリシーを定義し、クラスターがそれに準拠していることを確認できます。ルールからの逸脱や違反を通知したり、修正したりするようにポリシーを構成できます。
+
+. サイドバーからガバナンスとリスクに移動します。
+. コンプライアンス ポリシーを作成するには、[ポリシーの作成] をクリックし、ポリシー標準の詳細を入力して、このポリシーに準拠する必要があるクラスターを選択します。このポリシー違反を自動的に修正する場合は、「サポートされている場合は強制する」チェックボックスをオンにして、「作成」をクリックします。
++
+image:redhat-openshift-080.png["コンプライアンスポリシーを作成する"]
+
+. 必要なポリシーがすべて構成されたら、Advanced Cluster Management からポリシー違反またはクラスター違反を監視して修復できます。
++
+image:redhat-openshift-081.png["ポリシー監視"]
+
+

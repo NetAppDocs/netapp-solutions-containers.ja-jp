@@ -1,0 +1,142 @@
+---
+sidebar: sidebar 
+permalink: anthos/anthos-deploy-app-cloud-console.html 
+keywords: Anthos, Trident, NetApp ONTAP, ONTAP, Trident 
+summary: Google Cloud Console を使用して、オンプレミスの Anthos GKE クラスタにアプリケーションをデプロイする方法。 
+---
+= Google Cloud Console Marketplace からアプリケーションをデプロイする
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+このセクションでは、Google Cloud Console を使用して、オンプレミスの Anthos GKE クラスタにアプリケーションをデプロイする方法について詳しく説明します。
+
+
+
+== 前提条件
+
+* オンプレミスにデプロイされ、Google Cloud Console に登録された Anthos クラスタ
+* Anthos クラスタに構成された MetalLB ロードバランサ
+* クラスターにアプリケーションをデプロイする権限を持つアカウント
+* 関連費用が発生するアプリケーションを選択した場合は、Google Cloud の請求先アカウント（オプション）
+
+
+
+
+== アプリケーションのデプロイ
+
+このユースケースでは、Google Cloud Console を使用して、シンプルな WordPress アプリケーションを Anthos クラスタの 1 つにデプロイします。このデプロイメントでは、事前定義されたストレージクラスでNetApp ONTAPによって提供される永続ストレージが使用されます。次に、MetalLB ロード バランサがアプリケーションのデフォルト サービスに IP アドレスを提供し、それを世界に公開するように、アプリケーションのデフォルト サービスを変更する 2 つの異なる方法を示します。
+
+この方法でアプリケーションをデプロイするには、次の手順を実行します。
+
+. デプロイ先のクラスタが Google Cloud Console でアクセス可能であることを確認します。
++
+image:a-w-n-use-case-deploy-app-010.png["登録されたクラスター"]
+
+. 左側のメニューから [アプリケーション] を選択し、上部の 3 つのドットのオプション メニューを選択して、[Marketplace からデプロイ] を選択すると、新しいウィンドウが開き、Google Cloud Marketplace からアプリケーションを選択できます。
++
+image:a-w-n-use-case-deploy-app-009.png["アプリケーションマーケットプレイス"]
+
+. インストールするアプリケーション（この場合は WordPress）を検索します。
++
+image:a-w-n-use-case-deploy-app-008.png["WordPressを検索"]
+
+. WordPress アプリケーションを選択すると、概要画面が表示されます。  [構成]ボタンをクリックします。
++
+image:a-w-n-use-case-deploy-app-007.png["WordPressの概要画面"]
+
+. 次のページで、デプロイ先のクラスター (この場合は Demo-Cluster) を選択する必要があります。新しい名前空間とアプリケーション インスタンス名を選択または作成し、WordPress アプリケーションとその基盤となる MariaDB データベースの両方に必要なストレージ クラスと永続ボリューム サイズを選択します。どちらの場合も、 ONTAP-NAS-CSI ストレージ クラスを選択しました。
++
+image:a-w-n-use-case-deploy-app-006.png["WordPressの設定"]
+
++
+
+NOTE: 「パブリック IP アクセスを有効にする」を選択しないでください。これを行うと、オンプレミスの Anthos デプロイメントからアクセスできない NodePort タイプのサービスが作成されます。
+
+. 「デプロイ」ボタンをクリックすると、アプリケーションの詳細を示すページが表示されます。このページを更新するか、CLI を使用してクラスターにログインし、デプロイメントのステータスを確認できます。
++
+image:a-w-n-use-case-deploy-app-005.png["アプリケーションの詳細"]
+
+. CLI を使用して、アプリケーション名前空間でポッド情報を取得するコマンドを実行することにより、デプロイ中のアプリケーションのステータスを確認できます。 `kubectl get pods -n anthos-wp` 。
++
+image:a-w-n-use-case-deploy-app-004.png["Kubectlでポッドを取得する"]
+
++
+
+NOTE: このスクリーンショットでは、エラー状態のデプロイヤー ポッドがあることに注意してください。これは正常です。このポッドは、他のポッドが初期化プロセスを開始した後に自動的に終了するアプリケーションをデプロイするために Google Cloud Console によって使用されるヘルパー ポッドです。
+
+. しばらくしてから、アプリケーションが実行されていることを確認します。
++
+image:a-w-n-use-case-deploy-app-003.png["アプリケーションの実行"]
+
+
+
+
+
+== アプリケーションの公開
+
+アプリケーションをデプロイした後、世界中からアクセス可能な IP を割り当てる方法は 2 つあります。
+
+
+
+=== Google Cloud Console の使用
+
+Google Cloud Console を使用してブラウザでサービスの YAML 出力を編集し、パブリックにアクセス可能な IP を設定することで、アプリケーションを公開できます。これを行うには、次の手順を実行します。
+
+. Google Cloud Console で、左側のメニューの [サービス] と [Ingress] をクリックします。
++
+image:a-w-n-use-case-deploy-app-011.png["サービスとイングレス"]
+
+. クリック `wordpress-wordpress-svc`サービス。サービス詳細画面が開きます。上部の編集ボタンをクリックします。
++
+image:a-w-n-use-case-deploy-app-012.png["サービスの詳細を編集する"]
+
+. サービスの YAML 情報を含む「サービス詳細の編集」ページが開きます。スクロールダウンして、 `spec:`セクションと `type:`値は次のように設定されます `ClusterIP`。この値を次のように変更します `LoadBalancer`[保存]ボタンをクリックします。
++
+image:a-w-n-use-case-deploy-app-013.png["タイプ ClusterIP 値"]
+
++
+image:a-w-n-use-case-deploy-app-014.png["タイプ LoadBalancer 値"]
+
+. サービス詳細ページに戻ると、 `Type:`現在リスト `LoadBalancer`そして `External endpoints:`このフィールドには、MetalLB プールから割り当てられた IP アドレスと、アプリケーションにアクセスできるポートがリストされます。
++
+image:a-w-n-use-case-deploy-app-015.png["サービス詳細最終"]
+
+
+
+
+
+=== Kubectl でサービスにパッチを適用する
+
+アプリケーションを公開するには、CLIと `kubectl patch`コマンドを使用してデプロイメントを変更し、パブリックに到達可能な IP を設定します。これには、次の手順を実行します。
+
+. 名前空間内のポッドに関連付けられたサービスを一覧表示するには、 `kubectl get services -n anthos-wp`指示。
++
+image:a-w-n-use-case-deploy-app-002.png["リストサービス"]
+
+. サービスタイプを変更する `ClusterIP`入力する `Loadbalancer`次のコマンドを使用します。
++
+[listing]
+----
+kubectl patch svc wordpress-wordpress-svc -p '{"spec": {"type": "LoadBalancer"}}' -n anthos-wp'.
+----
++
+この新しいサービス タイプには、MetalLB プールから使用可能な IP アドレスが自動的に割り当てられます。
+
++
+image:a-w-n-use-case-deploy-app-001.png["パッチサービスに LoadBalancer 型を指定する"]
+
+
+
+
+
+== 公開された外部IPでアプリケーションにアクセスします
+
+アプリケーションがパブリックにアクセス可能な IP アドレスで公開されたので、ブラウザを使用して WordPress インスタンスにアクセスできます。
+
+image:a-w-n-use-case-deploy-app-016.png["ブラウザでのWordPress"]

@@ -1,0 +1,115 @@
+---
+sidebar: sidebar 
+permalink: anthos/anthos-trident-ontap-iscsi.html 
+summary: TridentとNetApp ONTAPストレージ システムとの統合を有効にするには、ストレージ システムとの通信を可能にするバックエンドを作成する必要があります。 
+keywords: Trident, Trident, ONTAP, AFF, FAS, iSCSI 
+---
+= NetApp ONTAP iSCSI構成
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+TridentとNetApp ONTAPストレージ システムとの統合を有効にするには、ストレージ システムとの通信を可能にするバックエンドを作成する必要があります。
+
+. ダウンロードしたインストールアーカイブには、サンプルのバックエンドファイルが含まれています。 `sample-input`フォルダー階層。  iSCSIを提供するNetApp ONTAPシステムの場合は、 `backend-ontap-san.json`ファイルを作業ディレクトリに移動し、編集します。
++
+[listing]
+----
+[ubuntu@gke-admin-ws-2022-05-03 trident-installer]$ cp sample-input/backends-samples/ontap-san/backend-ontap-san.json ./
+[ubuntu@gke-admin-ws-2022-05-03 trident-installer]$ vi backend-ontap-san.json
+----
+. このファイル内の managementLIF、dataLIF、svm、ユーザー名、およびパスワードの値を編集します。
++
+[listing]
+----
+{
+  "version": 1,
+  "storageDriverName": "ontap-san",
+  "managementLIF": "172.21.224.201",
+  "dataLIF": "10.61.181.240",
+  "svm": "trident_svm",
+  "username": "admin",
+  "password": "password"
+}
+----
+. このバックエンド ファイルを配置したら、次のコマンドを実行して最初のバックエンドを作成します。
++
+[listing]
+----
+[ubuntu@gke-admin-ws-2022-05-03 trident-installer]$ ./tridentctl -n trident create backend -f backend-ontap-san.json
++------------------------+----------------+--------------------------------------+--------+---------+
+|          NAME          | STORAGE DRIVER |                 UUID                 | STATE  | VOLUMES |
++------------------------+----------------+--------------------------------------+--------+---------+
+| ontapsan_10.61.181.241 | ontap-san      | 6788533c-7fea-4a35-b797-fb9bb3322b91 | online |       0 |
++------------------------+----------------+--------------------------------------+--------+---------+
+----
+. バックエンドを作成したら、次にストレージ クラスを作成する必要があります。バックエンドと同様に、sample-inputs フォルダーには、環境に合わせて編集できるサンプル ストレージ クラス ファイルがあります。それを作業ディレクトリにコピーし、作成されたバックエンドを反映するために必要な編集を行います。
++
+[listing]
+----
+[ubuntu@gke-admin-ws-2022-05-03 trident-installer]$ cp sample-input/storage-class-samples/storage-class-csi.yaml.templ ./storage-class-basic.yaml
+[ubuntu@gke-admin-ws-2022-05-03 trident-installer]$ vi storage-class-basic.yaml
+----
+. このファイルで編集する必要があるのは、 `backendType`新しく作成されたバックエンドのストレージ ドライバーの名前に値を設定します。また、後の手順で参照する必要がある名前フィールドの値にも注意してください。
++
+[listing]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: basic-csi
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-san"
+----
++
+
+NOTE: オプションフィールドがあります `fsType`このファイルで定義されます。  iSCSI バックエンドでは、この値を特定の Linux ファイルシステム タイプ (XFS、ext4 など) に設定するか、削除してワーカー ノード OS が使用するファイルシステムを決定できるようにすることができます。
+
+. 実行 `kubectl`ストレージ クラスを作成するコマンド。
++
+[listing]
+----
+[ubuntu@gke-admin-ws-2022-05-03 trident-installer]$ kubectl create -f storage-class-basic.yaml
+storageclass.storage.k8s.io/basic-csi created
+----
+. ストレージ クラスを作成したら、最初の永続ボリューム要求 (PVC) を作成する必要があります。サンプルがあります `pvc-basic.yaml`このアクションを実行するために使用できるファイルは、sample-inputs にもあります。
++
+[listing]
+----
+[ubuntu@gke-admin-ws-2022-05-03 trident-installer]$ cp sample-input/pvc-samples/pvc-basic.yaml ./
+[ubuntu@gke-admin-ws-2022-05-03 trident-installer]$ vi pvc-basic.yaml
+----
+. このファイルに対して行う必要がある唯一の編集は、 `storageClassName`フィールドは、先ほど作成したものと一致します。  PVC 定義は、プロビジョニングするワークロードの必要に応じてさらにカスタマイズできます。
++
+[listing]
+----
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: basic
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: basic-csi
+----
+. PVCを作成するには、 `kubectl`指示。作成するバックアップボリュームのサイズによっては、作成に時間がかかる場合があります。そのため、プロセスが完了するまで監視することができます。
++
+[listing]
+----
+[ubuntu@gke-admin-ws-2022-05-03 trident-installer]$ kubectl create -f pvc-basic.yaml
+persistentvolumeclaim/basic created
+
+[ubuntu@gke-admin-ws-2022-05-03 trident-installer]$ kubectl get pvc
+NAME    STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+basic   Bound    pvc-7ceac1ba-0189-43c7-8f98-094719f7956c   1Gi        RWO            basic-csi      3s
+----
+

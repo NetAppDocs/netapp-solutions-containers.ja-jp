@@ -1,0 +1,56 @@
+---
+sidebar: sidebar 
+permalink: anthos/anthos-overview.html 
+keywords: Anthos, deploy, baremetal, virtual 
+summary: Anthos は、開発と IT 運用を単一のプラットフォームに統合し、オンプレミスとハイブリッド クラウド インフラストラクチャ全体で一貫してアプリケーションを構築、デプロイ、管理します。  Anthos は、仮想形式またはベアメタル形式で、GKE Kubernetes クラスターをデータセンター環境に直接導入します。 
+---
+= Anthos の概要
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Anthos with NetAppは、オンプレミスの Google Kubernetes Engine（GKE）環境を信頼性と安心性の高い方法で導入するための、検証済みのベスト プラクティス ハイブリッド クラウド アーキテクチャです。このNetApp Verified Architecture リファレンス ドキュメントは、ベアメタル環境と仮想環境に導入された Anthos with NetAppソリューションの設計ガイドと導入検証の両方として機能します。このドキュメントで説明されているアーキテクチャは、 NetAppと Google Cloud の専門家によって検証されており、エンタープライズ データセンター環境内で Anthos を実行する利点を提供します。
+
+
+
+== アントス
+
+Anthos は、アプリケーション開発に重点を置いたアジャイル ワークフローを採用しながら、組織が最新のハイブリッド クラウド インフラストラクチャを構築および管理できるようにするハイブリッド クラウド Kubernetes データ センター ソリューションです。 Anthos on VMware はオープンソース テクノロジーを基盤とするソリューションで、オンプレミスの VMware vSphere ベースのインフラストラクチャで実行され、Google Cloud の Anthos GKE と接続して相互運用できます。コンテナ、サービス メッシュ、その他の変革テクノロジーを採用することで、組織はローカル環境とクラウドベースの環境で一貫したアプリケーション開発サイクルと本番環境対応のワークロードを実現できます。次の図は、Anthos ソリューションと、オンプレミス データセンターのデプロイメントがクラウド内のインフラストラクチャと相互接続される様子を示しています。
+
+Anthosの詳細については、次のAnthosウェブサイトをご覧ください。 https://cloud.google.com/anthos["ここをクリックしてください。"^] 。
+
+Anthos は次の機能を提供します。
+
+* *Anthos 構成管理*ハイブリッド Kubernetes デプロイメントのポリシーとセキュリティを自動化します。
+* *Anthos サービス メッシュ*  Istio を活用したサービス メッシュにより、アプリケーションの可観測性、セキュリティ、制御を強化します。
+* *Kubernetes アプリケーション向けの Google Cloud Marketplace。*簡単に導入できる、厳選されたコンテナ アプリケーションのカタログ。
+* *Anthos に移行します。*オンプレミスからクラウドへの物理サービスと VM の自動移行。
+* *スタックドライバー。*クラウド インスタンスのログ記録と監視のために Google が提供する管理サービス。
+
+
+image:a-w-n-anthos-architecture.png["入出力ダイアログまたは書かれたコンテンツを示す図"]
+
+
+
+== Anthos のデプロイメント方法
+
+
+
+=== VMware 上の Anthos クラスタ
+
+VMware vSphere 環境にデプロイされた Anthos クラスタは、ほとんどのエンドユーザーの Kubernetes ワークロードに対して簡単にデプロイ、保守、迅速に拡張できます。
+
+NetAppで導入されたVMware上のAnthosクラスタの詳細については、次のページをご覧ください。link:anthos-vmw.html["ここをクリックしてください。"^] 。
+
+
+
+=== ベアメタル上の Anthos
+
+ベアメタル サーバーにデプロイされた Anthos クラスタはハードウェアに依存せず、カスタマイズされたユースケースに合わせて最適化されたコンピューティング プラットフォームを選択できます。
+
+NetAppで導入されたベアメタルクラスタ上のAnthosの詳細については、以下をご覧ください。link:anthos-bm.html["ここをクリックしてください。"^] 。

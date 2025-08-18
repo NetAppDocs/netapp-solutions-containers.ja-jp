@@ -1,0 +1,22 @@
+---
+sidebar: sidebar 
+permalink: anthos/anthos-advanced-overview.html 
+keywords: Advanced Configuration, Load Balancers 
+summary: このセクションでは、カスタム ロード バランサ インスタンスのデプロイなど、このソリューションを本番環境にデプロイするときに実際のユーザーが実行する必要があるカスタマイズについて説明します。 
+---
+= 高度な設定オプション
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+通常、最も簡単に導入できるソリューションが最適ですが、場合によっては、ソリューションを導入する特定のアプリケーションや環境の要件や仕様を満たすために高度なカスタマイズが必要になることもあります。このため、Red Hat OpenShift with NetAppソリューションでは、これらのニーズを満たすために次のカスタマイズが可能です。
+
+
+NOTE: このセクションでは、サードパーティのロード バランサの使用や、カスタマイズされたコンテナ イメージをホストするためのプライベート レジストリの作成など、 NetApp Trident Protect をインストールするための前提条件となるいくつかの高度な構成オプションについて説明しました。
+
+次のページには、Red Hat OpenShift with NetAppソリューションで検証された高度な構成オプションに関する追加情報が記載されています。

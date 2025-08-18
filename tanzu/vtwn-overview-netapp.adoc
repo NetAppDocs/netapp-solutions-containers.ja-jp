@@ -1,0 +1,37 @@
+---
+sidebar: sidebar 
+permalink: tanzu/vtwn-overview-netapp.html 
+keywords: NetApp, ONTAP, Element, Storage, Tanzu, VMware Tanzu with NetApp ONTAP 
+summary: NetApp には、コンテナ化されたアプリケーションのデータのプロビジョニング、保護、管理を行い、DevOps スループットの定義と最大化を支援するために、 TridentおよびTrident Protect と連携した認定ストレージ プラットフォームが複数あります。 
+---
+= NetAppストレージ システムの概要
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+:solution_name: VMware Tanzu with NetApp
+:ontap_page_link: vtwn-netapp-ontap.html
+
+
+[role="lead"]
+NetApp には、コンテナ化されたアプリケーションのデータのプロビジョニング、保護、管理を行い、DevOps スループットの定義と最大化を支援するために、 TridentおよびTrident Protect と連携した認定ストレージ プラットフォームが複数あります。
+
+[role="normal"]
+NetApp には、コンテナ化されたアプリケーションのデータのプロビジョニング、保護、管理を行うためにTridentで認定されたストレージ プラットフォームがいくつかあります。
+
+image:redhat-openshift-043.png["入出力ダイアログまたは書かれたコンテンツを示す図"]
+
+* AFFおよびFASシステムはNetApp ONTAPを実行し、ファイルベース (NFS) とブロックベース (iSCSI) の両方のユースケースにストレージを提供します。
+* Cloud Volumes ONTAPとONTAP Select は、それぞれクラウドと仮想空間で同じ利点を提供します。
+* Google Cloud NetApp Volumes (AWS/GCP) とAzure NetApp Files は、クラウド内でファイルベースのストレージを提供します。
+
+
+
+NOTE: NetAppポートフォリオの各ストレージ システムは、オンプレミス サイトとクラウド間のデータ管理と移動の両方を容易にし、アプリケーションがある場所にデータを配置できるようにします。
+
+次のページには、{solution_name} ソリューションで検証されたNetAppストレージ システムに関する追加情報が記載されています。
+
+* link:vtwn-netapp-ontap.html["NetApp ONTAP"]
+

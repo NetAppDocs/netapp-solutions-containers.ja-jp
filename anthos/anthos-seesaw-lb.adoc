@@ -1,0 +1,107 @@
+---
+sidebar: sidebar 
+permalink: anthos/anthos-seesaw-lb.html 
+summary: このページでは、SeeSaw ロード バランサのインストールおよび構成の手順について詳しく説明します。 
+keywords: Anthos, GKE, Kubernetes, SeeSaw, LoadBalancer 
+---
+= SeeSaw ロードバランサーのインストール
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+このページでは、SeeSaw マネージド ロード バランサーのインストールおよび構成の手順について説明します。
+
+Seesaw は、バージョン 1.6 から 1.10 までの Anthos Clusters on VMware 環境にインストールされるデフォルトのマネージド ネットワーク ロードバランサです。
+
+
+
+== SeeSawロードバランサのインストール
+
+SeeSaw ロード バランサは、VMware 上の Anthos Clusters と完全に統合されており、管理者およびユーザーのクラスタ設定の一部として自動デプロイメントが実行されます。テキストブロックがあります `cluster.yaml`ロードバランサ情報を提供するために変更する必要がある構成ファイルがあり、クラスタの展開前に組み込みの `gkectl`道具。
+
+
+NOTE: SeeSaw ロード バランサは、HA モードまたは非 HA モードで展開できます。この検証のために、SeeSaw ロード バランサはデフォルト設定である非 HA モードで展開されました。実稼働環境では、フォールト トレランスと信頼性を確保するために、 NetAppSeeSaw を HA 構成で導入することを推奨しています。
+
+
+
+== Anthosとの統合
+
+各構成ファイルには、管理クラスタ用と、デプロイすることを選択した各ユーザー クラスタ用にそれぞれセクションがあり、ロードバランサが Anthos On-Prem によって管理されるように構成します。
+
+次のテキストは、GKE-Admin クラスタのパーティション構成のサンプルです。コメントを解除して変更する必要がある値は、以下に太字で示されています。
+
+[listing, subs="+quotes,+verbatim"]
+----
+*loadBalancer:*
+  # (Required) The VIPs to use for load balancing
+  *vips:*
+    # Used to connect to the Kubernetes API
+    *controlPlaneVIP: "10.61.181.230"*
+    # # (Optional) Used for admin cluster addons (needed for multi cluster features). Must
+    # # be the same across clusters
+    # # addonsVIP: ""
+  # (Required) Which load balancer to use "F5BigIP" "Seesaw" or "ManualLB". Uncomment
+  # the corresponding field below to provide the detailed spec
+  *kind: Seesaw*
+  # # (Required when using "ManualLB" kind) Specify pre-defined nodeports
+  # manualLB:
+  #   # NodePort for ingress service's http (only needed for user cluster)
+  #   ingressHTTPNodePort: 0
+  #   # NodePort for ingress service's https (only needed for user cluster)
+  #   ingressHTTPSNodePort: 0
+  #   # NodePort for control plane service
+  #   controlPlaneNodePort: 30968
+  #   # NodePort for addon service (only needed for admin cluster)
+  #   addonsNodePort: 31405
+  # # (Required when using "F5BigIP" kind) Specify the already-existing partition and
+  # # credentials
+  # f5BigIP:
+  #   address:
+  #   credentials:
+  #     username:
+  #     password:
+  #   partition:
+  #   # # (Optional) Specify a pool name if using SNAT
+  #   # snatPoolName: ""
+  # (Required when using "Seesaw" kind) Specify the Seesaw configs
+  *seesaw:*
+  # (Required) The absolute or relative path to the yaml file to use for IP allocation
+  #  for LB VMs. Must contain one or two IPs.
+  *ipBlockFilePath: "admin-seesaw-block.yaml"*
+  #   (Required) The Virtual Router IDentifier of VRRP for the Seesaw group. Must
+  #   be between 1-255 and unique in a VLAN.
+    *vrid: 100*
+  #   (Required) The IP announced by the master of Seesaw group
+    *masterIP: "10.61.181.236"*
+  #   (Required) The number CPUs per machine
+    *cpus: 1*
+  #   (Required) Memory size in MB per machine
+    *memoryMB: 2048*
+  #   (Optional) Network that the LB interface of Seesaw runs in (default: cluster
+  #   network)
+    *vCenter:*
+  #   vSphere network name
+      *networkName: VM_Network*
+  #   (Optional) Run two LB VMs to achieve high availability (default: false)
+    *enableHA: false*
+----
+SeeSawロードバランサには別の静的 `seesaw-block.yaml`各クラスターのデプロイメントに提供する必要があるファイル。このファイルは、 `cluster.yaml`デプロイメント ファイル、または上記のセクションで完全なパスを指定する必要があります。
+
+のサンプル `admin-seesaw-block.yaml`ファイルは次のスクリプトのようになります。
+
+[listing, subs="+quotes,+verbatim"]
+----
+blocks:
+  - netmask: "255.255.255.0"
+    gateway: "10.63.172.1"
+    ips:
+    - ip: "10.63.172.152"
+      hostname: "admin-seesaw-vm"
+----
+
+NOTE: このファイルは、ロード バランサが基盤となるクラスタに提供するネットワークのゲートウェイとネットマスク、およびロード バランサを実行するために展開される仮想マシンの管理 IP とホスト名を提供します。

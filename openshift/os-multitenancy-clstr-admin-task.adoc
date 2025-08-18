@@ -1,0 +1,185 @@
+---
+sidebar: sidebar 
+permalink: openshift/os-multitenancy-clstr-admin-task.html 
+keywords: OpenShift, OCP, Trident, NetApp ONTAP, Red Hat OpenShift, Multitenancy, Multi-tenancy 
+summary: NetAppを使用した Red Hat OpenShift でのマルチテナントの構成 
+---
+= 構成: クラスター管理タスク
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Red Hat OpenShift クラスター管理者によって次のタスクが実行されます。
+
+. Red Hat OpenShift クラスターに cluster-admin としてログインします。
+. 異なるプロジェクトに対応する 2 つのプロジェクトを作成します。
++
+[source, console]
+----
+oc create namespace project-1
+oc create namespace project-2
+----
+. project-1 の開発者ロールを作成します。
++
+[source, console]
+----
+cat << EOF | oc create -f -
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: project-1
+  name: developer-project-1
+rules:
+  - verbs:
+      - '*'
+    apiGroups:
+      - apps
+      - batch
+      - autoscaling
+      - extensions
+      - networking.k8s.io
+      - policy
+      - apps.openshift.io
+      - build.openshift.io
+      - image.openshift.io
+      - ingress.operator.openshift.io
+      - route.openshift.io
+      - snapshot.storage.k8s.io
+      - template.openshift.io
+    resources:
+      - '*'
+  - verbs:
+      - '*'
+    apiGroups:
+      - ''
+    resources:
+      - bindings
+      - configmaps
+      - endpoints
+      - events
+      - persistentvolumeclaims
+      - pods
+      - pods/log
+      - pods/attach
+      - podtemplates
+      - replicationcontrollers
+      - services
+      - limitranges
+      - namespaces
+      - componentstatuses
+      - nodes
+  - verbs:
+      - '*'
+    apiGroups:
+      - trident.netapp.io
+    resources:
+      - tridentsnapshots
+EOF
+----
+
+
+
+NOTE: このセクションで提供されているロール定義は単なる例です。開発者の役割は、エンドユーザーの要件に基づいて定義する必要があります。
+
+. 同様に、プロジェクト 2 の開発者ロールを作成します。
+. すべての OpenShift およびNetAppストレージ リソースは通常、ストレージ管理者によって管理されます。ストレージ管理者のアクセスは、Tridentのインストール時に作成される Trident オペレーター ロールによって制御されます。これに加えて、ストレージ管理者は、ストレージの消費方法を制御するために ResourceQuotas へのアクセス権も必要とします。
+. クラスター内のすべてのプロジェクトで ResourceQuotas を管理するためのロールを作成し、それをストレージ管理者にアタッチします。
++
+[source, console]
+----
+cat << EOF | oc create -f -
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: resource-quotas-role
+rules:
+  - verbs:
+      - '*'
+    apiGroups:
+      - ''
+    resources:
+      - resourcequotas
+  - verbs:
+      - '*'
+    apiGroups:
+      - quota.openshift.io
+    resources:
+      - '*'
+EOF
+----
+. クラスターが組織の ID プロバイダーと統合され、ユーザー グループがクラスター グループと同期されていることを確認します。次の例は、アイデンティティ プロバイダーがクラスターと統合され、ユーザー グループと同期されていることを示しています。
+
+
+....
+$ oc get groups
+NAME                        USERS
+ocp-netapp-storage-admins   ocp-netapp-storage-admin
+ocp-project-1               ocp-project-1-user
+ocp-project-2               ocp-project-2-user
+....
+. ストレージ管理者の ClusterRoleBindings を構成します。
++
+[source, console]
+----
+cat << EOF | oc create -f -
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: netapp-storage-admin-trident-operator
+subjects:
+  - kind: Group
+    apiGroup: rbac.authorization.k8s.io
+    name: ocp-netapp-storage-admins
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: trident-operator
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: netapp-storage-admin-resource-quotas-cr
+subjects:
+  - kind: Group
+    apiGroup: rbac.authorization.k8s.io
+    name: ocp-netapp-storage-admins
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: resource-quotas-role
+EOF
+----
+
+
+
+NOTE: ストレージ管理者の場合、 trident-operator と resource-quotas の 2 つのロールをバインドする必要があります。
+
+. 開発者用の RoleBinding を作成し、developer-project-1 ロールを project-1 内の対応するグループ (ocp-project-1) にバインドします。
++
+[source, console]
+----
+cat << EOF | oc create -f -
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: project-1-developer
+  namespace: project-1
+subjects:
+  - kind: Group
+    apiGroup: rbac.authorization.k8s.io
+    name: ocp-project-1
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: developer-project-1
+EOF
+----
+
+
+. 同様に、開発者ロールをプロジェクト 2 の対応するユーザー グループにバインドする開発者用の RoleBinding を作成します。
+

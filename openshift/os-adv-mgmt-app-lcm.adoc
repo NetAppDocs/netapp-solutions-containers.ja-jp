@@ -1,0 +1,28 @@
+---
+sidebar: sidebar 
+permalink: openshift/os-adv-mgmt-app-lcm.html 
+keywords: OpenShift, OCP, Trident, NetApp ONTAP, ONTAP, Trident, Red Hat OpenShift, Advanced Cluster Management, Advanced Cluster Management for Kubernetes 
+summary: NetAppを使用した Red Hat OpenShift 上の Kubernetes 向け高度なクラスタ管理 
+---
+= アプリケーションライフサイクル管理
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+アプリケーションを作成し、それを複数のクラスタにわたって管理するには、
+
+. サイドバーから「アプリケーションの管理」に移動し、「アプリケーションの作成」をクリックします。作成するアプリケーションの詳細を入力し、「保存」をクリックします。
++
+image:redhat-openshift-078.png["アプリケーションを作成する"]
+
+. アプリケーション コンポーネントがインストールされると、アプリケーションがリストに表示されます。
++
+image:redhat-openshift-079.png["アプリケーションリスト"]
+
+. これで、コンソールからアプリケーションを監視および管理できるようになりました。
+

@@ -1,0 +1,261 @@
+---
+sidebar: sidebar 
+permalink: openshift/os-private-registry.html 
+keywords: Advanced Configuration, Private Registry, Trident, OpenShift Registry, NetApp Trident Protect Registry 
+summary: このセクションでは、 Tridentによって提供される永続ストレージを利用したプライベート イメージ レジストリの作成と構成について説明します。 
+---
+= プライベートイメージレジストリの作成
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Red Hat OpenShiftのほとんどのデプロイメントでは、次のようなパブリックレジストリを使用します。 https://quay.io["Quay.io"]または https://hub.docker.com["Dockerハブ"]ほとんどの顧客のニーズを満たします。ただし、顧客が独自のプライベート画像やカスタマイズされた画像をホストしたい場合もあります。
+
+この手順では、 TridentおよびNetApp ONTAPによって提供される永続ボリュームによってサポートされるプライベート イメージ レジストリを作成する方法について説明します。
+
+
+NOTE: Trident Protect では、 Astraコンテナーに必要なイメージをホストするためのレジストリが必要です。次のセクションでは、Red Hat OpenShift クラスターにプライベート レジストリを設定し、 Trident Protect のインストールをサポートするために必要なイメージをプッシュする手順について説明します。
+
+
+
+== プライベートイメージレジストリの作成
+
+. 現在のデフォルトのストレージ クラスからデフォルトのアノテーションを削除し、Trident ベースのストレージ クラスを OpenShift クラスターのデフォルトとしてアノテーションします。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ oc patch storageclass thin -p '{"metadata": {"annotations": {"storageclass.kubernetes.io/is-default-class": "false"}}}'
+storageclass.storage.k8s.io/thin patched
+
+[netapp-user@rhel7 ~]$ oc patch storageclass ocp-trident -p '{"metadata": {"annotations": {"storageclass.kubernetes.io/is-default-class": "true"}}}'
+storageclass.storage.k8s.io/ocp-trident patched
+----
+. 以下のストレージパラメータを入力して、imageregistryオペレータを編集します。 `spec`セクション。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ oc edit configs.imageregistry.operator.openshift.io
+
+storage:
+  pvc:
+    claim:
+----
+. 以下のパラメータを入力します。 `spec`カスタム ホスト名を使用して OpenShift ルートを作成するセクション。保存して終了します。
++
+[listing]
+----
+routes:
+  - hostname: astra-registry.apps.ocp-vmw.cie.netapp.com
+    name: netapp-astra-route
+----
++
+
+NOTE: 上記のルート設定は、ルートにカスタム ホスト名が必要な場合に使用されます。  OpenShiftでデフォルトのホスト名を持つルートを作成したい場合は、次のパラメータを `spec`セクション： `defaultRoute: true` 。
+
++
+.カスタムTLS証明書
+****
+ルートにカスタム ホスト名を使用している場合、デフォルトでは、OpenShift Ingress オペレーターのデフォルトの TLS 構成が使用されます。ただし、ルートにカスタム TLS 構成を追加することはできます。そのためには、次の手順を実行します。
+
+.. ルートの TLS 証明書とキーを使用してシークレットを作成します。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ oc create secret tls astra-route-tls -n openshift-image-registry –cert/home/admin/netapp-astra/tls.crt --key=/home/admin/netapp-astra/tls.key
+----
+.. imageregistryオペレータを編集し、次のパラメータを追加します。 `spec`セクション。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ oc edit configs.imageregistry.operator.openshift.io
+
+routes:
+  - hostname: astra-registry.apps.ocp-vmw.cie.netapp.com
+    name: netapp-astra-route
+    secretName: astra-route-tls
+----
+
+
+****
+. イメージレジストリオペレータを再度編集し、オペレータの管理状態を次のように変更します。 `Managed`州。保存して終了します。
++
+[listing]
+----
+oc edit configs.imageregistry/cluster
+
+managementState: Managed
+----
+. すべての前提条件が満たされている場合は、プライベート イメージ レジストリの PVC、ポッド、およびサービスが作成されます。数分以内にレジストリが起動するはずです。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$oc get all -n openshift-image-registry
+
+NAME                                                   READY   STATUS      RESTARTS   AGE
+pod/cluster-image-registry-operator-74f6d954b6-rb7zr   1/1     Running     3          90d
+pod/image-pruner-1627257600-f5cpj                      0/1     Completed   0          2d9h
+pod/image-pruner-1627344000-swqx9                      0/1     Completed   0          33h
+pod/image-pruner-1627430400-rv5nt                      0/1     Completed   0          9h
+pod/image-registry-6758b547f-6pnj8                     1/1     Running     0          76m
+pod/node-ca-bwb5r                                      1/1     Running     0          90d
+pod/node-ca-f8w54                                      1/1     Running     0          90d
+pod/node-ca-gjx7h                                      1/1     Running     0          90d
+pod/node-ca-lcx4k                                      1/1     Running     0          33d
+pod/node-ca-v7zmx                                      1/1     Running     0          7d21h
+pod/node-ca-xpppp                                      1/1     Running     0          89d
+
+NAME                              TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)     AGE
+service/image-registry            ClusterIP   172.30.196.167   <none>        5000/TCP    15h
+service/image-registry-operator   ClusterIP   None             <none>        60000/TCP   90d
+
+NAME                     DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR            AGE
+daemonset.apps/node-ca   6         6         6       6            6           kubernetes.io/os=linux   90d
+
+NAME                                              READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/cluster-image-registry-operator   1/1     1            1           90d
+deployment.apps/image-registry                    1/1     1            1           15h
+
+NAME                                                         DESIRED   CURRENT   READY   AGE
+replicaset.apps/cluster-image-registry-operator-74f6d954b6   1         1         1       90d
+replicaset.apps/image-registry-6758b547f                     1         1         1       76m
+replicaset.apps/image-registry-78bfbd7f59                    0         0         0       15h
+replicaset.apps/image-registry-7fcc8d6cc8                    0         0         0       80m
+replicaset.apps/image-registry-864f88f5b                     0         0         0       15h
+replicaset.apps/image-registry-cb47fffb                      0         0         0       10h
+
+NAME                                COMPLETIONS   DURATION   AGE
+job.batch/image-pruner-1627257600   1/1           10s        2d9h
+job.batch/image-pruner-1627344000   1/1           6s         33h
+job.batch/image-pruner-1627430400   1/1           5s         9h
+
+NAME                         SCHEDULE    SUSPEND   ACTIVE   LAST SCHEDULE   AGE
+cronjob.batch/image-pruner   0 0 * * *   False     0        9h              90d
+
+NAME                                     HOST/PORT                                           PATH   SERVICES         PORT    TERMINATION   WILDCARD
+route.route.openshift.io/public-routes   astra-registry.apps.ocp-vmw.cie.netapp.com          image-registry   <all>   reencrypt     None
+----
+. Ingress オペレーターの OpenShift レジストリ ルートにデフォルトの TLS 証明書を使用している場合は、次のコマンドを使用して TLS 証明書を取得できます。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ oc extract secret/router-ca --keys=tls.crt -n openshift-ingress-operator
+----
+. OpenShift ノードがレジストリにアクセスしてイメージをプルできるようにするには、OpenShift ノード上の Docker クライアントに証明書を追加します。  configmapを作成します `openshift-config`TLS 証明書を使用して名前空間を作成し、それをクラスター イメージ構成にパッチして、証明書を信頼できるものにします。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ oc create configmap astra-ca -n openshift-config --from-file=astra-registry.apps.ocp-vmw.cie.netapp.com=tls.crt
+
+[netapp-user@rhel7 ~]$ oc patch image.config.openshift.io/cluster --patch '{"spec":{"additionalTrustedCA":{"name":"astra-ca"}}}' --type=merge
+----
+. OpenShift 内部レジストリは認証によって制御されます。すべての OpenShift ユーザーは OpenShift レジストリにアクセスできますが、ログインしたユーザーが実行できる操作はユーザー権限によって異なります。
++
+.. ユーザーまたはユーザー グループがレジストリからイメージをプルできるようにするには、ユーザーに registry-viewer ロールが割り当てられている必要があります。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ oc policy add-role-to-user registry-viewer ocp-user
+
+[netapp-user@rhel7 ~]$ oc policy add-role-to-group registry-viewer ocp-user-group
+----
+.. ユーザーまたはユーザー グループがイメージを書き込んだりプッシュしたりできるようにするには、ユーザーにレジストリ エディターのロールが割り当てられている必要があります。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ oc policy add-role-to-user registry-editor ocp-user
+
+[netapp-user@rhel7 ~]$ oc policy add-role-to-group registry-editor ocp-user-group
+----
+
+
+. OpenShift ノードがレジストリにアクセスしてイメージをプッシュまたはプルするには、プル シークレットを構成する必要があります。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ oc create secret docker-registry astra-registry-credentials --docker-server=astra-registry.apps.ocp-vmw.cie.netapp.com --docker-username=ocp-user --docker-password=password
+----
+. このプル シークレットは、サービス アカウントにパッチを適用したり、対応するポッド定義で参照したりできます。
++
+.. サービス アカウントにパッチを適用するには、次のコマンドを実行します。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ oc secrets link <service_account_name> astra-registry-credentials --for=pull
+----
+.. ポッド定義でプルシークレットを参照するには、次のパラメータを `spec`セクション。
++
+[listing]
+----
+imagePullSecrets:
+  - name: astra-registry-credentials
+----
+
+
+. OpenShift ノード以外のワークステーションからイメージをプッシュまたはプルするには、次の手順を実行します。
++
+.. TLS 証明書を docker クライアントに追加します。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ sudo mkdir /etc/docker/certs.d/astra-registry.apps.ocp-vmw.cie.netapp.com
+
+[netapp-user@rhel7 ~]$ sudo cp /path/to/tls.crt /etc/docker/certs.d/astra-registry.apps.ocp-vmw.cie.netapp.com
+----
+.. oc login コマンドを使用して OpenShift にログインします。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ oc login --token=sha256~D49SpB_lesSrJYwrM0LIO-VRcjWHu0a27vKa0 --server=https://api.ocp-vmw.cie.netapp.com:6443
+----
+.. podman/docker コマンドで OpenShift ユーザー資格情報を使用してレジストリにログインします。
++
+[role="tabbed-block"]
+====
+.ポッドマン
+--
+[listing]
+----
+[netapp-user@rhel7 ~]$ podman login astra-registry.apps.ocp-vmw.cie.netapp.com -u kubeadmin -p $(oc whoami -t) --tls-verify=false
+----
++ 注意: 使用している場合 `kubeadmin`ユーザーがプライベート レジストリにログインするには、パスワードの代わりにトークンを使用します。
+
+--
+.ドッカー
+--
+[listing]
+----
+[netapp-user@rhel7 ~]$ docker login astra-registry.apps.ocp-vmw.cie.netapp.com -u kubeadmin -p $(oc whoami -t)
+----
++ 注意: 使用している場合 `kubeadmin`ユーザーがプライベート レジストリにログインするには、パスワードの代わりにトークンを使用します。
+
+--
+====
+.. 画像をプッシュまたはプルします。
++
+[role="tabbed-block"]
+====
+.ポッドマン
+--
+[listing]
+----
+[netapp-user@rhel7 ~]$ podman push astra-registry.apps.ocp-vmw.cie.netapp.com/netapp-astra/vault-controller:latest
+[netapp-user@rhel7 ~]$ podman pull astra-registry.apps.ocp-vmw.cie.netapp.com/netapp-astra/vault-controller:latest
+----
+--
+.ドッカー
+--
+[listing]
+----
+[netapp-user@rhel7 ~]$ docker push astra-registry.apps.ocp-vmw.cie.netapp.com/netapp-astra/vault-controller:latest
+[netapp-user@rhel7 ~]$ docker pull astra-registry.apps.ocp-vmw.cie.netapp.com/netapp-astra/vault-controller:latest
+----
+--
+====
+
+
+

@@ -1,0 +1,31 @@
+---
+sidebar: sidebar 
+permalink: openshift/os-adv-mgmt-deployment-prereq.html 
+keywords: OpenShift, OCP, Trident, NetApp ONTAP, ONTAP, Trident, Red Hat OpenShift, Advanced Cluster Management, Advanced Cluster Management for Kubernetes 
+summary: NetAppを使用した Red Hat OpenShift 上の Kubernetes 向け高度なクラスタ管理 
+---
+= Kubernetes 向けの高度なクラスタ管理を導入する
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+このセクションでは、 NetAppを使用した Red Hat OpenShift 上の Kubernetes の高度なクラスター管理について説明します。
+
+
+
+== 前提条件
+
+. ハブ クラスター用の Red Hat OpenShift クラスター (バージョン 4.5 以上)
+. マネージド クラスター用の Red Hat OpenShift クラスター (バージョン 4.4.3 以上)
+. Red Hat OpenShift クラスターへのクラスター管理者アクセス
+. Kubernetes向けAdvanced Cluster ManagementのRed Hatサブスクリプション
+
+
+Advanced Cluster Management は OpenShift クラスターのアドオンであるため、ハブおよび管理対象クラスター全体で使用される機能に基づいて、ハードウェア リソースに特定の要件と制限があります。クラスターのサイズを決定する際には、これらの問題を考慮する必要があります。ドキュメントを参照 https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.2/html-single/install/index#network-configuration["ここをクリックしてください。"]詳細についてはこちらをご覧ください。
+
+オプションとして、ハブ クラスターにインフラストラクチャ コンポーネントをホストするための専用ノードがあり、それらのノードにのみ Advanced Cluster Management リソースをインストールする場合は、それに応じてそれらのノードに許容値とセレクターを追加する必要があります。詳細については、ドキュメントを参照してください。 https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.2/html/install/installing#installing-on-infra-node["ここをクリックしてください。"] 。

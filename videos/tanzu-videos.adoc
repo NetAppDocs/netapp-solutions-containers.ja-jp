@@ -1,0 +1,33 @@
+---
+sidebar: sidebar 
+permalink: videos/tanzu-videos.html 
+keywords: video, demonstration, deployment, VMware Tanzu with NetApp, NetApp, Tanzu 
+summary: このページには、このドキュメントで説明されている機能の一部を紹介するビデオへのリンクが含まれています。 
+---
+= VMware TanzuとNetAppに関するビデオを見る
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+永続的なストレージのプロビジョニング、アプリケーションのクローン作成、 Tridentを使用したデータ保護などの主要な機能を紹介する一連のビデオを通じて、VMware Tanzu とNetAppの統合について詳しく説明します。
+
+
+NOTE: これらのデモは、TKG バージョン 1.3.1 とTrident Protect バージョン 21.12 を使用して技術プレビューとして記録されました。公式にサポートされているバージョンについては、サポート マトリックスを参照してください。
+
+
+
+== 永続的なストレージのプロビジョニング
+
+.VMware Tanzu で永続ストレージをプロビジョニングするにはTridentを使用します - VMware Tanzu with NetApp
+video::8db3092b-3468-4754-b2d7-b01200fbb38d[panopto,width=360]
+
+
+== アプリケーションの複製とデータ保護
+
+.Trident Protect を使用して VMWare Tanzu のアプリケーションをクローンする - VMware Tanzu with NetApp
+video::01aff358-a0a2-4c4f-9062-b01200fb9abd[panopto,width=360]

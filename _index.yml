@@ -1,0 +1,64 @@
+---
+indexpage:
+  title: NetAppコンテナソリューション
+  summary: NetAppコンテナ ソリューションは、多くの一般的な Kubernetes ベースのコンテナ オーケストレーターの検証済みの導入と、それらのNetAppストレージ管理システムおよびソフトウェアとの統合です。
+  lead: NetAppコンテナ ソリューションは、多くの一般的な Kubernetes ベースのコンテナ オーケストレーターの検証済みの導入と、それらのNetAppストレージ管理システムおよびソフトウェアとの統合です。
+  tiles:
+  - title: 始めましょう
+    links:
+    - title: 新機能
+      url: "/whats-new.html"
+    - title: コンテナ向けNetApp Tridentについて学ぶ
+      url: https://netapp.io/persistent-storage-provisioner-for-kubernetes/
+    - title: ブログ
+      url: "/blogs.html"
+    - title: ビデオとデモ
+      url: "/videos/index.html"
+  - title: NetAppと Anthos
+    links:
+    - title: ソリューションの概要
+      url: "/anthos/anthos-solution-overview.html"
+    - title: VMware 上の Anthos クラスタ
+      url: "/anthos/anthos-vmw.html"
+    - title: ベアメタル上の Anthos
+      url: "/anthos/anthos-bm.html"
+    - title: NetAppストレージ統合
+      url: "/anthos/anthos-storint-overview.html"
+    - title: ユースケース
+      url: "/anthos/anthos-deploy-app-cloud-console.html"
+  - title: Red Hat OpenShiftとNetApp
+    links:
+    - title: ソリューションの概要
+      url: "/openshift/os-solution-overview.html"
+    - title: Red Hat OpenShiftについて
+      url: "/openshift/os-overview.html"
+    - title: AWS 上の OpenShift について
+      url: "/openshift/os-rosa-solution-overview.html"
+    - title: NetAppストレージ統合
+      url: "/openshift/os-storint-overview.html"
+    - title: ユースケース
+      url: "/openshift/os-use-cases.html"
+  - title: VMware Tanzu とNetApp
+    links:
+    - title: ソリューションの概要
+      url: "/tanzu/vtwn-solution-overview.html"
+    - title: VMware Tanzuについて
+      url: "/tanzu/vtwn-overview-vmware-tanzu.html"
+    - title: NetAppストレージ統合
+      url: "/tanzu/vtwn-overview-storint.html"
+  - title: パートナーソリューション
+    links:
+    - title: Anthos ウェブサイト
+      url: https://cloud.google.com/anthos
+    - title: Red Hat OpenShiftのウェブサイト
+      url: https://www.redhat.com/en/technologies/cloud-computing/openshift
+    - title: VMware Tanzu ウェブサイト
+      url: https://tanzu.vmware.com/
+  - title: ソリューションのリクエストとフィードバック
+    links:
+    - title: リクエストの自動化
+      url: https://github.com/NetAppDocs/netapp-solutions/issues/new?body=[Request%20Automation]%0d%0a%0d%0aSolution%20Name:%20%0d%0aRequest%20Title:%20%0d%0aDescription:%0d%0aSuggestions:&title=Request%20Automation%20-%20%3Crequest_title%3E
+    - title: 新しい解決策を提案する
+      url: https://github.com/NetAppDocs/netapp-solutions/issues/new?body=[Request%20Solution]%0d%0a%0d%0aSolution%20Use%20Case:%20%0d%0aSolution%20Description:%20%0d%0aAdditional%20Comments:&title=Request%20Solution%20-%20%3Csolution%3E
+    - title: ソリューションのフィードバックを提供する
+      url: https://github.com/NetAppDocs/netapp-solutions/issues/new?body=[Solution%20Feedback]%0d%0a%0d%0aSolution%20Name:%20%0d%0aSolution%20Feedback:%20%0d%0aAdditional%20Comments:&title=Solution%20Feedback%20-%20%3Csolution%3E

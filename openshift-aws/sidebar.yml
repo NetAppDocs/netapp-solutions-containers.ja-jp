@@ -1,0 +1,9 @@
+---
+section: openshift-aws
+title: FSxN を使用した AWS 上の Red Hat OpenShift サービス
+pdf-filename: FSxN を使用した AWS 上の Red Hat OpenShift サービス
+entries:
+- title: ソリューションの概要
+  url: "/openshift/os-rosa-solution-overview.html"
+- title: AWS 上の OpenShift サービスのワークフロー
+  url: "/openshift/os-rosa-app-workflows.html"

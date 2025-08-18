@@ -1,0 +1,25 @@
+---
+sidebar: sidebar 
+permalink: openshift/os-load-balancers.html 
+keywords: Advanced Configuration, Load Balancers, MetalLB 
+summary: このセクションでは、 NetAppデプロイメントを使用して Red Hat OpenShift をカスタマイズしたいユーザー向けのロードバランサー オプションについて説明します。 
+---
+= ロードバランサーのオプションの検討: Red Hat OpenShiftとNetApp
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+ほとんどの場合、Red Hat OpenShift はルートを通じてアプリケーションを外部に公開します。サービスは、外部からアクセス可能なホスト名を与えることによって公開されます。定義されたルートとそのサービスによって識別されるエンドポイントは、OpenShift ルーターによって使用され、この名前付き接続を外部クライアントに提供できます。
+
+ただし、場合によっては、アプリケーションで適切なサービスを公開するために、カスタマイズされたロード バランサーの展開と構成が必要になります。その一例がNetApp Trident Protect です。このニーズを満たすために、いくつかのカスタム ロード バランサー オプションを評価しました。このセクションでは、それらのインストールと構成について説明します。
+
+次のページには、Red Hat OpenShift with NetAppソリューションで検証されたロードバランサ オプションに関する追加情報が記載されています。
+
+* link:os-lb-metallb.html["メタルLB"]
+* link:os-lb-f5bigip.html["F5 ビッグIP"]
+

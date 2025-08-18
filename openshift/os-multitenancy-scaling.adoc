@@ -1,0 +1,184 @@
+---
+sidebar: sidebar 
+permalink: openshift/os-multitenancy-scaling.html 
+keywords: OpenShift, OCP, Trident, NetApp ONTAP, Red Hat OpenShift, Multitenancy, Multi-tenancy 
+summary: NetAppを使用した Red Hat OpenShift でのマルチテナントの構成 
+---
+= スケーリング: プロジェクトの追加
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+マルチテナント構成では、ストレージ リソースを含む新しいプロジェクトを追加する場合、マルチテナント性が侵害されないようにするための追加の構成が必要です。マルチテナント クラスターにプロジェクトを追加するには、次の手順を実行します。
+
+. ストレージ管理者としてNetApp ONTAPクラスターにログインします。
+. 移動先 `Storage -> Storage VMs`クリック `Add`。プロジェクト 3 専用の新しい SVM を作成します。また、SVM とそのリソースを管理するための vsadmin アカウントも作成します。
+
+
+image:redhat-openshift-042.png["スケーリング用のSVMを作成する"]
+
+. クラスター管理者として Red Hat OpenShift クラスターにログインします。
+. 新しいプロジェクトを作成します。
++
+[source, console]
+----
+oc create ns project-3
+----
+. project-3 のユーザー グループが IdP 上に作成され、OpenShift クラスターと同期されていることを確認します。
++
+[source, console]
+----
+oc get groups
+----
+. project-3 の開発者ロールを作成します。
++
+[source, console]
+----
+cat << EOF | oc create -f -
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: project-3
+  name: developer-project-3
+rules:
+  - verbs:
+      - '*'
+    apiGroups:
+      - apps
+      - batch
+      - autoscaling
+      - extensions
+      - networking.k8s.io
+      - policy
+      - apps.openshift.io
+      - build.openshift.io
+      - image.openshift.io
+      - ingress.operator.openshift.io
+      - route.openshift.io
+      - snapshot.storage.k8s.io
+      - template.openshift.io
+    resources:
+      - '*'
+  - verbs:
+      - '*'
+    apiGroups:
+      - ''
+    resources:
+      - bindings
+      - configmaps
+      - endpoints
+      - events
+      - persistentvolumeclaims
+      - pods
+      - pods/log
+      - pods/attach
+      - podtemplates
+      - replicationcontrollers
+      - services
+      - limitranges
+      - namespaces
+      - componentstatuses
+      - nodes
+  - verbs:
+      - '*'
+    apiGroups:
+      - trident.netapp.io
+    resources:
+      - tridentsnapshots
+EOF
+----
+
+
+
+NOTE: このセクションで提供されているロール定義は単なる例です。開発者ロールは、エンドユーザーの要件に基づいて定義する必要があります。
+
+. project-3 の開発者用の RoleBinding を作成し、developer-project-3 ロールを project-3 の対応するグループ (ocp-project-3) にバインドします。
++
+[source, console]
+----
+cat << EOF | oc create -f -
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: project-3-developer
+  namespace: project-3
+subjects:
+  - kind: Group
+    apiGroup: rbac.authorization.k8s.io
+    name: ocp-project-3
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: developer-project-3
+EOF
+----
+. Red Hat OpenShift クラスタにストレージ管理者としてログインします。
+. Tridentバックエンドを作成し、それを project-3 専用の SVM にマップします。  NetApp、 ONTAPクラスタ管理者を使用する代わりに、SVM の vsadmin アカウントを使用してバックエンドを SVM に接続することをお勧めします。
++
+[source, console]
+----
+cat << EOF | tridentctl -n trident create backend -f
+{
+    "version": 1,
+    "storageDriverName": "ontap-nas",
+    "backendName": "nfs_project_3",
+    "managementLIF": "172.21.224.210",
+    "dataLIF": "10.61.181.228",
+    "svm": "project-3-svm",
+    "username": "vsadmin",
+    "password": "NetApp!23"
+}
+EOF
+----
+
+
+
+NOTE: この例では、ontap-nas ドライバーを使用しています。ユースケースに基づいてバックエンドを作成するには、適切なドライバーを使用します。
+
+
+NOTE: Trident がtrident プロジェクトにインストールされていることを前提としています。
+
+. project-3 のストレージ クラスを作成し、project-3 専用のバックエンドのストレージ プールを使用するように構成します。
++
+[source, console]
+----
+cat << EOF | oc create -f -
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: project-3-sc
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: ontap-nas
+  storagePools: "nfs_project_3:.*"
+EOF
+----
+. ResourceQuota を作成して、他のプロジェクト専用のストレージクラスからストレージを要求するプロジェクト 3 のリソースを制限します。
++
+[source, console]
+----
+cat << EOF | oc create -f -
+kind: ResourceQuota
+apiVersion: v1
+metadata:
+  name: project-3-sc-rq
+  namespace: project-3
+spec:
+  hard:
+    project-1-sc.storageclass.storage.k8s.io/persistentvolumeclaims: 0
+    project-2-sc.storageclass.storage.k8s.io/persistentvolumeclaims: 0
+EOF
+----
+. 他のプロジェクトの ResourceQuotas にパッチを適用して、それらのプロジェクトのリソースが project-3 専用のストレージクラスのストレージにアクセスすることを制限します。
++
+[source, console]
+----
+oc patch resourcequotas project-1-sc-rq -n project-1 --patch '{"spec":{"hard":{ "project-3-sc.storageclass.storage.k8s.io/persistentvolumeclaims": 0}}}'
+oc patch resourcequotas project-2-sc-rq -n project-2 --patch '{"spec":{"hard":{ "project-3-sc.storageclass.storage.k8s.io/persistentvolumeclaims": 0}}}'
+----
+

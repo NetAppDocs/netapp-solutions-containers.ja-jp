@@ -1,0 +1,47 @@
+---
+section: anthos
+title: NetAppと Anthos
+pdf-filename: NetAppと Anthos
+entries:
+- title: ソリューションの概要
+  url: "/anthos/anthos-solution-overview.html"
+- title: Anthos について学ぶ
+  entries:
+  - title: Anthos の概要
+    url: "/anthos/anthos-overview.html"
+  - title: VMware 上の Anthos クラスタ
+    url: "/anthos/anthos-vmw.html"
+  - title: ベアメタル上の Anthos
+    url: "/anthos/anthos-bm.html"
+- title: NetApp ストレージ システム
+  entries:
+  - title: NetAppストレージ システムの概要
+    url: "/anthos/anthos-netapp-overview.html"
+  - title: NetApp ONTAP
+    url: "/anthos/anthos-netapp-ontap.html"
+- title: NetAppストレージ統合
+  entries:
+  - title: NetAppストレージ統合の概要
+    url: "/anthos/anthos-storint-overview.html"
+  - title: NetApp Trident の概要
+    url: "/anthos/anthos-trident-overview.html"
+- title: 高度な設定オプション
+  entries:
+  - title: 高度な設定オプションについて
+    url: "/anthos/anthos-advanced-overview.html"
+  - title: ロードバランサーのオプションを調べる
+    entries:
+    - title: ロードバランサーのオプションについて
+      url: "/anthos/anthos-load-balancers.html"
+    - title: F5 BIG-IPロードバランサーをインストールする
+      url: "/anthos/anthos-f5bigip-lb.html"
+    - title: MetalLBロードバランサーをインストールする
+      url: "/anthos/anthos-metallb.html"
+    - title: SeeSaw ロードバランサーをインストールする
+      url: "/anthos/anthos-seesaw-lb.html"
+- title: ソリューションの検証とユースケース
+  entries:
+  - title: Anthos クラスタにアプリをデプロイする
+    url: "/anthos/anthos-deploy-app-cloud-console.html"
+- title: 追加情報
+  url: "/anthos/anthos-additional-information.html"

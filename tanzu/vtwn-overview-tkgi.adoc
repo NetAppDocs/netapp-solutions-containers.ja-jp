@@ -1,0 +1,32 @@
+---
+sidebar: sidebar 
+permalink: tanzu/vtwn-overview-tkgi.html 
+keywords: VMware Tanzu, Tanzu, Tanzu Kubernetes Grid Integrated, TKGI, DevOps, Netapp, Trident, Trident Protect 
+summary:  
+---
+= VMware Tanzu Kubernetes Grid Integrated Edition (TKGI) の概要
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+VMware Tanzu Kubernetes Grid Integrated (TKGI) Edition (旧称 VMware Enterprise PKS) は、ライフサイクル管理、クラスタのヘルス監視、高度なネットワーク、コンテナ レジストリなどの機能を備えた Kubernetes ベースのスタンドアロン コンテナ オーケストレーション プラットフォームです。  TKGI は、BOSH と Ops Manager で構成される TKGI コントロール プレーンを使用して Kubernetes クラスターをプロビジョニングおよび管理します。
+
+TKGI は、オンプレミスの vSphere または OpenStack 環境、あるいはそれぞれの IaaS サービス上の主要なパブリック クラウドのいずれかにインストールして運用できます。さらに、TKGI を NSX-T および Harbour と統合することで、エンタープライズ ワークロードのユースケースが広がります。  TKGIとその機能の詳細については、ドキュメントをご覧ください。link:https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid-Integrated-Edition/index.html["ここをクリックしてください。"^] 。
+
+image:vtwn-004.png["VMware Tanzu Kubernetes Grid 統合エディション"]
+
+TKGI は、さまざまなユースケースと設計に基づいて、さまざまなプラットフォームにさまざまな構成でインストールされます。ガイドに従ってくださいlink:https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid-Integrated-Edition/1.14/tkgi/GUID-index.html["ここをクリックしてください。"^]TKGI とその前提条件をインストールして構成します。  TKGI は、不変の構成イメージを実行する Tanzu Kubernetes クラスターのノードとして Bosh VM を使用します。Bosh VM に対する手動変更は、再起動後も保持されません。
+
+重要な注意事項:
+
+* NetApp Tridentには特権コンテナ アクセスが必要です。したがって、TKGI のインストール中に、Tanzu Kubernetes クラスター ノード プランを構成する手順で [特権コンテナーを有効にする] チェックボックスを必ずオンにしてください。
++
+image:vtwn-005.png["TKGI の特権コンテナ"]
+
+* NetApp、フォールト トレランスのためにすべての本番環境を複数のマスター展開で展開し、対象となるワークロードの要件を満たすワーカー ノードの構成を選択することを推奨しています。したがって、推奨される TKGI クラスター プランは、非常に集中的なワークロードに対応するために、少なくとも 4 つの vCPU と 12 GB の RAM を備えた少なくとも 3 つのマスターと 3 つのワーカーで構成されます。
+

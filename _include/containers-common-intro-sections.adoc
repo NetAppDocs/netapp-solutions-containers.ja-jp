@@ -1,0 +1,138 @@
+= NetAppプラットフォーム
+:allow-uri-read: 
+
+
+企業は、新製品の作成、リリース サイクルの短縮、新機能の迅速な追加のために DevOps プラクティスを採用するケースが増えています。コンテナとマイクロサービスは、その本質的なアジャイル性により、DevOps プラクティスのサポートにおいて重要な役割を果たします。ただし、エンタープライズ環境の運用規模で DevOps を実践するには、独自の課題があり、基盤となるインフラストラクチャに次のような特定の要件が課せられます。
+
+* スタック内のすべてのレイヤーで高可用性を実現
+* 導入手順の容易さ
+* 中断のない運用とアップグレード
+* マイクロサービスの俊敏性を維持するための API 駆動型でプログラム可能なインフラストラクチャ
+* パフォーマンス保証付きのマルチテナンシー
+* 仮想化されたワークロードとコンテナ化されたワークロードを同時に実行する機能
+* ワークロードの需要に応じてインフラストラクチャを独立して拡張する機能
+
+
+Red Hat OpenShift Container Platform は、完全にサポートされているエンタープライズ Kubernetes プラットフォームです。  Red Hat はオープンソースの Kubernetes にいくつかの機能強化を加え、コンテナ化されたアプリケーションを構築、展開、管理するためのすべてのコンポーネントが完全に統合されたアプリケーション プラットフォームを提供します。
+
+詳細については、OpenShift の Web サイトをご覧ください。 https://www.openshift.com["ここをクリックしてください。"] 。
+
+NetApp には、エンタープライズ データ センターやハイブリッド クラウドの導入に最適なストレージ システムがいくつかあります。  NetAppポートフォリオには、 NetApp ONTAP、 NetApp Element、 NetApp e-Series ストレージ システムが含まれており、いずれもコンテナ化されたアプリケーションに永続的なストレージを提供できます。
+
+詳細については、 NetAppのWebサイトをご覧ください。 https://www.netapp.com["ここをクリックしてください。"] 。
+
+Trident は、{k8s_distribution_name} などのコンテナおよび Kubernetes ディストリビューション向けのオープンソースで完全にサポートされているストレージ オーケストレーターです。
+
+詳細については、Tridentのウェブサイトをご覧ください。 https://docs.netapp.com/us-en/trident/index.html["ここをクリックしてください。"] 。
+
+[role="normal"]
+NetApp には、コンテナ化されたアプリケーションのデータのプロビジョニング、保護、管理を行うためにTridentで認定されたストレージ プラットフォームがいくつかあります。
+
+image:redhat-openshift-043.png["入出力ダイアログまたは書かれたコンテンツを示す図"]
+
+* AFFおよびFASシステムはNetApp ONTAPを実行し、ファイルベース (NFS) とブロックベース (iSCSI) の両方のユースケースにストレージを提供します。
+* Cloud Volumes ONTAPとONTAP Select は、それぞれクラウドと仮想空間で同じ利点を提供します。
+* Google Cloud NetApp Volumes (AWS/GCP) とAzure NetApp Files は、クラウド内でファイルベースのストレージを提供します。
+
+
+* NetApp Elementストレージ システムは、高度にスケーラブルな環境でのブロックベース (iSCSI) の使用例をカバーします。
+
+
+
+NOTE: NetAppポートフォリオの各ストレージ システムは、オンプレミス サイトとクラウド間のデータ管理と移動の両方を容易にし、アプリケーションがある場所にデータを配置できるようにします。
+
+次のページには、{solution_name} ソリューションで検証されたNetAppストレージ システムに関する追加情報が記載されています。
+
+* link:{ontap_page_link}["NetApp ONTAP"]
+
+
+* link:{element_page_link}["NetApp Element"]
+
+
+[role="normal"]
+NetApp ONTAPは、直感的な GUI、自動化統合を備えた REST API、AI を活用した予測分析と修正アクション、中断のないハードウェア アップグレード、ストレージ間のインポートなどの機能を備えた強力なストレージ ソフトウェア ツールです。
+
+NetApp ONTAPストレージシステムの詳細については、 https://www.netapp.com/data-management/ontap-data-management-software/["NetApp ONTAPウェブサイト"^] 。
+
+ONTAP は次の機能を提供します。
+
+* NFS、CIFS、iSCSI、FC、FCoE、FC-NVMe プロトコルの同時データ アクセスと管理を備えた統合ストレージ システム。
+* さまざまな導入モデルには、オールフラッシュ、ハイブリッド、オール HDD ハードウェア構成のオンプレミス、 ONTAP Selectなどのサポートされているハイパーバイザー上の VM ベースのストレージ プラットフォーム、およびCloud Volumes ONTAPとしてのクラウドが含まれます。
+* 自動データ階層化、インライン データ圧縮、重複排除、および圧縮のサポートにより、 ONTAPシステムのデータ ストレージ効率が向上します。
+* ワークロードベースの QoS 制御ストレージ。
+* パブリック クラウドとのシームレスな統合により、データの階層化と保護を実現します。  ONTAP は、あらゆる環境において際立った強力なデータ保護機能も提供します。
++
+** * NetAppスナップショットコピー。*追加のパフォーマンス オーバーヘッドなしで、最小限のディスク領域を使用して、データの高速なポイントインタイム バックアップを実行します。
+** * NetApp SnapMirror。*あるストレージ システムから別のストレージ システムにデータのスナップショット コピーをミラーリングします。  ONTAP は、他の物理プラットフォームやクラウドネイティブ サービスへのデータのミラーリングもサポートします。
+** * NetAppSnapLock。*指定された期間、上書きまたは消去できない特別なボリュームに書き込むことで、書き換え不可能なデータを効率的に管理します。
+** * NetApp SnapVault*複数のストレージ システムからのデータを、指定されたすべてのシステムのバックアップとして機能する中央のスナップショット コピーにバックアップします。
+** * NetApp SyncMirror。*同じコントローラに物理的に接続された 2 つの異なるディスク プレックスに、リアルタイムの RAID レベルのデータ ミラーリングを提供します。
+** * NetApp SnapRestore。*スナップショット コピーからオンデマンドでバックアップされたデータを高速に復元します。
+** * NetApp FlexClone。*スナップショット コピーに基づいて、 NetAppボリュームの完全に読み取りおよび書き込み可能なコピーを瞬時にプロビジョニングします。
+
+
+
+
+ONTAPの詳細については、 https://docs.netapp.com/us-en/ontap/index.html["ONTAP 9ドキュメント センター"^] 。
+
+
+NOTE: NetApp ONTAP は、オンプレミス、仮想化、またはクラウドで利用できます。
+
+image:redhat-openshift-035.png["入出力ダイアログまたは書かれたコンテンツを示す図"]
+
+
+
+== NetAppプラットフォーム
+
+
+
+=== NetApp AFF/ FAS
+
+NetApp は、低遅延パフォーマンス、統合データ保護、およびマルチプロトコル サポートを備えたカスタマイズされた、堅牢なオールフラッシュ (AFF) およびスケールアウト ハイブリッド (FAS) ストレージ プラットフォームを提供します。
+
+どちらのシステムも、業界最先端のデータ管理ソフトウェアであるNetApp ONTAPデータ管理ソフトウェアを搭載しており、簡素化された高可用性のクラウド統合ストレージ管理を実現し、データ ファブリックのニーズに合わせてエンタープライズ クラスの速度、効率、セキュリティを実現します。
+
+NETAPP AFF/ FASプラットフォームの詳細については、こちらをクリックしてください。 https://docs.netapp.com/platstor/index.jsp["ここをクリックしてください。"] 。
+
+
+
+=== ONTAP Select
+
+ONTAP Select は、環境内のハイパーバイザーに導入できるNetApp ONTAPのソフトウェア定義の導入です。  VMware vSphere または KVM にインストールでき、ハードウェアベースのONTAPシステムの完全な機能とエクスペリエンスを提供します。
+
+ONTAP Selectの詳細については、 https://docs.netapp.com/us-en/ontap-select/["ここをクリックしてください。"] 。
+
+
+
+=== Cloud Volumes ONTAP
+
+NetApp Cloud Volumes ONTAP は、 Amazon AWS、Microsoft Azure、Google Cloud などのさまざまなパブリック クラウドに導入できるNetApp ONTAPのクラウド導入バージョンです。
+
+Cloud Volumes ONTAPの詳細については、 https://docs.netapp.com/us-en/occm/#discover-whats-new["ここをクリックしてください。"] 。
+
+[role="normal"]
+NetApp は、ステートフルなコンテナ化されたアプリケーションとそのデータのオーケストレーション、管理、保護、移行を支援するさまざまな製品を提供しています。
+
+image:devops-with-netapp-001.png["入出力ダイアログまたは書かれたコンテンツを示す図"]
+
+NetApp Trident は、{k8s_distribution_name} などのコンテナおよび Kubernetes ディストリビューション向けのオープンソースで完全にサポートされているストレージ オーケストレーターです。詳細については、Tridentのウェブサイトをご覧ください。 https://docs.netapp.com/us-en/trident/index.html["ここをクリックしてください。"] 。
+
+次のページには、{solution_name} ソリューションのアプリケーションおよび永続ストレージ管理用に検証されたNetApp製品に関する追加情報が記載されています。
+
+* link:{trident_overview_page_link}["NetAppTrident"]
+
+
+[role="normal"]
+Trident は、{k8s_distribution_name} などのコンテナおよび Kubernetes ディストリビューション向けのオープンソースで完全にサポートされているストレージ オーケストレーターです。  Trident は、 NetApp ONTAPおよび Element ストレージ システムを含むNetAppストレージ ポートフォリオ全体と連携し、NFS および iSCSI 接続もサポートします。  Trident は、ストレージ管理者の介入を必要とせずに、エンドユーザーがNetAppストレージ システムからストレージをプロビジョニングおよび管理できるようにすることで、DevOps ワークフローを加速します。
+
+管理者は、プロジェクトのニーズと、圧縮、特定のディスク タイプ、特定のレベルのパフォーマンスを保証する QoS レベルなどの高度なストレージ機能を有効にするストレージ システム モデルに基づいて、さまざまなストレージ バックエンドを構成できます。これらのバックエンドは定義されると、開発者がプロジェクト内で使用して永続ボリューム要求 (PVC) を作成し、オンデマンドで永続ストレージをコンテナーに接続できるようになります。
+
+image:redhat-openshift-002.png["入出力ダイアログまたは書かれたコンテンツを示す図"]
+
+Tridentは開発サイクルが速く、Kubernetes と同様に年に 4 回リリースされます。
+
+Tridentの最新バージョンは、2022 年 4 月にリリースされた 22.04 です。どのバージョンのTridentがどのKubernetesディストリビューションでテストされているかのサポートマトリックスは以下から参照できます。 https://docs.netapp.com/us-en/trident/trident-get-started/requirements.html#supported-frontends-orchestrators["ここをクリックしてください。"] 。
+
+20.04 リリース以降、 Trident のセットアップはTridentオペレーターによって実行されます。オペレーターは大規模な導入を容易にし、 Tridentインストールの一部として導入されるポッドの自己修復などの追加サポートを提供します。
+
+21.01 リリースでは、 Trident Operator のインストールを容易にする Helm チャートが利用可能になりました。

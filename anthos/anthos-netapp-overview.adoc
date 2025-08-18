@@ -1,0 +1,28 @@
+---
+sidebar: sidebar 
+permalink: anthos/anthos-netapp-overview.html 
+keywords: NetApp, ONTAP, Element, Storage 
+summary: NetApp には、Anthos にデプロイされたアプリケーション用のストレージをプロビジョニングするために、 Trident Storage Orchestrator で認定されたストレージ プラットフォームがいくつかあります。 
+---
+= NetAppストレージの概要
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+NetApp には、コンテナとして展開されたアプリケーション用のストレージをプロビジョニングするために、 Trident Storage Orchestrator で認定されたストレージ プラットフォームがいくつかあります。
+
+image:a-w-n-netapp-overview.png["入出力ダイアログまたは書かれたコンテンツを示す図"]
+
+* AFFおよびFASシステムはNetApp ONTAPを実行し、ファイルベース (NFS) とブロックベース (iSCSI) の両方のユースケースにストレージを提供します。
+* Cloud Volumes ONTAPとONTAP Select は、それぞれクラウドと仮想空間で同じ利点を提供します。
+* Google Cloud NetApp Volumes (GCP) とAzure NetApp Files は、クラウド内でファイルベースのストレージを提供します。
+* Amazon FSx ONTAP は、ファイルベースのユースケースにストレージを提供する、AWS 上の完全マネージド型サービスです。
+
+
+
+NOTE: NetAppポートフォリオの各ストレージ システムは、オンプレミス サイトとクラウド間のデータ管理と移動を容易にし、データがアプリケーションがある場所にあることを保証します。

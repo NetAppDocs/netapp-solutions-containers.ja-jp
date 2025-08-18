@@ -1,0 +1,34 @@
+---
+sidebar: sidebar 
+permalink: openshift/os-adv-mgmt-observability.html 
+keywords: OpenShift, OCP, Trident, NetApp ONTAP, ONTAP, Trident, Red Hat OpenShift, Advanced Cluster Management, Advanced Cluster Management for Kubernetes 
+summary: NetAppを使用した Red Hat OpenShift 上の Kubernetes 向け高度なクラスタ管理 
+---
+= 可観測性
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Kubernetes の高度なクラスター管理は、すべてのクラスターにわたってノード、ポッド、アプリケーション、およびワークロードを監視する方法を提供します。
+
+. [環境の観察] > [概要] に移動します。
++
+image:redhat-openshift-082.png["可観測性ホームページ"]
+
+. すべてのクラスターのすべてのポッドとワークロードは、さまざまなフィルターに基づいて監視および並べ替えられます。対応するデータを表示するには、ポッドをクリックします。
++
+image:redhat-openshift-083.png["観察ポッド"]
+
+. クラスター全体のすべてのノードは、さまざまなデータ ポイントに基づいて監視および分析されます。ノードをクリックすると、対応する詳細情報が表示されます。
++
+image:redhat-openshift-084.png["ノードを観察する"]
+
+. すべてのクラスターは、さまざまなクラスター リソースとパラメータに基づいて監視および整理されます。クラスターの詳細を表示するには、「クラスター」をクリックします。
++
+image:redhat-openshift-085.png["クラスターを観察する"]
+
+

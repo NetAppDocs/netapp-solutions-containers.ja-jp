@@ -1,0 +1,103 @@
+---
+section: openshift
+title: Red Hat OpenShiftとNetApp
+pdf-filename: Red Hat OpenShiftとNetApp
+entries:
+- title: ソリューションの概要
+  url: "/openshift/os-solution-overview.html"
+- title: レッドハットオープンシフト
+  entries:
+  - title: Openshiftの概要
+    url: "/openshift/os-overview.html"
+  - title: ベアメタル上のOpenShift
+    url: "/openshift/os-on-bm.html"
+  - title: Red Hat OpenStack 上の OpenShift
+    url: "/openshift/os-on-openstack.html"
+  - title: Red Hat Virtualization 上の OpenShift
+    url: "/openshift/os-on-rhv.html"
+  - title: VMware vSphere 上の OpenShift
+    url: "/openshift/os-on-vmw.html"
+  - title: AWS 上の OpenShift
+    url: "/openshift/os-on-aws-rosa.html"
+- title: NetApp ストレージ システム
+  entries:
+  - title: NetApp ONTAP
+    url: "/openshift/os-netapp-ontap.html"
+  - title: NetApp Element
+    url: "/openshift/os-netapp-element.html"
+- title: NetAppストレージ統合
+  entries:
+  - title: NetAppストレージ統合の概要
+    url: "/openshift/os-storint-overview.html"
+  - title: NetAppTrident
+    entries:
+    - title: NetApp Trident の概要
+      url: "/openshift/os-trident-overview.html"
+    - title: NetApp ONTAP NFS
+      url: "/openshift/os-trident-ontap-nfs.html"
+    - title: NetApp ONTAP iSCSI
+      url: "/openshift/os-trident-ontap-iscsi.html"
+    - title: NetApp ElementiSCSI
+      url: "/openshift/os-trident-element-iscsi.html"
+- title: 高度な設定オプション
+  entries:
+  - title: ロードバランサーのオプションを調べる
+    entries:
+    - title: ロードバランサーのオプションについて
+      url: "/openshift/os-load-balancers.html"
+    - title: MetalLBロードバランサをインストールする
+      url: "/openshift/os-lb-metallb.html"
+    - title: F5 BIG-IPロードバランサーをインストールする
+      url: "/openshift/os-lb-f5bigip.html"
+  - title: プライベートイメージレジストリを作成する
+    url: "/openshift/os-private-registry.html"
+- title: ソリューションの検証とユースケース
+  entries:
+  - title: 検証とユースケースの概要
+    url: "/openshift/os-use-cases.html"
+  - title: 永続ストレージを使用して Jenkins CI/CD パイプラインをデプロイする
+    url: "/openshift/os-use-case-pipeline.html"
+  - title: マルチテナントを構成する
+    entries:
+    - title: マルチテナントの構成について
+      url: "/openshift/os-multitenancy-overview.html"
+    - title: アーキテクチャ
+      url: "/openshift/os-multi-tenant-architecture.html"
+    - title: 設定の概要
+      url: "/openshift/os-multitenancy-configuration.html"
+    - title: 構成の前提条件
+      url: "/openshift/os-multitenancy-config-prereq.html"
+    - title: クラスタ管理者のタスク
+      url: "/openshift/os-multitenancy-clstr-admin-task.html"
+    - title: ストレージ管理者のタスク
+      url: "/openshift/os-multitenancy-stor-admin-tasks.html"
+    - title: 検証
+      url: "/openshift/os-multitenancy-validation.html"
+    - title: スケーリング
+      url: "/openshift/os-multitenancy-scaling.html"
+- title: Kubernetes の高度なクラスタ管理
+  entries:
+  - title: Kubernetes 向け ACM について
+    url: "/openshift/os-adv-mgmt-overview.html"
+  - title: Kubernetes 向け ACM をデプロイする
+    entries:
+    - title: 前提条件
+      url: "/openshift/os-adv-mgmt-deployment-prereq.html"
+    - title: オペレーター経由で展開
+      url: "/openshift/os-adv-mgmt-deployment.html"
+    - title: クラスタライフサイクル管理
+      url: "/openshift/os-adv-mgmt-cluster-lcm.html"
+    - title: アプリケーションライフサイクル管理
+      url: "/openshift/os-adv-mgmt-app-lcm.html"
+    - title: ガバナンスとリスク
+      url: "/openshift/os-adv-mgmt-governance-risk.html"
+    - title: 可観測性
+      url: "/openshift/os-adv-mgmt-observability.html"
+    - title: リソースを作成する
+      url: "/openshift/os-adv-mgmt-create-resources.html"
+- title: Trident Protectを使用したデータ保護
+  url: "/openshift/os-trident-protect.html"
+- title: サードパーティツールを使用したデータ保護
+  url: "/openshift/os-velero.html"
+- title: 追加情報
+  url: "/openshift/os-additional-information.html"

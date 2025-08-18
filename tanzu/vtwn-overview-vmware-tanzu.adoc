@@ -1,0 +1,31 @@
+---
+sidebar: sidebar 
+permalink: tanzu/vtwn-overview-vmware-tanzu.html 
+keywords: VMware Tanzu, Tanzu, DevOps, Netapp, Trident, Trident Protect 
+summary: VMware Tanzu は、企業がアプリケーションとそれが実行されるインフラストラクチャを最新化できるようにする製品ポートフォリオです。  VMware Tanzu のフルスタック機能により、開発チームと IT 運用チームが単一のプラットフォーム上で統合され、オンプレミスとハイブリッド クラウド環境全体でアプリケーションとインフラストラクチャの両方の最新化が一貫して実現され、より優れたソフトウェアが継続的に本番環境に提供されます。 
+---
+= VMware Tanzu の概要
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+VMware Tanzu は、企業がアプリケーションとそれが実行されるインフラストラクチャを最新化できるようにする製品ポートフォリオです。  VMware Tanzu のフルスタック機能により、開発チームと IT 運用チームが単一のプラットフォーム上で統合され、オンプレミスとハイブリッド クラウド環境全体でアプリケーションとインフラストラクチャの両方の最新化が一貫して実現され、より優れたソフトウェアが継続的に本番環境に提供されます。
+
+image:vtwn-001.png["VMware Tanzu ポートフォリオ"]
+
+Tanzuポートフォリオのさまざまな製品とその機能の詳細については、ドキュメントをご覧ください。link:https://docs.vmware.com/en/VMware-Tanzu/index.html["ここをクリックしてください。"^] 。
+
+Tanzu の Kubernetes Operations カタログに関しては、VMware は Tanzu Kubernetes Grid のさまざまな実装を提供しており、それらはすべてさまざまなプラットフォーム上の Tanzu Kubernetes クラスターのライフサイクルをプロビジョニングおよび管理します。  Tanzu Kubernetes クラスターは、VMware によって構築およびサポートされている本格的な Kubernetes ディストリビューションです。
+
+NetApp は、VMware Tanzu ポートフォリオの次の製品の導入と相互運用性を自社のラボでテストし、検証しました。
+
+* link:vtwn-overview-tkg.html["VMware Tanzu Kubernetes グリッド (TKG)"]
+* link:vtwn-overview-tkgs.html["VMware Tanzu Kubernetes グリッド サービス (TKGS)"]
+* link:vtwn-overview-tkgi.html["VMware Tanzu Kubernetes グリッド統合 (TKGI)"]
+* link:vtwn-overview-vst.html["VMware vSphere with Tanzu (vSphere ポッド)"]
+

@@ -1,0 +1,81 @@
+---
+sidebar: sidebar 
+permalink: anthos/anthos-storint-overview.html 
+keywords: Trident, Trident, persistent storage 
+summary: NetApp は、Anthos のようなコンテナベースの環境で永続的なデータをオーケストレーションおよび管理するお客様を支援するさまざまな製品を提供しています。 
+---
+= NetAppストレージ統合の概要
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+NetApp は、Anthos のようなコンテナベースの環境で永続的なデータをオーケストレーションおよび管理するお客様を支援するさまざまな製品を提供しています。
+
+
+
+== Anthos Ready ストレージ パートナー プログラム。
+
+Google Cloud は、Anthos Ready ストレージ パートナー プログラムを通じて、パートナー ストレージと Anthos の新リリースの統合に関する最新の検証を定期的に要求しています。現在検証済みのストレージソリューション、CSIドライバ、利用可能な機能、およびサポートされているAnthosのバージョンのリストは、以下で確認できます。 https://cloud.google.com/anthos/docs/resources/partner-storage["ここをクリックしてください。"^] 。
+
+NetApp は、 Trident CSI 準拠のストレージ オーケストレーターとONTAPストレージ システムを Anthos のバージョンで検証するという要求に四半期ごとに定期的に対応しています。
+
+次の表には、Anthos Ready ストレージ パートナー プログラムの一環として、 NetAppおよびNetAppパートナー エンジニアがNetApp Trident CSI ドライバーと機能セットの検証のためにテストした Anthos バージョンが含まれています。
+
+|===
+
+
+| 展開タイプ | version | Storage System | Tridentバージョン | プロトコル | 機能 
+
+
+| VMware | 1.28 | ONTAP 9.12.1 | 24.02 | NAS | マルチライター、ボリューム拡張、スナップショット、PVCDataSource 
+
+
+| VMware | 1.28 | ONTAP 9.12.1 | 24.02 | SAN | 生のブロック、ボリューム拡張、スナップショット、PVCデータソース 
+
+
+| VMware | 1.15 | ONTAP 9.12.1 | 23.04 | NAS | マルチライター、ボリューム拡張、スナップショット、PVCDataSource 
+
+
+| VMware | 1.15 | ONTAP 9.12.1 | 23.04 | SAN | 生のブロック、ボリューム拡張、スナップショット、PVCデータソース 
+
+
+| VMware | 1.14 | ONTAP 9.12.1 | 23.01 | NAS | マルチライター、ボリューム拡張、スナップショット、PVCDataSource 
+
+
+| VMware | 1.14 | ONTAP 9.12.1 | 23.01 | SAN | 生のブロック、ボリューム拡張、スナップショット、PVCデータソース 
+
+
+| VMware | 1.13 | ONTAP 9.12.1 | 22.10 | NAS | マルチライター、ボリューム拡張、スナップショット、PVCDataSource 
+
+
+| VMware | 1.13 | ONTAP 9.12.1 | 22.10 | SAN | 生のブロック、ボリューム拡張、スナップショット、PVCデータソース 
+
+
+| VMware | 1.11 | ONTAP 9.9.1 | 22.04 | NAS | マルチライター、ボリューム拡張、スナップショット 
+
+
+| VMware | 1.11 | ONTAP 9.9.1 | 22.04 | SAN | RAWブロック、ボリューム拡張、スナップショット 
+
+
+| VMware | 1.11 | 要素12.3 | 22.04 | SAN | RAWブロック、ボリューム拡張、スナップショット 
+
+
+| ベアメタル | 1.10 | ONTAP 9.8 | 22.01 | NAS | マルチライター、ボリューム拡張、スナップショット 
+
+
+| ベアメタル | 1.10 | ONTAP 9.8 | 22.01 | SAN | RAWブロック、ボリューム拡張、スナップショット 
+|===
+
+
+== NetAppストレージ統合
+
+NetApp は、Anthos などのコンテナベースの環境で永続的なデータをオーケストレーションおよび管理するのに役立つさまざまな製品を提供しています。
+
+NetApp Trident は、Anthos を含むコンテナおよび Kubernetes ディストリビューション向けのオープンソースで完全にサポートされているストレージ オーケストレーターです。詳細については、Tridentのウェブサイトをご覧ください。 https://docs.netapp.com/us-en/trident/index.html["ここをクリックしてください。"] 。
+
+次のページには、 NetAppソリューションを使用した Anthos のアプリケーションおよび永続ストレージ管理用に検証されたNetApp製品に関する追加情報が記載されています。

@@ -1,0 +1,89 @@
+---
+sidebar: sidebar 
+permalink: anthos/anthos-solution-overview.html 
+keywords: NVA-1165, Anthos, GKE, Netapp, Trident 
+summary: このリファレンス ドキュメントでは、 NetAppと当社のエンジニアリング パートナーによって検証された、複数のデータセンター環境に導入された Anthos with NetAppソリューションの導入検証について説明します。 
+---
+= NVA-1165: NetAppを使用した Anthos
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+NetApp 、Banu Sundhar 氏と Suresh Thoppay 氏
+
+[role="lead"]
+このリファレンス ドキュメントでは、 NetAppと当社のエンジニアリング パートナーによる Anthos with NetAppソリューションを複数のデータセンター環境に導入する場合の導入検証について説明します。また、永続ストレージの管理にTridentストレージ オーケストレーターを使用して、 NetAppストレージ システムとのストレージ統合についても詳しく説明します。最後に、いくつかのソリューションの検証と実際の使用例を調査して文書化します。
+
+
+
+== ユースケース
+
+Anthos with NetAppソリューションは、次のユースケースを持つ顧客に卓越した価値を提供するように設計されています。
+
+* 提供されているツールを使って導入された Anthos 環境を簡単に導入および管理できます `bmctl`裸の金属または `gkectl`VMware vSphere 上のツール。
+* エンタープライズコンテナと仮想化ワークロードのパワーを組み合わせ、vSphereまたはベアメタル上に仮想的に展開されたAnthosで https://cloud.google.com/anthos/clusters/docs/bare-metal/1.9/how-to/vm-workloads["kubevirt"^]。
+* NetAppストレージおよび Kubernetes 用のオープンソース ストレージ オーケストレーターであるTridentと組み合わせて使用する場合の Anthos の機能を強調した実際の構成とユースケース。
+
+
+
+
+== ビジネス価値
+
+企業は、新製品の作成、リリース サイクルの短縮、新機能の迅速な追加のために DevOps プラクティスを採用するケースが増えています。コンテナとマイクロサービスは、その本質的なアジャイル性により、DevOps プラクティスのサポートにおいて重要な役割を果たします。ただし、エンタープライズ環境の運用規模で DevOps を実践するには、独自の課題があり、基盤となるインフラストラクチャに次のような特定の要件が課せられます。
+
+* スタック内のすべてのレイヤーで高可用性を実現
+* 導入手順の容易さ
+* 中断のない運用とアップグレード
+* マイクロサービスの俊敏性を維持するための API 駆動型でプログラム可能なインフラストラクチャ
+* パフォーマンス保証付きのマルチテナンシー
+* 仮想化されたワークロードとコンテナ化されたワークロードを同時に実行する機能
+* ワークロードの需要に応じてインフラストラクチャを独立して拡張する機能
+
+
+Anthos with NetAppソリューションはこれらの課題を認識し、顧客が選択したデータセンター環境でオンプレミスの Anthos の完全自動導入を実装することで、それぞれの懸念に対処するソリューションを提供します。
+
+
+
+== 技術概要
+
+Anthos with NetAppソリューションは、次の主要コンポーネントで構成されています。
+
+
+
+=== Anthos オンプレミス
+
+Anthos On Prem は、VMware vSphere ハイパーバイザーまたは選択したベアメタル インフラストラクチャにデプロイできる、完全にサポートされているエンタープライズ Kubernetes プラットフォームです。
+
+Anthosの詳細については、次のAnthosウェブサイトをご覧ください。 https://cloud.google.com/anthos["ここをクリックしてください。"^] 。
+
+
+
+=== NetApp ストレージ システム
+
+NetApp には、エンタープライズ データ センターやハイブリッド クラウドの導入に最適なストレージ システムがいくつかあります。  NetApp のポートフォリオには、 NetApp ONTAP、 Cloud Volumes ONTAP、 Google Cloud NetApp Volumes、 Azure NetApp Files 、 NetApp ONTAPストレージ システム用の FSx ONTAP が含まれており、いずれもコンテナ化されたアプリケーションに永続的なストレージを提供できます。
+
+詳細については、 NetAppのWebサイトをご覧ください。 https://www.netapp.com["ここをクリックしてください。"] 。
+
+
+
+=== NetAppストレージ統合
+
+Trident は、Anthos を含むコンテナと Kubernetes ディストリビューション向けのオープンソースで完全にサポートされているストレージ オーケストレーターです。
+
+詳細については、Tridentのウェブサイトをご覧ください。 https://docs.netapp.com/us-en/trident/index.html["ここをクリックしてください。"] 。
+
+
+
+== 高度な設定オプション
+
+このセクションでは、専用のプライベート イメージ レジストリの作成やカスタム ロード バランサ インスタンスのデプロイなど、このソリューションを本番環境にデプロイするときに実際のユーザーが実行する必要があるカスタマイズについて説明します。
+
+
+
+== 検証済みリリースの現在のサポート マトリックス
+
+見る https://cloud.google.com/anthos/docs/resources/partner-storage#netapp["ここをクリックしてください。"]検証済みリリースのサポート マトリックス。
