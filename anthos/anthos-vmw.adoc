@@ -154,9 +154,9 @@ VM とホスト アフィニティを有効にすると、Anthos クラスタ �
 
 アフィニティまたはアンチアフィニティは、VM がグループ内の同じホストまたは複数のホスト上で一緒に実行されるか、または異なるホスト上で実行されるかを決定する VM および/またはホストのセットのルールを定義する方法です。これは、一連の同一のパラメータと条件を持つ VM やホストで構成されるアフィニティ グループを作成することによって VM に適用されます。アフィニティ グループ内の VM が同じホスト上で実行されるか、グループ内のホスト上で実行されるか、または異なるホスト上で個別に実行されるかに応じて、アフィニティ グループのパラメータは、正のアフィニティまたは負のアフィニティのいずれかを定義できます。
 
-アフィニティ グループを構成するには、VMWare vSphere のバージョンに応じて以下の適切なリンクを参照してください。
+アフィニティ グループを構成するには、 VMware vSphereのバージョンに応じて以下の適切なリンクを参照してください。
 
-https://docs.vmware.com/en/VMware-vSphere/6.7/com.vmware.vsphere.resmgmt.doc/GUID-FF28F29C-8B67-4EFF-A2EF-63B3537E6934.html["vSphere 6.7 ドキュメント: DRS アフィニティ ルールの使用"^] 。https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.resmgmt.doc/GUID-FF28F29C-8B67-4EFF-A2EF-63B3537E6934.html["vSphere 7.0 ドキュメント: DRS アフィニティ ルールの使用"^] 。
+https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/9-0/vsphere-resource-management/using-drs-clusters-to-manage-resources/using-vm-host-affinity-rules.html["vSphere 9.0 ドキュメント: DRS アフィニティ ルールの使用"^]. hhttps://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/7-0/vsphere-resource-management/using-drs-clusters-to-manage-resources/using-vm-host-affinity-rules.html[vSphere 7.0 ドキュメント: DRS アフィニティ ルールの使用^]。
 
 
 NOTE: Anthosには、個々の `cluster.yaml`ファイルを使用すると、環境内の ESXi ホストの数に基づいて有効化または無効化できるノード アフィニティ ルールが自動的に作成されます。

@@ -527,10 +527,6 @@
   <block id="9dc31e1598f94b9476a025632cee3e19" category="section-title">仮想マシンとホストのアフィニティを構成する</block>
   <block id="150754dbd257c09eef8557a399e5ebc2" category="paragraph">VM とホスト アフィニティを有効にすると、Anthos クラスタ ノードを複数のハイパーバイザー ノードに分散できます。</block>
   <block id="c23c2371397ad3490af42526283948a4" category="paragraph">アフィニティまたはアンチアフィニティは、VM がグループ内の同じホストまたは複数のホスト上で一緒に実行されるか、または異なるホスト上で実行されるかを決定する VM および/またはホストのセットのルールを定義する方法です。これは、一連の同一のパラメータと条件を持つ VM やホストで構成されるアフィニティ グループを作成することによって VM に適用されます。アフィニティ グループ内の VM が同じホスト上で実行されるか、グループ内のホスト上で実行されるか、または異なるホスト上で個別に実行されるかに応じて、アフィニティ グループのパラメータは、正のアフィニティまたは負のアフィニティのいずれかを定義できます。</block>
-  <block id="659aed3f7f249a658860ff0d51cdef11" category="paragraph">アフィニティ グループを構成するには、VMWare vSphere のバージョンに応じて以下の適切なリンクを参照してください。</block>
-  <block id="9934283c0bf98610b4be1803b9ad3430" category="inline-link">vSphere 6.7 ドキュメント: DRS アフィニティ ルールの使用</block>
-  <block id="bfe724d354657c9ac5cef22bd231f66f" category="inline-link">vSphere 7.0 ドキュメント: DRS アフィニティ ルールの使用</block>
-  <block id="10c2b11d36730909ac14bcf903f9c456" category="paragraph"><block ref="0817a5be4b4f4733045646ef5cffc66c" category="inline-link-rx"></block> 。<block ref="211975e132e07e8f3a0d0d18ff3759e5" category="inline-link-rx"></block> 。</block>
   <block id="67243afe565a819d977d538c55049340" category="admonition">Anthosには、個々の<block ref="c6ce65430f0e0c334f6b50da737f2e9b" prefix=" " category="inline-code"></block>ファイルを使用すると、環境内の ESXi ホストの数に基づいて有効化または無効化できるノード アフィニティ ルールが自動的に作成されます。</block>
   <block id="77bedaf9f53677fe0de2767932e2bea2" category="summary">ONTAPストレージとNetApp仮想化ソリューションを統合するための実用的なガイダンスとベスト プラクティスを紹介するブログをお読みください。</block>
   <block id="443d1fc79f18c579a33932abbb2d0511" category="doc">NetApp の専門家によるコンテナ ソリューションのブログを読む</block>
@@ -1104,7 +1100,6 @@
   <block id="ed3ecd4254cc054c70ddee702d7ed519" category="section-title">OpenShift のデプロイメントにカスタム インストール ファイルを使用する</block>
   <block id="5e059b05dcf86db414d6b8cdd66bcf0f" category="paragraph">IPI は、このドキュメントで前述した対話型ウィザードを通じて OpenShift クラスターのデプロイメントを容易にします。ただし、クラスターの展開の一環として、いくつかのデフォルト値を変更する必要がある場合があります。</block>
   <block id="47a822101acb11c74a4877a3d0b77093" category="inline-link-macro">Red Hat OpenShift カスタマイズによる OpenStack へのクラスターのインストール</block>
-  <block id="112f4e7f30ad9cbc041b99087d3e6500" category="paragraph">このような場合、すぐにクラスターを展開せずにウィザードを実行してタスクを実行できます。代わりに、後でクラスターを展開できる構成ファイルが作成されます。これは、IPI のデフォルトを変更する必要がある場合、またはマルチテナントなどの他の用途のために環境内に複数の同一クラスターを展開する場合に非常に便利です。  OpenShiftのカスタマイズされたインストール構成の作成の詳細については、以下を参照してください。<block ref="448139de1d1e7e28131a802d8158cd87" category="inline-link-macro-rx"></block> 。</block>
   <block id="cb8e8e87ec9c630a0a27910fe29abceb" category="summary">RHV は、Red Hat Enterprise Linux (RHEL) 上で実行され、KVM ハイパーバイザーを使用するエンタープライズ仮想データセンター プラットフォームです。</block>
   <block id="f88eb30a75027b557910958c7306cb4e" category="doc">Red Hat Virtualization 上の OpenShift</block>
   <block id="932e95da8a59703292a426466e703c7a" category="paragraph">Red Hat Virtualization (RHV) は、Red Hat Enterprise Linux (RHEL) 上で実行され、KVM ハイパーバイザーを使用するエンタープライズ仮想データセンター プラットフォームです。</block>
@@ -1163,7 +1158,6 @@
   <block id="3500f2194985ef1b586c649fbe519d8d" category="paragraph">このドキュメントで説明する検証済みのアーキテクチャは、2 つの ESXi ハイパーバイザー ノードを展開し、VMware vSphere HA と VMware vMotion を有効にしてフォールト トレラント構成を確保することで、HA 操作に適した最小限のハードウェア展開を示します。この構成により、展開された VM を 2 つのハイパーバイザー間で移行し、1 つのホストが使用できなくなった場合に再起動することができます。</block>
   <block id="e79fa01ec6b411cfda4f8baad9f95cb0" category="paragraph">Red Hat OpenShift は最初に 3 つのマスターノードでデプロイされるため、状況によっては 2 ノード構成内の少なくとも 2 つのマスターが同じノードを占有することがあり、その特定のノードが使用できなくなった場合に OpenShift が停止する可能性があります。したがって、OpenShift マスターを均等に分散してフォールト トレランスをさらに高めるためには、少なくとも 3 つの ESXi ハイパーバイザー ノードをデプロイすることが Red Hat のベスト プラクティスです。</block>
   <block id="f5428382aa8b44d7ef6ca71195afc8ca" category="paragraph">VM とホストのアフィニティを有効にすることで、OpenShift マスターを複数のハイパーバイザー ノードに分散させることができます。</block>
-  <block id="caa4cd40407d5fbb60417567f99dc12b" category="paragraph">アフィニティグループを構成するには、<block ref="5eec17a83b1cdbe2155f458e6c616d5f" category="inline-link-macro-rx"></block> 。</block>
   <block id="7b65abec68958867d7dd5f43b3b06e08" category="inline-link-macro">Red Hat OpenShift カスタマイズによる vSphere へのクラスタのインストール</block>
   <block id="60d232b4b7425bdadb1962222b2c23ab" category="paragraph">このような場合、クラスターをすぐに展開せずにウィザードを実行してタスクを実行できますが、代わりにウィザードによって、後でクラスターを展開できる構成ファイルが作成されます。これは、IPI のデフォルトを変更する必要がある場合、またはマルチテナントなどの他の用途のために環境内に複数の同一クラスターを展開する場合に非常に便利です。  OpenShiftのカスタマイズされたインストール構成の作成の詳細については、以下を参照してください。<block ref="425558ab055ee08d7eb4486f3ceb6631" category="inline-link-macro-rx"></block> 。</block>
   <block id="81e1ccd46eb4fc86f01bc70f61ea35e0" category="summary">Red Hat OpenShift Container Platform は、開発と IT 運用を単一のプラットフォームに統合し、オンプレミスとハイブリッド クラウド インフラストラクチャ全体で一貫してアプリケーションを構築、展開、管理します。  Red Hat OpenShift は、Kubernetes や、コンテナベースのワークロード向けに設計された主要なエンタープライズ Linux ディストリビューションである Red Hat Enterprise Linux CoreOS などのオープンソースのイノベーションと業界標準に基づいて構築されています。</block>
@@ -1547,199 +1541,7 @@
   <block id="a78517d99e4cf029d76c3e543b762f94" category="paragraph">このソリューションでは、Red Hat OpenShift Container Platform の OADP オペレーターと統合された Velero を使用して、コンテナーと VM のデータ保護操作を実行する方法を示します。</block>
   <block id="f7da192deb097319c1dea250e677bc33" category="list-text">OpenShift Container Platform のコンテナアプリケーションのバックアップの作成と復元の詳細については、以下を参照してください。<block ref="d255861b913ae322076bc5eef85ea279" category="inline-link-macro-rx"></block> 。</block>
   <block id="8264d7dad2a4ce20d002e352b2c274b2" category="list-text">OpenShift Container プラットフォームにデプロイされた OpenShift Virtualization の VM のバックアップの作成と復元の詳細については、以下を参照してください。<block ref="6df0f4cfdc0e8a7995e4abc22155ea26" category="inline-link-macro-rx"></block> 。</block>
-  <block id="5f87e8fbf603b28eb84592d8e64980c6" category="doc">追加情報: VMware Tanzu with NetApp</block>
-  <block id="0221d1074d249c254f0679e761454a05" category="inline-link"><block ref="0221d1074d249c254f0679e761454a05" category="inline-link-rx"></block></block>
-  <block id="40454fb96e27a719bd7a751c4ec47d16" category="paragraph"><block ref="40454fb96e27a719bd7a751c4ec47d16" category="inline-link-rx"></block></block>
-  <block id="5eae6f5974c9d4195ebe0cf8b607647e" category="list-text">Ansible ドキュメント</block>
-  <block id="015674032a5c43c779a74ee9e3dbfc94" category="inline-link"><block ref="015674032a5c43c779a74ee9e3dbfc94" category="inline-link-rx"></block></block>
-  <block id="f13ae695d1de0b91201bca0cd4e87c69" category="paragraph"><block ref="f13ae695d1de0b91201bca0cd4e87c69" category="inline-link-rx"></block></block>
-  <block id="a6f4f5f0d313fa8894e4ad13a09339c0" category="list-text">VMware Tanzu ドキュメント</block>
-  <block id="57a35ee57ca4eb666386f668ebc74599" category="inline-link"><block ref="57a35ee57ca4eb666386f668ebc74599" category="inline-link-rx"></block></block>
-  <block id="35d5768f9d0ee829a3e2cae0cba15216" category="paragraph"><block ref="35d5768f9d0ee829a3e2cae0cba15216" category="inline-link-rx"></block></block>
-  <block id="2839dd9e9e31ca41ba6399c0a64d3333" category="list-text">VMware Tanzu Kubernetes グリッドのドキュメント</block>
-  <block id="94ecd750f91f6d1908b92ec42eb37398" category="inline-link"><block ref="94ecd750f91f6d1908b92ec42eb37398" category="inline-link-rx"></block></block>
-  <block id="f0a59887fc9e8ee88512ff6312c13efa" category="paragraph"><block ref="f0a59887fc9e8ee88512ff6312c13efa" category="inline-link-rx"></block></block>
-  <block id="9cf21c31f745a435ac892addf1fd1a3f" category="list-text">VMware Tanzu Kubernetes Grid サービス ドキュメント</block>
-  <block id="98978b88e05533d45b79613d9ee6f26d" category="inline-link"><block ref="98978b88e05533d45b79613d9ee6f26d" category="inline-link-rx"></block></block>
-  <block id="56c4cea9b33fd23cf082d00ca92d5a46" category="paragraph"><block ref="56c4cea9b33fd23cf082d00ca92d5a46" category="inline-link-rx"></block></block>
-  <block id="c23715ed7437fed1084a24cebb89e63c" category="list-text">VMware Tanzu Kubernetes Grid 統合エディションのドキュメント</block>
-  <block id="fd2560680b89b39b1b988587bf383fb4" category="inline-link"><block ref="fd2560680b89b39b1b988587bf383fb4" category="inline-link-rx"></block></block>
-  <block id="f4b2873e621660e86074a62e5a6c5eac" category="paragraph"><block ref="f4b2873e621660e86074a62e5a6c5eac" category="inline-link-rx"></block></block>
-  <block id="27b823150d6296b03e5a542d82068878" category="summary">NetApp には、コンテナ化されたアプリケーションのデータのプロビジョニング、保護、管理を行い、DevOps スループットの定義と最大化を支援するために、 TridentおよびTrident Protect と連携した認定ストレージ プラットフォームが複数あります。</block>
   <block id="b43c4021858544ebd3a492d082a7f349" category="doc">NetAppストレージ システムの概要</block>
-  <block id="3c50983d75446d4767f84157e3724456" category="list-text"><block ref="3c50983d75446d4767f84157e3724456" category="inline-link-macro-rx"></block></block>
-  <block id="72a943bda30daac28d5a7097897df424" category="summary">NetApp は、コンテナベースの環境で永続的なデータをオーケストレーションおよび管理するお客様を支援するさまざまな製品を提供しています。</block>
-  <block id="5851271128193658704cec246f4fd21c" category="doc">NetAppストレージ統合の概要</block>
-  <block id="ffa91b110b1ac17acee3a393a5fb06d3" category="list-text"><block ref="ffa91b110b1ac17acee3a393a5fb06d3" category="inline-link-macro-rx"></block></block>
-  <block id="318a4bce7f9fca07a60ed82408fbcd29" category="doc">VMware Tanzu Kubernetes Grid (TKG) の概要</block>
-  <block id="11e5f8209ef45e9884518caf7b5bc68d" category="paragraph">VMware Tanzu Kubernetes Grid (TKG とも呼ばれます) を使用すると、ハイブリッド クラウドまたはパブリック クラウド環境全体に Tanzu Kubernetes クラスターを展開できます。 TKG は、Tanzu Kubernetes クラスターをデプロイおよび操作する Kubernetes クラスター自体である管理クラスターとしてインストールされます。これらの Tanzu Kubernetes クラスターは、実際のワークロードがデプロイされるワークロード Kubernetes クラスターです。</block>
-  <block id="9a67a32e17609515d2fc11383d1a7b59" category="paragraph">Tanzu Kubernetes Grid は、いくつかの有望なアップストリーム コミュニティ プロジェクトを基盤とし、VMware によって開発、販売、サポートされる Kubernetes プラットフォームを提供します。 Tanzu Kubernetes Grid は、Kubernetes ディストリビューションに加えて、レジストリ、負荷分散、認証など、本番環境に不可欠なサービスである追加のアドオンも提供します。管理クラスタを備えた VMware TKG は vSphere 6.7 環境で広く使用されていますが、TKGS には vSphere 7 とのネイティブ統合機能があるため、サポートされていても vSphere 7 環境での展開は推奨されません。</block>
-  <block id="4e6c29e9760f3e53993a64a5f6c63aaa" category="inline-image-macro">管理クラスタを備えた VMware Tanzu Kubernetes Grid</block>
-  <block id="a1d96262ddcd3f0010db4d3551b9a9a7" category="paragraph"><block ref="a1d96262ddcd3f0010db4d3551b9a9a7" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="ec30336a82729146050b0931adab64f2" category="paragraph">Tanzu Kubernetes Gridの詳細については、ドキュメントを参照してください。<block ref="f4dbc56b610d9f5cd603e1a13bb6dedf" category="inline-link-macro-rx"></block> 。</block>
-  <block id="86fcbed2a7f5b8edced11b10bd1e4266" category="paragraph">Tanzu Kubernetes Grid がオンプレミスの vSphere クラスタにインストールされているか、クラウド環境にインストールされているかに応じて、インストール ガイドに従って Tanzu Kubernetes Grid を準備して展開します。<block ref="492c3fae38681e036fd18bedc1bf8ae5" category="inline-link-macro-rx"></block> 。</block>
-  <block id="c1f07986544fbf96897f8099577b0e72" category="paragraph">Tanzu Kubernetes Gridの管理クラスタをインストールしたら、ドキュメントに従って必要に応じてユーザークラスタまたはワークロードクラスタをデプロイします。<block ref="7d3f6d9f879d392af501006eacd0d221" category="inline-link-macro-rx"></block> 。 VMware TKG 管理クラスタでは、Tanzu Kubernetes クラスタのインストールと操作に SSH キーを提供する必要があります。このキーは、<block ref="5ef871b8f1f696f9bb22de1dff45a81c" prefix=" " category="inline-code"></block>ユーザー。</block>
-  <block id="7654a00ca744e9bf01021439190e3119" category="doc">VMware Tanzu Kubernetes Grid Integrated Edition (TKGI) の概要</block>
-  <block id="644bd75ee9c13f7d8778e4638d9eb2b2" category="paragraph">VMware Tanzu Kubernetes Grid Integrated (TKGI) Edition (旧称 VMware Enterprise PKS) は、ライフサイクル管理、クラスタのヘルス監視、高度なネットワーク、コンテナ レジストリなどの機能を備えた Kubernetes ベースのスタンドアロン コンテナ オーケストレーション プラットフォームです。  TKGI は、BOSH と Ops Manager で構成される TKGI コントロール プレーンを使用して Kubernetes クラスターをプロビジョニングおよび管理します。</block>
-  <block id="a84b33dfae5a2fdc1618084442bc3df0" category="paragraph">TKGI は、オンプレミスの vSphere または OpenStack 環境、あるいはそれぞれの IaaS サービス上の主要なパブリック クラウドのいずれかにインストールして運用できます。さらに、TKGI を NSX-T および Harbour と統合することで、エンタープライズ ワークロードのユースケースが広がります。  TKGIとその機能の詳細については、ドキュメントをご覧ください。<block ref="0b1e387b87be5caa8371b58b8e02b1f8" category="inline-link-macro-rx"></block> 。</block>
-  <block id="a1c1bb4994628000cfe61563bf4ff4f5" category="inline-image-macro">VMware Tanzu Kubernetes Grid 統合エディション</block>
-  <block id="68f1110a2f412f8a1c01933e098a71a9" category="paragraph"><block ref="68f1110a2f412f8a1c01933e098a71a9" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="26f1f37ed65557967fe3a789aa75c364" category="paragraph">TKGI は、さまざまなユースケースと設計に基づいて、さまざまなプラットフォームにさまざまな構成でインストールされます。ガイドに従ってください<block ref="54093918574a441541c9219fc9d087f1" category="inline-link-macro-rx"></block>TKGI とその前提条件をインストールして構成します。  TKGI は、不変の構成イメージを実行する Tanzu Kubernetes クラスターのノードとして Bosh VM を使用します。Bosh VM に対する手動変更は、再起動後も保持されません。</block>
-  <block id="58959a34911d9e88e191f3453ddc81f0" category="paragraph">重要な注意事項:</block>
-  <block id="d7fc6fcd5f3c3c3fca9edded9bf380e1" category="list-text">NetApp Tridentには特権コンテナ アクセスが必要です。したがって、TKGI のインストール中に、Tanzu Kubernetes クラスター ノード プランを構成する手順で [特権コンテナーを有効にする] チェックボックスを必ずオンにしてください。</block>
-  <block id="651650f759262b05cb38b56003e55784" category="inline-image-macro">TKGI の特権コンテナ</block>
-  <block id="7824738884575ac194e210c4f896e3d6" category="paragraph"><block ref="7824738884575ac194e210c4f896e3d6" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="956d281862a0ec3c4bb386cd28bf959c" category="list-text">NetApp、フォールト トレランスのためにすべての本番環境を複数のマスター展開で展開し、対象となるワークロードの要件を満たすワーカー ノードの構成を選択することを推奨しています。したがって、推奨される TKGI クラスター プランは、非常に集中的なワークロードに対応するために、少なくとも 4 つの vCPU と 12 GB の RAM を備えた少なくとも 3 つのマスターと 3 つのワーカーで構成されます。</block>
-  <block id="aa7b3dace1453f21689852e3b066f673" category="summary">VMware Tanzu Kubernetes Grid Service (vSphere with Tanzu とも呼ばれます) を使用すると、vSphere で Tanzu Kubernetes クラスターをネイティブに作成および操作できるほか、ESXi ホスト上でいくつかの小規模なワークロードを直接実行することもできます。</block>
-  <block id="b71ad38bc3fd2c1a10efc2b09270e430" category="doc">VMware Tanzu Kubernetes Grid Service (TKGS) の概要</block>
-  <block id="9f0bacdd758242392df6d215d34d9b8e" category="paragraph">VMware Tanzu Kubernetes Grid Service (vSphere with Tanzu とも呼ばれます) を使用すると、vSphere で Tanzu Kubernetes クラスターをネイティブに作成および操作できるほか、ESXi ホスト上でいくつかの小規模なワークロードを直接実行することもできます。これにより、vSphere を、ハイパーバイザー レイヤー上でコンテナ化されたワークロードをネイティブに実行するためのプラットフォームに変換できます。 Tanzu Kubernetes Grid Service は、有効になっている場合、ワークロードに必要なクラスターを展開および操作するスーパーバイザー クラスターを vSphere 上に展開します。これは vSphere 7 とネイティブに統合されており、vCenter SSO、コンテンツ ライブラリ、vSphere ネットワーク、vSphere ストレージ、vSphere HA および DRS、vSphere セキュリティなどの信頼性の高い多くの vSphere 機能を活用して、よりシームレスな Kubernetes エクスペリエンスを実現します。</block>
-  <block id="6b25ac3e69375bd4a52dbffeb5c9cb14" category="paragraph">vSphere with Tanzu は、コンテナ内または VM 内でアプリケーション コンポーネントを実行できるハイブリッド アプリケーション環境用の単一プラットフォームを提供するため、開発者、DevOps エンジニア、vSphere 管理者にとって可視性が向上し、操作が容易になります。  VMware TKGS は vSphere 7 環境でのみサポートされており、ESXi ホスト上でポッドを直接実行できる Tanzu Kubernetes 運用ポートフォリオの中で唯一の製品です。</block>
-  <block id="0e1d3327747a52bdd78d80247d5b6500" category="inline-image-macro">VMware Tanzu Kubernetes サービス</block>
-  <block id="299e2971cae9a1238bc7240bdf9ea09d" category="paragraph"><block ref="299e2971cae9a1238bc7240bdf9ea09d" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="6e1adc41159b779c5ef1a0c9c934a673" category="paragraph">Tanzu Kubernetes Grid Serviceの詳細については、ドキュメントを参照してください。<block ref="0cdaad1423fdb034ad0ee788d57a7a82" category="inline-link-macro-rx"></block> 。</block>
-  <block id="2a304a1348456ccd2234cd71a81bd338" category="inline-link">リンク</block>
-  <block id="767b04965a47baa63782400d36a0c62e" category="paragraph">機能セット、ネットワークなどに関して、アーキテクチャ上の考慮事項が多数あります。選択したアーキテクチャに応じて、Tanzu Kubernetes Grid Service の前提条件とデプロイメント プロセスが異なります。 Tanzu Kubernetes Grid Serviceを環境に導入して構成するには、ガイドに従ってください。<block ref="5e5ad4985bdb8ab17883db4008c7c4a2" category="inline-link-macro-rx"></block> 。さらに、TKGS経由で展開されたTanzu Kubernetesクラスタノードにログインするには、ここに記載されている手順に従ってください。<block ref="7db41b551ba1165c4dfa4cf2d8a36e55" category="inline-link-rx"></block> 。</block>
-  <block id="46d890e88b951c5a84a444aad08079ae" category="paragraph">NetApp、フォールト トレランスのためにすべての本番環境を複数のマスター展開に展開し、対象となるワークロードの要件を満たすワーカー ノードの構成を選択することを推奨しています。したがって、非常に集中的なワークロードに推奨される VM クラスには、少なくとも 4 つの vCPU と 12 GB の RAM が必要です。</block>
-  <block id="e8a4d3a2e07c429150e133b7fedebd64" category="paragraph">Tanzu Kubernetesクラスタが名前空間に作成されると、<block ref="72122ce96bfec66e2396d2e25225d70a" prefix=" " category="inline-code"></block>または<block ref="de95b43bceeb4b998aed4aed5cef1ae7" prefix=" " category="inline-code"></block>権限があれば、ユーザー アカウントを使用して任意の名前空間に直接ポッドを作成できます。これは、<block ref="72122ce96bfec66e2396d2e25225d70a" prefix=" " category="inline-code"></block>または<block ref="de95b43bceeb4b998aed4aed5cef1ae7" prefix=" " category="inline-code"></block>権限を持つユーザーには、クラスタ管理者ロールが割り当てられます。ただし、任意の名前空間にデプロイメント、デーモン セット、ステートフル セットなどを作成する場合は、対応するサービス アカウントに必要な権限を持つロールを割り当てる必要があります。これは、デプロイメントまたはデーモン セットがサービス アカウントを使用してポッドをデプロイするために必要です。</block>
-  <block id="dc4ab077311e2aad5b5af968844fc5fe" category="paragraph">クラスター内のすべてのサービス アカウントにクラスター管理者のロールを割り当てるには、次の ClusterRoleBinding の例を参照してください。</block>
-  <block id="86022ceb615d9e55bbb881f1750442ba" category="summary">Trident は、VMware Tanzu を含むコンテナおよび Kubernetes ディストリビューション向けのオープンソースで完全にサポートされているストレージ オーケストレーターです。</block>
-  <block id="cbe339e53da479584b62fcdaed7006c1" category="doc">Tridentの概要</block>
-  <block id="ebe5598ec22d01fe25c02071b488309b" category="section-title">Helm を使用してTridentオペレーターをデプロイする</block>
-  <block id="b224057a8a5927f9c3b42fbe5acc5595" category="list-text">NetApp Trident helm リポジトリを追加します。</block>
-  <block id="836237f5ff429cb9283688cdfaa56c76" category="list-text">helm リポジトリを更新します。</block>
-  <block id="875c7439b686e253522033c63d909efe" category="list-text">Tridentのインストール用に新しい名前空間を作成します。</block>
-  <block id="c00c62a4d5defadacd6ec68c29db73e0" category="list-text">Tridentイメージをダウンロードするには、DockerHub の認証情報を使用してシークレットを作成します。</block>
-  <block id="567477e67a80c269658c001414030b07" category="list-text">TKGS (vSphere with Tanzu) または管理クラスタ デプロイメントを備えた TKG によって管理されるユーザー クラスタまたはワークロード クラスタの場合は、次の手順を実行してTridentをインストールします。</block>
-  <block id="d409e9c69dd2082fd0ed8a86d87258e8" category="list-text">ログインしたユーザーに trident 名前空間にサービス アカウントを作成する権限があること、また trident 名前空間のサービス アカウントにポッドを作成する権限があることを確認します。</block>
-  <block id="397ae57f2a6cbd8444c419c896f19886" category="list-text">以下の helm コマンドを実行して、作成された名前空間にTridentオペレーターをインストールします。</block>
-  <block id="eef6352658410e2218bd7027ae8ff351" category="list-text">TKGI デプロイメントによって管理されるユーザーまたはワークロード クラスターの場合は、次の helm コマンドを実行して、作成された名前空間にTridentオペレーターをインストールします。</block>
-  <block id="12d34565a0d56eff4f8d3f99b138e11a" category="list-text">Tridentポッドが稼働していることを確認します。</block>
-  <block id="90c737937862ee43d6c8a603f57c584c" category="paragraph">Trident Operator のインストールが完了したら、使用している特定のNetAppストレージ プラットフォームのバックエンドを構成する必要があります。  Tridentのセットアップと構成を続行するには、以下のリンクに従ってください。</block>
-  <block id="22a4588280cd86e71d0de823755babb8" category="list-text"><block ref="22a4588280cd86e71d0de823755babb8" category="inline-link-macro-rx"></block></block>
-  <block id="dc80aa628678aebc84174e0a8fa38b0f" category="list-text"><block ref="dc80aa628678aebc84174e0a8fa38b0f" category="inline-link-macro-rx"></block></block>
-  <block id="02e89171828ae641092f5f7cc1c95cbf" category="summary">VMware Tanzu は、企業がアプリケーションとそれが実行されるインフラストラクチャを最新化できるようにする製品ポートフォリオです。  VMware Tanzu のフルスタック機能により、開発チームと IT 運用チームが単一のプラットフォーム上で統合され、オンプレミスとハイブリッド クラウド環境全体でアプリケーションとインフラストラクチャの両方の最新化が一貫して実現され、より優れたソフトウェアが継続的に本番環境に提供されます。</block>
-  <block id="969f4a20d38cf3096e1659b96da1b729" category="doc">VMware Tanzu の概要</block>
-  <block id="c395793804bd9dfa82ff727781faf3c5" category="inline-image-macro">VMware Tanzu ポートフォリオ</block>
-  <block id="867ff2b59e0cd49601ca069c3402cad9" category="paragraph"><block ref="867ff2b59e0cd49601ca069c3402cad9" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="3614585a8ed284306a5eadc9e31585b8" category="paragraph">Tanzuポートフォリオのさまざまな製品とその機能の詳細については、ドキュメントをご覧ください。<block ref="e9fed892b98a6bbccfc15bfe67c5aa96" category="inline-link-macro-rx"></block> 。</block>
-  <block id="1f0b2272162c619b2340940500e393a7" category="paragraph">Tanzu の Kubernetes Operations カタログに関しては、VMware は Tanzu Kubernetes Grid のさまざまな実装を提供しており、それらはすべてさまざまなプラットフォーム上の Tanzu Kubernetes クラスターのライフサイクルをプロビジョニングおよび管理します。  Tanzu Kubernetes クラスターは、VMware によって構築およびサポートされている本格的な Kubernetes ディストリビューションです。</block>
-  <block id="caaf1eb22b79381e3d4a2b2b9a7d1698" category="paragraph">NetApp は、VMware Tanzu ポートフォリオの次の製品の導入と相互運用性を自社のラボでテストし、検証しました。</block>
-  <block id="5849f8d5cb1d66cb095da163e533dea7" category="inline-link-macro">VMware Tanzu Kubernetes グリッド (TKG)</block>
-  <block id="f3268c157270b8d05ce7e208f2957c97" category="list-text"><block ref="f3268c157270b8d05ce7e208f2957c97" category="inline-link-macro-rx"></block></block>
-  <block id="c840af216b38aff44cc5ba246da60e17" category="inline-link-macro">VMware Tanzu Kubernetes グリッド サービス (TKGS)</block>
-  <block id="f79ac5bf38fec66c0f916428aef5020d" category="list-text"><block ref="f79ac5bf38fec66c0f916428aef5020d" category="inline-link-macro-rx"></block></block>
-  <block id="d6a1da4b26eb2ae838f5db5e80c44aee" category="inline-link-macro">VMware Tanzu Kubernetes グリッド統合 (TKGI)</block>
-  <block id="9b654dd5c66eec24f6de8c57f8e0b5b3" category="list-text"><block ref="9b654dd5c66eec24f6de8c57f8e0b5b3" category="inline-link-macro-rx"></block></block>
-  <block id="516a32af5ad38dd3b9ca9c156da39add" category="inline-link-macro">VMware vSphere with Tanzu (vSphere ポッド)</block>
-  <block id="815dba1e9412705129e94ecfc5dc1617" category="list-text"><block ref="815dba1e9412705129e94ecfc5dc1617" category="inline-link-macro-rx"></block></block>
-  <block id="f78d920d9d248820ddf7a3acdd9a34c0" category="doc">VMware vSphere with Tanzu の概要</block>
-  <block id="25e19f6e213533d24e711ce5e6738fa9" category="paragraph">VMware vSphere with Tanzu (vSphere Pods とも呼ばれます) を使用すると、VMware vSphere 環境内の ESXi ハイパーバイザー ノードをベアメタル Kubernetes 環境のワーカー ノードとして使用できます。</block>
-  <block id="bac31e763c1b2955be0a10de0a4d8012" category="inline-image-macro">VMware vSphere と Kubernetes</block>
-  <block id="55cadfad96a5fb8de4a2eb4e72243fcf" category="paragraph"><block ref="55cadfad96a5fb8de4a2eb4e72243fcf" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="c2e55cf1007600b25e0708bfe26a41f3" category="paragraph">VMware vSphere with Tanzu 環境は、ネイティブ TKGS クラスターと同様に、ワークロード管理で有効化されます。</block>
-  <block id="c2556907e1f90b93c9c43e198113de8b" category="paragraph">Kubernetes に高可用性のコントロール プレーンを提供するために仮想化されたスーパーバイザー クラスターが作成され、ユーザーのリソース分離を確保するためにアプリケーションごとに個別のネームスペースが作成されます。</block>
-  <block id="9ff6aa8ffa487db2f0aebe3967972d77" category="inline-image-macro">スーパーバイザークラスター</block>
-  <block id="1761bcd39bf9fa8ecdfd58e91b9037e3" category="paragraph"><block ref="1761bcd39bf9fa8ecdfd58e91b9037e3" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="9e2885b693a2045e931fda4aeb8bf28f" category="paragraph">VMware vSphere with Tanzu が有効になっている場合、各 ESXi ホストに Spherelet アプリケーションがインストールされ、構成されます。これにより、各ノードは Kubernetes デプロイメントでワーカーとして機能し、各ノードにデプロイされたポッドを管理できるようになります。</block>
-  <block id="b3ba0fe968ce39dcfc6fe8cc0f1b02da" category="inline-image-macro">ネームスペース</block>
-  <block id="15a1e1d49a1faf02dac4c8897f8c5550" category="paragraph"><block ref="15a1e1d49a1faf02dac4c8897f8c5550" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="c44d7c5351501c027261c0480a658d6d" category="paragraph">現在、VMware vSphere with Tanzu および vSphere Pods は、ローカル vSphere CSI ドライバーのみをサポートしています。これは、管理者が vSphere クライアントでストレージ ポリシーを作成し、vSphere データストアとして現在使用可能なストレージ ターゲットから選択することで機能します。これらのポリシーは、コンテナ化されたアプリケーションの永続ボリュームを作成するために使用されます。</block>
-  <block id="c5367fd2a82638dd6433d7e57924a2ca" category="admonition">現在、外部のONTAPおよび Element ストレージ アレイへの直接接続を可能にするNetApp Trident CSI ドライバーはサポートされていませんが、これらのNetAppストレージ システムは vSphere 環境のプライマリ ストレージをサポートするために使用されることが多く、 NetApp の高度なデータ管理およびストレージ効率ツールをこのように使用できます。</block>
-  <block id="70aaffec040bcf9e5cf77c0ccabb8f11" category="paragraph">VMware vSphere with Tanzuの詳細については、ドキュメントをご覧ください。<block ref="0cdaad1423fdb034ad0ee788d57a7a82" category="inline-link-macro-rx"></block> 。</block>
-  <block id="07f15dfb0f84a062c67184adcee67a8b" category="summary">このリファレンス ドキュメントでは、NetApp によって検証された複数の異なるデータ センター環境に Tanzu Kubernetes Grid (TKG)、Tanzu Kubernetes Grid Service (TKGS)、または Tanzu Kubernetes Grid Integrated (TKGI) として導入された、さまざまなNetApp Tanzu Kubernetes ソリューションの導入検証について説明します。</block>
-  <block id="bec8bc9f783c7d01005b7e64d1ad1785" category="doc">NVA-1166: VMware Tanzu とNetApp</block>
-  <block id="9d9ae4f8dc85767d5d0c3f276a875e82" category="paragraph">このリファレンス ドキュメントでは、NetApp によって検証された複数の異なるデータ センター環境に Tanzu Kubernetes Grid (TKG)、Tanzu Kubernetes Grid Service (TKGS)、または Tanzu Kubernetes Grid Integrated (TKGI) として導入された、さまざまなNetApp Tanzu Kubernetes ソリューションの導入検証について説明します。また、永続ストレージの管理のためのNetAppストレージ システムおよびTridentストレージ オーケストレータとのストレージ統合、およびその永続ストレージを使用するステートフル アプリケーションのバックアップとクローン作成のためのTrident Protect についても説明します。最後に、このドキュメントでは、ソリューションの統合と検証のビデオ デモを提供します。</block>
-  <block id="c0a14f456cfcfac669f2cf374f60561b" category="paragraph">VMware Tanzu with NetAppソリューションは、次のようなユースケースを持つ顧客に卓越した価値を提供するように設計されています。</block>
-  <block id="8cc1d80dbdd5d6d142f0173d8c8f2261" category="list-text">VMware vSphere 上に展開され、 NetAppストレージ システムと統合された VMware Tanzu Kubernetes Grid オファリングを簡単に展開および管理できます。</block>
-  <block id="8796988ff3c4f065733c3b887d886609" category="list-text">エンタープライズ コンテナと仮想化ワークロードを VMware Tanzu Kubernetes Grid 製品と組み合わせたパワー。</block>
-  <block id="596baabed2617a4fc2b73cb88716cc97" category="list-text">NetAppストレージおよびNetApp Trident製品スイートと組み合わせて使用した場合の VMware Tanzu の機能を強調した実際の構成と使用例。</block>
-  <block id="1c038507164c812de63a2e51d6ec1ddb" category="list-text">Trident Protect を使用して、 NetAppストレージ システムにデータが存在する VMware Tanzu Kubernetes Grid クラスタに展開されたコンテナ化されたワークロードのアプリケーション整合性のある保護または移行。</block>
-  <block id="29375f7cc2c5eece7fdd9c99f40eb3f8" category="list-text">オンプレミスのデータセンターとクラウドの両方でコンテナを実行するハイブリッド クラウド モデルで展開する機能。</block>
-  <block id="ddea0381617b5a4b43a0a98a440c6658" category="paragraph">VMware Tanzu with NetApp はこれらの課題を認識し、顧客が選択したハイブリッド クラウド環境に VMware Tanzu Kubernetes サービスを導入することで、それぞれの懸念に対処するソリューションを提供します。</block>
-  <block id="c57f369df48137f738543c0e5012006c" category="paragraph">VMware Tanzu with NetAppソリューションは、次の主要コンポーネントで構成されています。</block>
-  <block id="67d7b0b61202e57bcae8cda82f02e2b3" category="section-title">VMware Tanzu Kubernetes プラットフォーム</block>
-  <block id="55ad4cb8f0feecb71e184ef92cff1f70" category="paragraph">VMware Tanzu にはさまざまなバージョンがあり、 NetAppのソリューション エンジニアリング チームがラボで検証しています。 Tanzu の各リリースはNetAppストレージ ポートフォリオと正常に統合され、それぞれが特定のインフラストラクチャの要求を満たすのに役立ちます。次の箇条書きのハイライトでは、このドキュメントで説明されている Tanzu の各バージョンの機能と提供内容について説明します。</block>
-  <block id="f377bdd54f0f567b139a5913567466f1" category="paragraph">*VMware Tanzu Kubernetes グリッド (TKG)*</block>
-  <block id="45915535ce313f81567f3b3c41571fe9" category="list-text">VMware vSphere 環境にデプロイされた標準的なアップストリーム Kubernetes 環境。</block>
-  <block id="32fcd5c42dc47b5cc021d74a489dee4f" category="list-text">以前は Essential PKS として知られていました (2019 年 2 月の Heptio 買収により)。</block>
-  <block id="16196833d09cc8d52a1ef3790b4e15d3" category="list-text">TKG は、vSphere 6.7U3 以降のサポートのために、個別の管理クラスタ インスタンスとともに展開されます。</block>
-  <block id="08f2ff1c0826ffc53a185010cce7dac7" category="list-text">TKG デプロイメントは、AWS または Azure を使用してクラウドにもデプロイできます。</block>
-  <block id="15aa7eec2d32a1ba74b5cea8af5241ec" category="list-text">Windows または Linux ワーカー ノード (Ubuntu/Photon) の使用を許可します。</block>
-  <block id="89a8813ef0f3f2c1a9b0f20dab87e2a2" category="list-text">コントロール プレーンには、NSX-T、HA プロキシ、AVI ネットワーク、またはロード バランサを使用できます。</block>
-  <block id="2ad16c86af27df82ae725dfd15176212" category="list-text">TKG は、アプリケーション/データ プレーンに対して MetalLB をサポートします。</block>
-  <block id="bc4ebc6a20b126e1810986e5737ff887" category="list-text">vSphere CSI だけでなく、 NetApp Tridentなどのサードパーティ CSI も使用できます。</block>
-  <block id="7a3368d887604b1812f8f796b668f0e7" category="paragraph">*VMware Tanzu Kubernetes グリッド サービス (TKGS)*</block>
-  <block id="27077307fac1683851c72a97ba11c62e" category="list-text">TKGS は、vSphere 7.0U1 以降でのみ、スーパーバイザー クラスタおよびワークロード クラスタと共にデプロイされます。</block>
-  <block id="3ee27cde76894c76ad60736ecbca78da" category="list-text">TKGS は、アプリケーション/データ プレーンに対して MetalLB をサポートします。</block>
-  <block id="443c9bd7eeb4bc3d39f67cc555b4aab2" category="list-text">Tanzu を使用した vSphere Pod のサポートを提供し、環境内の有効な ESXi ホスト上でポッドを直接実行できるようにします。</block>
-  <block id="8da30835717bc9e00a9ea2b89d75d943" category="paragraph">*VMWare Tanzu Kubernetes グリッド統合 (TKGI)*</block>
-  <block id="f4ef19f9ee886fa602632ef3f35019ad" category="list-text">以前は Enterprise PKS として知られていました (2019 年 2 月の Heptio 買収により)。</block>
-  <block id="28789df26df63aa440b3aded601e67a6" category="list-text">NSX-T、HA Proxy、または Avi を使用できます。独自のロードバランサーを提供することもできます。</block>
-  <block id="2b681f710a75cd56332534e50fe625ff" category="list-text">vSphere 6.7U3 以降、AWS、Azure、GCP でサポートされます。</block>
-  <block id="f09eefe449cf027cce033ceb064c2fae" category="list-text">ウィザードによるセットアップにより、簡単に導入できます。</block>
-  <block id="78c9a89b579a1005676bf4b1a4b3aad7" category="list-text">BOSH によって管理される制御された不変の VM で Tanzu を実行します。</block>
-  <block id="9836f3d455b09e5a5216629884a86272" category="list-text">vSphere CSI だけでなく、 NetApp Tridentなどのサードパーティ CSI も使用できます (いくつかの条件が適用されます)。</block>
-  <block id="22bd1c4adfe1c3f7d3dc00763a7a8d40" category="paragraph">*vSphere と Tanzu (vSphere Pods)*</block>
-  <block id="4f50bac068dbe84c04d257f75bb42142" category="list-text">vSphere ネイティブ ポッドは、完全な分離のために規定された仮想ハードウェアを備えた薄い Photon ベースのレイヤーで実行されます。</block>
-  <block id="c8cefb07aba3cc260670993281c9bef5" category="list-text">NSX-T が必要ですが、これにより Harbor イメージ レジストリなどの追加機能のサポートが可能になります。</block>
-  <block id="b603aa094817eb0510887a841cc71df8" category="list-text">TKGS などの仮想スーパーバイザー クラスタを使用して vSphere 7.0U1 以降に展開および管理されます。  ESXi ノード上でポッドを直接実行します。</block>
-  <block id="cf3b96589f75768a855cebe2679e5b8b" category="list-text">vSphere が完全に統合されており、vSphere 管理による最高の可視性と制御を実現します。</block>
-  <block id="3b050b735b1eb713cc1b3816851e3060" category="list-text">最高レベルのセキュリティを実現する分離された CRX ベースのポッド。</block>
-  <block id="e7004adb0d2f74954305a1023249e642" category="list-text">永続ストレージには vSphere CSI のみをサポートします。サードパーティのストレージ オーケストレーターはサポートされていません。</block>
-  <block id="ebf1056dd3448ca85af4607c7c9984b3" category="paragraph">Trident は、VMware Tanzu を含むコンテナおよび Kubernetes ディストリビューション向けのオープンソースで完全にサポートされているストレージ オーケストレーターです。</block>
-  <block id="67c6ecbcd91c613e8659b3f0c4b01510" category="cell">9.9.1</block>
-  <block id="63355c54bd7e8ff73915da41610ec6f7" category="cell">22.04.0</block>
-  <block id="a56837df79ae6671b6b511c330431135" category="cell">VMware Tanzu Kubernetes グリッド</block>
-  <block id="a3e69dd4d9f892aab0dcbf0a5dd246e2" category="cell">1.4+</block>
-  <block id="22053fd2d26d3a313aea03b09e9a776c" category="cell">VMware Tanzu Kubernetes グリッド サービス</block>
-  <block id="c99c6e88d4de8db879b1b5ec64d1f7ed" category="cell">0.0.15 [vSphere 名前空間]</block>
-  <block id="8eb1302ead60c09b6d757b2b7ab84040" category="cell">1.22.6 [スーパーバイザークラスター Kubernetes]</block>
-  <block id="caf617dd6edf29fd289caff7469ea66b" category="cell">VMware Tanzu Kubernetes Grid 統合</block>
-  <block id="1d5bc9367c9565bbe31cc00aa1f870a4" category="cell">1.13.3</block>
-  <block id="23d300c91b3d48f94c1e7f5953ad3e5e" category="cell">7.0U3</block>
-  <block id="5d9dd4ee62c5446f01e895cd118d98dd" category="cell">VMware NSX-T データセンター</block>
-  <block id="7bc09c21b8fa1161768459982f0ec89e" category="cell">ネットワークとセキュリティ</block>
-  <block id="b1179856b0372cb8777975cb658548ac" category="cell">3.1.3</block>
-  <block id="cc540661734771d2e0272e8b4ef5c228" category="cell">VMware NSX アドバンスド ロードバランサ</block>
-  <block id="50382c1137e78c7c038faabadb85d9fd" category="cell">ロード バランサ</block>
-  <block id="d08680d7e9b745c4d4b81a2d6df7a012" category="cell">20.1.3</block>
-  <block id="96b5419ab713b49685af4d923930ce22" category="summary">iSCSI 経由で永続ボリューム用のNetApp ONTAPストレージ システムを VMware Tanzu Kubernetes クラスターと統合するには、まず各ノードにログインし、iSCSI ボリュームをマウントするための iSCSI ユーティリティまたはパッケージを構成してノードを準備する必要があります。</block>
-  <block id="da883967924519350a1c423bd85906dd" category="paragraph">iSCSI 経由で永続ボリューム用のNetApp ONTAPストレージ システムを VMware Tanzu Kubernetes クラスターと統合するには、まず各ノードにログインし、iSCSI ボリュームをマウントするための iSCSI ユーティリティまたはパッケージを構成してノードを準備する必要があります。そのためには、ここに記載されている手順に従ってください。<block ref="fb2092145032d18c9376d95ca453f9a7" category="inline-link-macro-rx"></block> 。</block>
-  <block id="50c35de69200a8b9e4be302372e74851" category="admonition">NetApp、VMware Tanzu Kubernetes クラスタの NAT 展開にはこの手順を推奨していません。</block>
-  <block id="bfc5022105ee1678e96b6f9991116647" category="admonition">TKGI は、不変の構成イメージを実行する Tanzu Kubernetes クラスターのノードとして Bosh VM を使用します。Bosh VM 上の iSCSI パッケージの手動変更は、再起動後も保持されません。したがって、 NetApp は、TKGI によって導入および運用される Tanzu Kubernetes クラスターの永続ストレージには NFS ボリュームを使用することを推奨しています。</block>
-  <block id="16e4431f428a4ec8abdfbee6ec2c2889" category="paragraph">iSCSI ボリューム用にクラスター ノードを準備したら、ストレージ システムとの通信を可能にするバックエンドを作成する必要があります。このソリューションでは基本的なバックエンドを構成しましたが、よりカスタマイズされたオプションを探している場合は、ドキュメントを参照してください。<block ref="f151238ff3a8d488c82b6303d676eaa3" category="inline-link-macro-rx"></block> 。</block>
-  <block id="aaa6c6e969e6e978f9a8bce54e31b5f7" category="section-title">ONTAPでSVMを作成する</block>
-  <block id="31cd969d7cf1970993d449ccccaeddfe" category="paragraph">ONTAPで SVM を作成するには、次の手順を実行します。</block>
-  <block id="b1c04b7e96694453a1307ecc81208ae5" category="list-text">ONTAP System Manager にログインし、[ストレージ] &gt; [ストレージ VM] に移動して、[追加] をクリックします。</block>
-  <block id="70d94c82da2765251783d499556773b7" category="list-text">SVM の名前を入力し、iSCSI プロトコルを有効にして、データ LIF の詳細を入力します。</block>
-  <block id="9305b9f7555d613129963713b0c214e6" category="inline-image-macro">iSCSI SVM データ LIF</block>
-  <block id="3a0dcb6f7ae7e98cd4c0dc0377d379db" category="paragraph"><block ref="3a0dcb6f7ae7e98cd4c0dc0377d379db" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="f9edece6d4cf48c209a5fe7da61f0ecb" category="list-text">SVM 管理アカウントの詳細を入力し、「保存」をクリックします。</block>
-  <block id="2b44a7a64e9a3efc0b4e423d6339aaa7" category="inline-image-macro">iSCSI SVM管理</block>
-  <block id="3a282c7f23ef48021ba2d883b8be673b" category="paragraph"><block ref="3a282c7f23ef48021ba2d883b8be673b" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="f61c0f70e825557a7be7fe0ac432bdf7" category="list-text">アグリゲートを SVM に割り当てるには、[ストレージ] &gt; [ストレージ VM] に移動し、新しく作成した SVM の横にある省略記号をクリックして、[編集] をクリックします。  「ボリュームの作成を優先ローカル階層に制限する」チェックボックスをオンにして、必要なアグリゲートを接続します。</block>
-  <block id="85c5adc69f6da0ebb2ebf365c4211508" category="inline-image-macro">SVM集約割り当て</block>
-  <block id="0eb036df6e8abe29710a3e752388b0be" category="paragraph"><block ref="0eb036df6e8abe29710a3e752388b0be" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="03c8ff4111bb9cfc032f786c9bd7c6e8" category="section-title">バックエンドとストレージクラスを作成する</block>
-  <block id="e15177ebae9bfb9adab94a9ccf5f2e96" category="list-text">NFS を提供するNetApp ONTAPシステムの場合、backendName、managementLIF、dataLIF、svm、ユーザー名、パスワードなどの詳細を含むバックエンド構成ファイルをジャンプホストに作成します。</block>
-  <block id="c75cfbdcbbe9d48dc121fc816d4a2ccf" category="list-text">次のコマンドを実行して、 Tridentバックエンドを作成します。</block>
-  <block id="74ede5d2e56e369e9eda54f4095292f5" category="list-text">バックエンドを作成したら、次にストレージ クラスを作成する必要があります。次のサンプル ストレージ クラス定義では、必須フィールドと基本フィールドが強調表示されています。パラメータ<block ref="55b56fb238360663afa6230ad82e74a0" prefix=" " category="inline-code"></block>新しく作成されたTridentバックエンドのストレージ ドライバーを反映する必要があります。また、後の手順で参照する必要がある名前フィールドの値にも注意してください。</block>
-  <block id="cf2c5963ca8332d4f43e6c3a955da4da" category="admonition">オプションフィールドがあります<block ref="7cfbb6f07899c8071ff38e69dca190e2" prefix=" " category="inline-code"></block>このファイルで定義されます。  iSCSI バックエンドでは、この値を特定の Linux ファイルシステム タイプ (XFS、ext4 など) に設定するか、削除して Tanzu Kubernetes クラスターが使用するファイルシステムを決定できるようにすることができます。</block>
-  <block id="0286d73690ed0ef54af06bd9175945cd" category="list-text">kubectl コマンドを実行してストレージ クラスを作成します。</block>
-  <block id="8d8b689e86dbd34b31294b3f829db499" category="list-text">ストレージ クラスを作成したら、最初の永続ボリューム要求 (PVC) を作成する必要があります。 PVC 定義のサンプルを以下に示します。必ず<block ref="ee822781a3bd0ae0f8f6331dc4865d9c" prefix=" " category="inline-code"></block>フィールドは、作成したストレージ クラスの名前と一致します。  PVC 定義は、プロビジョニングするワークロードに応じて必要に応じてさらにカスタマイズできます。</block>
-  <block id="c764ff1d25a2f9241afec7161127f74d" category="list-text">kubectl コマンドを発行して PVC を作成します。作成するバックアップボリュームのサイズによっては、作成に時間がかかる場合があります。そのため、プロセスが完了するまで監視することができます。</block>
-  <block id="fa6f7af807ffa3ac6e2efb5c31463a4f" category="paragraph">NFS 経由でTrident をNetApp ONTAPストレージ システムと統合できるようにするには、ストレージ システムとの通信を可能にするバックエンドを作成する必要があります。このソリューションでは基本的なバックエンドを構成していますが、よりカスタマイズされたオプションを探している場合は、ドキュメントを参照してください。<block ref="f72d871ae286e7b7cf7d9ea12426661a" category="inline-link-macro-rx"></block> 。</block>
-  <block id="f53bd08113ff367a9bcd470b70a036d8" category="list-text">SVM の名前を入力し、NFS プロトコルを有効にして、「NFS クライアント アクセスを許可する」チェックボックスをオンにし、ワークロード クラスターでボリュームを PV としてマウントできるようにするために、ワーカー ノードが存在するサブネットをエクスポート ポリシー ルールに追加します。</block>
-  <block id="0cdb2a8f015b7a7d81ab5c3d73de88a5" category="inline-image-macro">NFSを使用したSVMの作成</block>
-  <block id="0e439987dbbd5cdf7a259d858b733fb5" category="paragraph"><block ref="0e439987dbbd5cdf7a259d858b733fb5" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="e570ad3092406b5118fcd78a9374e048" category="admonition">NSX-T を使用したユーザー クラスタまたはワークロード クラスタの NAT されたデプロイメントを使用している場合は、Egress サブネット (TKGS0 の場合) または Floating IP サブネット (TKGI の場合) をエクスポート ポリシー ルールに追加する必要があります。</block>
-  <block id="8f254daa71e82320e11e55258b095b00" category="list-text">データ LIF の詳細と SVM 管理アカウントの詳細を入力し、[保存] をクリックします。</block>
-  <block id="02ffb816541fbf18a204c877564fb92e" category="inline-image-macro">SVMデータLIFとSVM管理</block>
-  <block id="06cc454005d6e09b6aa8c6816b293e73" category="paragraph"><block ref="06cc454005d6e09b6aa8c6816b293e73" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="491df82049a4ac2d8b8b2fe6b773d65d" category="list-text">集計を SVM に割り当てます。  [ストレージ] &gt; [ストレージ VM] に移動し、新しく作成された SVM の横にある省略記号をクリックして、[編集] をクリックします。  「ボリュームの作成を優先ローカル階層に制限する」チェックボックスをオンにして、必要なアグリゲートを接続します。</block>
-  <block id="d0c0f45aef081aad9098fd68b293824e" category="paragraph"><block ref="d0c0f45aef081aad9098fd68b293824e" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="95fdf7e31ffa1073f8c42359589c334e" category="list-text">Tridentがインストールされるユーザー クラスターまたはワークロード クラスターの NAT されたデプロイメントの場合、SNAT が原因で、ストレージ マウント要求が非標準ポートから到着する可能性があります。デフォルトでは、 ONTAP はルート ポートから発信されたボリューム マウント要求のみを許可します。したがって、 ONTAP CLI にログインし、非標準ポートからのマウント要求を許可するように設定を変更します。</block>
-  <block id="ad2008cda12d454189828df19b2f9742" category="list-text">バックエンドを作成したら、次にストレージ クラスを作成する必要があります。次のサンプル ストレージ クラス定義では、必須フィールドと基本フィールドが強調表示されています。パラメータ<block ref="55b56fb238360663afa6230ad82e74a0" prefix=" " category="inline-code"></block>新しく作成されたTridentバックエンドのストレージ ドライバーを反映する必要があります。</block>
   <block id="34ea8ef199c59f90c815aa0dd2bc6fd6" category="summary">このドキュメントに記載されている機能の一部を紹介します。</block>
   <block id="27619261561b45c6dad352a91cdae06e" category="doc">NetAppを使用した Anthos に関するビデオを見る</block>
   <block id="4c57bd0d34bd5f3e139a2dd80505a84e" category="paragraph">厳選された動画とデモを通じて、 NetAppと Google Anthos の主な機能と導入シナリオをご確認ください。これらのリソースでは、ベスト プラクティス、統合手順、実際の使用例を紹介しています。</block>
@@ -1771,14 +1573,6 @@
   <block id="ec765b62758379ce6dcc1dc7ff0258bc" category="paragraph">**GitHub のサンプル Ansible コード**<block ref="df3073ceed8f3ce793912644c2d5a488" category="inline-link-macro-rx"></block></block>
   <block id="e6b62a38cb04c5bd5e6dc934c39d11bf" category="section-title">クラウドとハイブリッドの統合</block>
   <block id="c9e349766e4968ee277d240ff7b169e6" category="video-title">OpenShift Virtualization を使用した仮想マシンの導入 - Red Hat OpenShift とNetApp</block>
-  <block id="71417a3dd01aa388d35bf54aa4c401fa" category="summary">このページには、このドキュメントで説明されている機能の一部を紹介するビデオへのリンクが含まれています。</block>
-  <block id="19c086b7a4d878ee4cb367a052e05beb" category="doc">VMware TanzuとNetAppに関するビデオを見る</block>
-  <block id="573dbf062a71298ebe08dc9251428738" category="paragraph">永続的なストレージのプロビジョニング、アプリケーションのクローン作成、 Tridentを使用したデータ保護などの主要な機能を紹介する一連のビデオを通じて、VMware Tanzu とNetAppの統合について詳しく説明します。</block>
-  <block id="51d0dd539358548f8d26d0b978f65539" category="admonition">これらのデモは、TKG バージョン 1.3.1 とTrident Protect バージョン 21.12 を使用して技術プレビューとして記録されました。公式にサポートされているバージョンについては、サポート マトリックスを参照してください。</block>
-  <block id="d064bf8df43cbf9dd106ab99d45f3cd8" category="section-title">永続的なストレージのプロビジョニング</block>
-  <block id="3f9db654808cbd9588d5eb00104fe0e4" category="video-title">VMware Tanzu で永続ストレージをプロビジョニングするにはTridentを使用します - VMware Tanzu with NetApp</block>
-  <block id="ed93b88d3cbf5bf6bf5bd75716682e15" category="section-title">アプリケーションの複製とデータ保護</block>
-  <block id="a2fcb579cb08f140ede4cd4024b29e9f" category="video-title">Trident Protect を使用して VMWare Tanzu のアプリケーションをクローンする - VMware Tanzu with NetApp</block>
   <block id="1ff76fb7d3302370628b1ccc6226b6a5" category="summary">NetAppコンテナ ソリューション資料への最近の変更のログ。</block>
   <block id="fb548f8c1b2df619579952261b15aaa1" category="doc">NetAppコンテナソリューションの新機能</block>
   <block id="7900a4657b5879f994050b5813a75ce6" category="paragraph">コンテナ ソリューションの新機能について学習します。</block>
@@ -1811,24 +1605,19 @@
   <block id="c232cfc0ae9806d3ad6d34a51df58229" category="sidebar">Red Hat OpenShiftとNetApp</block>
   <block id="1758083ef63bb4ae8b59ef124a858366" category="sidebar">Red Hat OpenShiftについて</block>
   <block id="9bcb78f243173b51be948352a4456070" category="sidebar">AWS 上の OpenShift について</block>
-  <block id="1722f248c3b6574ad844b53f30ac236c" category="sidebar">VMware Tanzu とNetApp</block>
-  <block id="6d1f29cc35a6c00cd340f77f69cdd538" category="sidebar">VMware Tanzuについて</block>
   <block id="0906b68b3611de6c610f9203cb79845d" category="sidebar">パートナーソリューション</block>
   <block id="608fd0ec5cdb56ad3d3e6d9595ec6f19" category="sidebar">Anthos ウェブサイト</block>
   <block id="4f08bd7fd1651ff7d7a087a393044ace" category="sidebar">Red Hat OpenShiftのウェブサイト</block>
-  <block id="1dbfd92530de9ca821817f92dca04cbb" category="sidebar">VMware Tanzu ウェブサイト</block>
   <block id="e95b75f557af9310f3d9c6299286a533" category="sidebar">ソリューションのリクエストとフィードバック</block>
   <block id="22d04ecae9fae88d0b8d4548a46a545b" category="sidebar">リクエストの自動化</block>
   <block id="776ab15fef436c9315c14738509d299e" category="sidebar">新しい解決策を提案する</block>
   <block id="cfdaac8ef24ac5b2612570c34da00954" category="sidebar">ソリューションのフィードバックを提供する</block>
-  <block id="1148d6bcb0d421cca0d8fae58b1afd7b" category="sidebar">Anthos、OpenShift、VMware Tanzu プラットフォーム全体のコンテナ ソリューションを紹介する NetApp の包括的なビデオ ライブラリをご覧ください。各コレクションは、特定のユースケースと統合シナリオに重点を置いています。</block>
   <block id="bc436006a66168dc26ba4aaa56259fc4" category="sidebar">NetAppのコンテナに関するビデオとデモを見る</block>
   <block id="9b43113f4ddf8646d9d3550adc52d9cc" category="sidebar">NetAppのコンテナソリューションの多くの機能を説明するビデオとデモのシリーズ</block>
   <block id="57e5461f846280ec63710c1932950345" category="sidebar">Anthos のデプロイとセットアップ</block>
   <block id="7598fa17e487d462cc4c58c4f4edc666" category="sidebar">Tridentの展開とセットアップ</block>
   <block id="ae05797d002b77737a10ce3d62b7521d" category="sidebar">コンテナソリューション</block>
   <block id="554cfab3938e21d9270bd6b75931f96f" category="sidebar">ビデオ</block>
-  <block id="6015fcf0a9cd608ed0e3aa71296f41d4" category="sidebar">VMware タンズ</block>
   <block id="65002e037ae0f2ae1b3677530fc669d8" category="sidebar">Anthos について学ぶ</block>
   <block id="ca76b01854045afd9b2809e7bcc687f8" category="sidebar">Anthos の概要</block>
   <block id="aff9a6321d1ed0024673788596604472" category="sidebar">NetAppストレージ統合の概要</block>
@@ -1870,8 +1659,10 @@
   <block id="092bf78f9c97ba171b8232ddff585392" category="sidebar">追加情報</block>
   <block id="bdede1d84f059aba6c8c7f443f0dcf8a" category="sidebar">FSxN を使用した AWS 上の Red Hat OpenShift サービス</block>
   <block id="5e21330fc0890f55a17acc561df2e1f0" category="sidebar">AWS 上の OpenShift サービスのワークフロー</block>
-  <block id="aca07c605f2ab09ae67306aeaf2d51a7" category="sidebar">VMware Tanzu 製品ポートフォリオ</block>
-  <block id="f60552c130312d00e2350a8a5f21c79f" category="sidebar">Tanzu Kubernetes グリッドサービス</block>
-  <block id="917f58d29c572d69948f57b81064c187" category="sidebar">Tanzu Kubernetes Grid 統合エディション</block>
-  <block id="d3f65d629f805f1540f1e23b1a764393" category="sidebar">VMware vSphere と Tanzu</block>
+  <block id="ff98a347124fc4408f955fa479a08047" category="paragraph">アフィニティ グループを構成するには、 VMware vSphereのバージョンに応じて以下の適切なリンクを参照してください。</block>
+  <block id="70dec797486e96f0b66f5b6f6232e97e" category="inline-link">vSphere 9.0 ドキュメント: DRS アフィニティ ルールの使用</block>
+  <block id="28f3c4952f8984dbba3cb64144d23c55" category="paragraph"><block ref="013ce530ab8ab67ba2512060eb3ef551" category="inline-link-rx"></block>. hhttps://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/7-0/vsphere-resource-management/using-drs-clusters-to-manage-resources/using-vm-host-affinity-rules.html[vSphere 7.0 ドキュメント: DRS アフィニティ ルールの使用^]。</block>
+  <block id="75aced0054edcf64f0ce28e9417b9ecc" category="paragraph">このような場合、すぐにクラスターを展開せずにウィザードを実行してタスクを実行できます。代わりに、後でクラスターを展開できる構成ファイルが作成されます。これは、IPI のデフォルトを変更する必要がある場合や、マルチテナントなどの他の用途のために環境内に複数の同一クラスターを展開する場合に非常に便利です。OpenShiftのカスタマイズされたインストール構成の作成の詳細については、以下を参照してください。 <block ref="d119246d08531f99b62e09f0007159a5" category="inline-link-macro-rx"></block>。</block>
+  <block id="7eec9c349f16a2215195b8598e8dea11" category="paragraph">アフィニティグループを構成するには、 <block ref="cf8e958cf9893349b91e0cb26eb4a70a" category="inline-link-macro-rx"></block>。</block>
+  <block id="b9aaad555d183234dc95454f14ebcc62" category="sidebar">Anthos および OpenShift プラットフォーム全体のコンテナ ソリューションを紹介する NetApp の包括的なビデオ ライブラリをご覧ください。各コレクションは、特定のユースケースと統合シナリオに重点を置いています。</block>
 </blocks>

@@ -2,8 +2,7 @@
 indexpage:
   title: NetAppのコンテナに関するビデオとデモを見る
   summary: NetAppのコンテナソリューションの多くの機能を説明するビデオとデモのシリーズ
-  lead: Anthos、OpenShift、VMware Tanzu プラットフォーム全体のコンテナ ソリューションを紹介する NetApp の包括的なビデオ
-    ライブラリをご覧ください。各コレクションは、特定のユースケースと統合シナリオに重点を置いています。
+  lead: Anthos および OpenShift プラットフォーム全体のコンテナ ソリューションを紹介する NetApp の包括的なビデオ ライブラリをご覧ください。各コレクションは、特定のユースケースと統合シナリオに重点を置いています。
   tiles:
   - title: NetAppと Anthos
     links:
@@ -23,9 +22,3 @@ indexpage:
       url: openshift-videos.html#automation-and-integration
     - title: クラウドとハイブリッドの統合
       url: openshift-videos.html#cloud-and-hybrid-integrations
-  - title: VMware Tanzu とNetApp
-    links:
-    - title: 永続的なストレージのプロビジョニング
-      url: tanzu-videos.html#persistent-storage-provisioning
-    - title: アプリケーションの複製とデータ保護
-      url: tanzu-videos.html#application-cloning-and-data-protection

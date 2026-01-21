@@ -22,7 +22,6 @@ sidebar:
   - section: anthos
   - section: openshift
   - section: openshift-aws
-  - section: tanzu
   - title: ビデオ
     url: "/videos/index.html"
     entries:
@@ -30,8 +29,6 @@ sidebar:
       url: "/videos/anthos-videos.html"
     - title: レッドハット オープンシフト
       url: "/videos/openshift-videos.html"
-    - title: VMware タンズ
-      url: "/videos/tanzu-videos.html"
   - title: ブログ
     url: "/blogs.html"
   - title: 法律上の表示

@@ -152,4 +152,4 @@ NOTE: OSP サーバー グループには特定のハード アフィニティ/�
 
 IPI は、このドキュメントで前述した対話型ウィザードを通じて OpenShift クラスターのデプロイメントを容易にします。ただし、クラスターの展開の一環として、いくつかのデフォルト値を変更する必要がある場合があります。
 
-このような場合、すぐにクラスターを展開せずにウィザードを実行してタスクを実行できます。代わりに、後でクラスターを展開できる構成ファイルが作成されます。これは、IPI のデフォルトを変更する必要がある場合、またはマルチテナントなどの他の用途のために環境内に複数の同一クラスターを展開する場合に非常に便利です。  OpenShiftのカスタマイズされたインストール構成の作成の詳細については、以下を参照してください。link:https://docs.openshift.com/container-platform/4.7/installing/installing_openstack/installing-openstack-installer-custom.html["Red Hat OpenShift カスタマイズによる OpenStack へのクラスターのインストール"^] 。
+このような場合、すぐにクラスターを展開せずにウィザードを実行してタスクを実行できます。代わりに、後でクラスターを展開できる構成ファイルが作成されます。これは、IPI のデフォルトを変更する必要がある場合や、マルチテナントなどの他の用途のために環境内に複数の同一クラスターを展開する場合に非常に便利です。OpenShiftのカスタマイズされたインストール構成の作成の詳細については、以下を参照してください。 link:https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html/installing_on_openstack/installing-openstack-installer-custom["Red Hat OpenShift カスタマイズによる OpenStack へのクラスターのインストール"^]。
