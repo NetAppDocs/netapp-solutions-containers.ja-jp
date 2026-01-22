@@ -74,8 +74,6 @@ VMware 上の Anthos クラスタは、顧客の現在のデータセンター �
 次の表には、 NetAppとパートナーがソリューションを検証するために使用した vSphere バージョンの一覧が含まれています。
 
 |===
-
-
 | オペレーティング システム | リリース | Anthos バージョン 
 
 
@@ -108,8 +106,6 @@ NetAppを使用した Anthos の導入を完全に検証済みのソリューシ
 次の表には、検証環境に展開されているソフトウェア バージョンの一覧が含まれています。
 
 |===
-
-
 | メーカー | ソフトウェア名 | version 
 
 
@@ -156,7 +152,7 @@ VM とホスト アフィニティを有効にすると、Anthos クラスタ �
 
 アフィニティ グループを構成するには、 VMware vSphereのバージョンに応じて以下の適切なリンクを参照してください。
 
-https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/9-0/vsphere-resource-management/using-drs-clusters-to-manage-resources/using-vm-host-affinity-rules.html["vSphere 9.0 ドキュメント: DRS アフィニティ ルールの使用"^]. hhttps://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/7-0/vsphere-resource-management/using-drs-clusters-to-manage-resources/using-vm-host-affinity-rules.html[vSphere 7.0 ドキュメント: DRS アフィニティ ルールの使用^]。
+https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/9-0/vsphere-resource-management/using-drs-clusters-to-manage-resources/using-vm-host-affinity-rules.html["vSphere 9.0 ドキュメント: DRS アフィニティ ルールの使用"^].https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/7-0/vsphere-resource-management/using-drs-clusters-to-manage-resources/using-vm-host-affinity-rules.html["vSphere 7.0 ドキュメント：DRS アフィニティルールの使用"^].
 
 
 NOTE: Anthosには、個々の `cluster.yaml`ファイルを使用すると、環境内の ESXi ホストの数に基づいて有効化または無効化できるノード アフィニティ ルールが自動的に作成されます。
