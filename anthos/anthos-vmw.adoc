@@ -152,7 +152,9 @@ VM とホスト アフィニティを有効にすると、Anthos クラスタ �
 
 アフィニティ グループを構成するには、 VMware vSphereのバージョンに応じて以下の適切なリンクを参照してください。
 
-https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/9-0/vsphere-resource-management/using-drs-clusters-to-manage-resources/using-vm-host-affinity-rules.html["vSphere 9.0 ドキュメント: DRS アフィニティ ルールの使用"^].https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/7-0/vsphere-resource-management/using-drs-clusters-to-manage-resources/using-vm-host-affinity-rules.html["vSphere 7.0 ドキュメント：DRS アフィニティルールの使用"^].
+* link:https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/9-0/vsphere-resource-management/using-drs-clusters-to-manage-resources/using-vm-host-affinity-rules.html["vSphere 9.0 ドキュメント: DRS アフィニティ ルールの使用"^]
+* link:https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/7-0/vsphere-resource-management/using-drs-clusters-to-manage-resources/using-vm-host-affinity-rules.html["vSphere 7.0 ドキュメント：DRS アフィニティルールの使用"^]
+
 
 
 NOTE: Anthosには、個々の `cluster.yaml`ファイルを使用すると、環境内の ESXi ホストの数に基づいて有効化または無効化できるノード アフィニティ ルールが自動的に作成されます。
