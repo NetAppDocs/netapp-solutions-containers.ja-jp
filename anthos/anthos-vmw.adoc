@@ -29,6 +29,7 @@ image:a-w-n-anthos-controlplanev2-vm-architecture.png["入出力ダイアログ�
 
 
 
+[[benefits]]
 == 利点
 
 Anthos clusters on VMware には、次のような利点があります。
@@ -41,6 +42,7 @@ Anthos clusters on VMware には、次のような利点があります。
 
 
 
+[[vmware-vsphere]]
 == VMware vSphere
 
 VMware vSphere は、ESXi ハイパーバイザー上で実行される多数の仮想化サーバーとネットワークを集中管理するための仮想化プラットフォームです。
@@ -57,16 +59,19 @@ VMware vSphere は次の機能を提供します。
 
 
 
+[[hardware-requirements]]
 == ハードウェア要件
 
 
 
+[[compute]]
 === コンピューティング
 
 Google Cloud は、Anthos Ready プラットフォーム パートナー プログラムを通じて、Anthos の新しいリリースを使用したパートナー サーバー プラットフォームの更新された検証を定期的に要求します。現在検証済みのサーバープラットフォームとサポートされているAnthosのバージョンの一覧は、 https://cloud.google.com/anthos/docs/resources/partner-platforms["ここをクリックしてください。"^] 。
 
 
 
+[[operating-system]]
 === オペレーティング システム
 
 VMware 上の Anthos クラスタは、顧客の現在のデータセンター インフラストラクチャに合わせて、顧客の選択に応じて vSphere 7 と 8 の両方の環境にデプロイできます。
@@ -81,6 +86,7 @@ VMware 上の Anthos クラスタは、顧客の現在のデータセンター �
 |===
 
 
+[[additional-hardware]]
 === 追加のハードウェア
 
 NetAppを使用した Anthos の導入を完全に検証済みのソリューションとして完了するために、ネットワークとストレージ用の追加データセンター コンポーネントがNetAppとパートナー エンジニアによってテストされました。
@@ -101,6 +107,7 @@ NetAppを使用した Anthos の導入を完全に検証済みのソリューシ
 |===
 
 
+[[additional-software]]
 === 追加ソフトウェア
 
 次の表には、検証環境に展開されているソフトウェア バージョンの一覧が含まれています。
@@ -120,6 +127,7 @@ image:a-w-n-anthos-128-vsphere8-validation.png["入出力ダイアログまた�
 
 
 
+[[network-infrastructure-support-resources]]
 === ネットワークインフラストラクチャサポートリソース
 
 Anthos をデプロイする前に、次のインフラストラクチャを準備しておく必要があります。
@@ -132,18 +140,21 @@ Anthos をデプロイする前に、次のインフラストラクチャを準�
 
 
 
+[[best-practices-for-production-deployments]]
 == 本番環境への導入に関するベストプラクティス
 
 このセクションでは、このソリューションを本番環境に導入する前に組織が考慮する必要があるベスト プラクティスをいくつか示します。
 
 
 
+[[deploy-anthos-to-an-esxi-cluster-of-at-least-three-nodes]]
 === 少なくとも 3 つのノードの ESXi クラスタに Anthos をデプロイする
 
 デモや評価の目的で 3 ノード未満の vSphere クラスタに Anthos をインストールすることは可能ですが、本番環境のワークロードには推奨されません。  2 つのノードでは基本的な HA とフォールト トレランスが可能になりますが、デフォルトのホスト アフィニティを無効にするには Anthos クラスタ構成を変更する必要があり、このデプロイメント方法は Google Cloud ではサポートされていません。
 
 
 
+[[configure-virtual-machine-and-host-affinity]]
 === 仮想マシンとホストのアフィニティを構成する
 
 VM とホスト アフィニティを有効にすると、Anthos クラスタ ノードを複数のハイパーバイザー ノードに分散できます。

@@ -23,6 +23,7 @@ NOTE: Trident Protect では、 Astraコンテナーに必要なイメージを�
 
 
 
+[[creating-a-private-image-registry]]
 == プライベートイメージレジストリの作成
 
 . 現在のデフォルトのストレージ クラスからデフォルトのアノテーションを削除し、Trident ベースのストレージ クラスを OpenShift クラスターのデフォルトとしてアノテーションします。

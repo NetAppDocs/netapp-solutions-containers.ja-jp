@@ -22,6 +22,7 @@ NetApp Elementストレージシステムの詳細については、 https://www
 
 
 
+[[iscsi-login-redirection-and-self-healing-capabilities]]
 == iSCSI ログインリダイレクトと自己修復機能
 
 NetApp Elementソフトウェアは、従来の TCP/IP ネットワーク上で SCSI コマンドをカプセル化する標準的な方法である iSCSI ストレージ プロトコルを活用します。  SCSI 規格が変更されたり、イーサネット ネットワークのパフォーマンスが向上したりしても、iSCSI ストレージ プロトコルは変更を必要とせずにメリットを享受できます。
@@ -34,6 +35,7 @@ iSCSI ログイン リダイレクトは、 NetApp Elementソフトウェア ク
 
 
 
+[[netapp-element-software-cluster-qos]]
 == NetApp Elementソフトウェア クラスタ QoS
 
 NetApp Elementソフトウェア クラスターを使用すると、ボリュームごとに QoS を動的に構成できます。ボリュームごとの QoS 設定を使用して、定義した SLA に基づいてストレージ パフォーマンスを制御できます。次の 3 つの設定可能なパラメータによって QoS が定義されます。
@@ -45,6 +47,7 @@ NetApp Elementソフトウェア クラスターを使用すると、ボリュ�
 
 
 
+[[multitenancy]]
 == マルチテナンシー
 
 安全なマルチテナントは次の機能によって実現されます。
@@ -62,6 +65,7 @@ NetApp Elementソフトウェア クラスターを使用すると、ボリュ�
 
 
 
+[[enterprise-storage-efficiencies]]
 == エンタープライズストレージ効率
 
 NetApp Elementソフトウェア クラスタは、全体的なストレージ効率とパフォーマンスを向上させます。次の機能はインラインで実行され、常にオンになっており、ユーザーによる手動構成は必要ありません。

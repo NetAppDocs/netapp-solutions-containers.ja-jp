@@ -18,6 +18,7 @@ NetApp は、Anthos のようなコンテナベースの環境で永続的なデ
 
 
 
+[[anthos-ready-storage-partner-program]]
 == Anthos Ready ストレージ パートナー プログラム。
 
 Google Cloud は、Anthos Ready ストレージ パートナー プログラムを通じて、パートナー ストレージと Anthos の新リリースの統合に関する最新の検証を定期的に要求しています。現在検証済みのストレージソリューション、CSIドライバ、利用可能な機能、およびサポートされているAnthosのバージョンのリストは、以下で確認できます。 https://cloud.google.com/anthos/docs/resources/partner-storage["ここをクリックしてください。"^] 。
@@ -72,6 +73,7 @@ NetApp は、 Trident CSI 準拠のストレージ オーケストレーター�
 |===
 
 
+[[netapp-storage-integrations]]
 == NetAppストレージ統合
 
 NetApp は、Anthos などのコンテナベースの環境で永続的なデータをオーケストレーションおよび管理するのに役立つさまざまな製品を提供しています。

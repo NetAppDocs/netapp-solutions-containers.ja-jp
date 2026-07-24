@@ -18,6 +18,7 @@ summary: NetAppを使用した Red Hat OpenShift 上の Kubernetes 向け高度�
 
 
 
+[[prerequisites]]
 == 前提条件
 
 . ハブ クラスター用の Red Hat OpenShift クラスター (バージョン 4.5 以上)

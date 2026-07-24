@@ -28,6 +28,7 @@ NOTE: F5 BIG-IP システムは、専用ハードウェア、クラウド、ま�
 
 
 
+[[validated-releases]]
 == 検証済みリリース
 
 このソリューションは、VMware vSphere に展開された仮想アプライアンスを利用します。 F5 Big-IP 仮想アプライアンスのネットワークは、ネットワーク環境に基づいて 2 アーム構成または 3 アーム構成で構成できます。このドキュメントの展開は、2 アーム構成に基づいています。  Anthosで使用するための仮想アプライアンスの構成に関する詳細は、 https://cloud.google.com/solutions/partners/installing-f5-big-ip-adc-for-gke-on-prem["ここをクリックしてください。"] 。
@@ -47,6 +48,7 @@ NetAppのソリューション エンジニアリング チームは、次の表
 |===
 
 
+[[installation]]
 == インストール
 
 F5 BIG-IP をインストールするには、次の手順を実行します。
@@ -133,6 +135,7 @@ image:big-ip-config-012.png["Big-IP 構成、パート 12"]
 
 
 
+[[integration-with-anthos]]
 == Anthosとの統合
 
 各構成ファイルには、管理クラスタと、デプロイすることを選択した各ユーザー クラスタごとに、ロードバランサが Anthos On Prem によって管理されるように構成するためのセクションがあります。

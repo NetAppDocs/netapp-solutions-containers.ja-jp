@@ -18,12 +18,14 @@ keywords: Anthos, Kubernetes, MetalLB, LoadBalancer,
 
 
 
+[[installing-the-metallb-load-balancer]]
 == MetalLBロードバランサのインストール
 
 MetalLB ロード バランサは Anthos Clusters on VMware と完全に統合されており、1.11 リリース以降、管理者およびユーザーのクラスタ セットアップの一部として自動デプロイが実行されます。それぞれのテキストブロックがあります `cluster.yaml`ロードバランサー情報を提供するために変更する必要がある構成ファイル。サポートされている他のロードバランサ ソリューションのように外部リソースのデプロイメントを必要とせず、Anthos クラスタ上でセルフホストされます。また、クラウド プロバイダーで実行されていないクラスターでロード バランサー タイプの Kubernetes サービスを作成するときに、アドレスを自動的に割り当てる IP プールを作成することもできます。
 
 
 
+[[integration-with-anthos]]
 == Anthosとの統合
 
 Anthos管理者のMetalLBロードバランサを有効にする場合は、 `loadBalancer:`セクションが存在する `admin-cluster.yaml`ファイル。変更する必要がある値は、 `controlPlaneVIP:`アドレスを設定してから `kind:`MetalLB として。例については、次のコード スニペットを参照してください。

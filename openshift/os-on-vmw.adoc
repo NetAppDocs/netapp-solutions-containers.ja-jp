@@ -30,12 +30,14 @@ image:redhat-openshift-033.png["入出力ダイアログまたは書かれたコ
 
 
 
+[[network-design]]
 == ネットワーク設計
 
 Red Hat OpenShift on NetAppソリューションは、2 つのデータ スイッチを使用して 25 Gbps でプライマリ データ接続を提供します。また、ストレージ ノードのインバンド管理と IPMI 機能のアウトオブバンド管理のために 1 Gbps の接続を提供する 2 つの追加管理スイッチも使用します。 OCP は、クラスター管理に VMware vSphere 上の VM 論理ネットワークを使用します。このセクションでは、ソリューションで使用される各仮想ネットワーク セグメントの配置と目的について説明し、ソリューションの展開の前提条件の概要を示します。
 
 
 
+[[vlan-requirements]]
 === VLANの要件
 
 VMware vSphere 上の Red Hat OpenShift は、仮想ローカル エリア ネットワーク (VLAN) を使用して、さまざまな目的に合わせてネットワーク トラフィックを論理的に分離するように設計されています。この構成は、顧客の要求を満たすために、または特定のネットワーク サービスをさらに分離するために拡張できます。次の表は、 NetAppでソリューションを検証する際にソリューションを実装するために必要な VLAN を示しています。
@@ -67,6 +69,7 @@ VMware vSphere 上の Red Hat OpenShift は、仮想ローカル エリア ネ�
 |===
 
 
+[[network-infrastructure-support-resources]]
 === ネットワークインフラストラクチャサポートリソース
 
 OpenShift Container Platform をデプロイする前に、次のインフラストラクチャを準備しておく必要があります。
@@ -78,12 +81,14 @@ OpenShift Container Platform をデプロイする前に、次のインフラス
 
 
 
+[[best-practices-for-production-deployments]]
 == 本番環境への導入に関するベストプラクティス
 
 このセクションでは、このソリューションを本番環境に導入する前に組織が考慮する必要があるベスト プラクティスをいくつか示します。
 
 
 
+[[deploy-openshift-to-an-esxi-cluster-of-at-least-three-nodes]]
 === 少なくとも3つのノードのESXiクラスタにOpenShiftをデプロイする
 
 このドキュメントで説明する検証済みのアーキテクチャは、2 つの ESXi ハイパーバイザー ノードを展開し、VMware vSphere HA と VMware vMotion を有効にしてフォールト トレラント構成を確保することで、HA 操作に適した最小限のハードウェア展開を示します。この構成により、展開された VM を 2 つのハイパーバイザー間で移行し、1 つのホストが使用できなくなった場合に再起動することができます。
@@ -92,6 +97,7 @@ Red Hat OpenShift は最初に 3 つのマスターノードでデプロイさ�
 
 
 
+[[configure-virtual-machine-and-host-affinity]]
 === 仮想マシンとホストのアフィニティを構成する
 
 VM とホストのアフィニティを有効にすることで、OpenShift マスターを複数のハイパーバイザー ノードに分散させることができます。
@@ -102,6 +108,7 @@ VM とホストのアフィニティを有効にすることで、OpenShift マ�
 
 
 
+[[use-a-custom-install-file-for-openshift-deployment]]
 === OpenShift のデプロイメントにカスタム インストール ファイルを使用する
 
 IPI は、このドキュメントで前述した対話型ウィザードを通じて OpenShift クラスターのデプロイメントを容易にします。ただし、クラスターの展開の一環として、いくつかのデフォルト値を変更する必要がある場合があります。

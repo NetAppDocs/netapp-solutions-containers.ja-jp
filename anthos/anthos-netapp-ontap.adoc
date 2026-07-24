@@ -46,10 +46,12 @@ image:a-w-n-ontap-onpremises-virt-cloud.png["入出力ダイアログまたは�
 
 
 
+[[netapp-platforms]]
 == NetAppプラットフォーム
 
 
 
+[[netapp-afffas]]
 === NetApp AFF/ FAS
 
 NetApp は、低遅延パフォーマンス、統合データ保護、およびマルチプロトコル サポートを備えたカスタマイズされた、堅牢なオールフラッシュ (AFF) およびスケールアウト ハイブリッド (FAS) ストレージ プラットフォームを提供します。
@@ -60,6 +62,7 @@ NETAPP AFFおよびFASプラットフォームの詳細については、 https:
 
 
 
+[[ontap-select]]
 === ONTAP Select
 
 ONTAP Select は、環境内のハイパーバイザーに導入できるNetApp ONTAPのソフトウェア定義の導入です。  VMware vSphere または KVM にインストールでき、ハードウェアベースのONTAPシステムの完全な機能とエクスペリエンスを提供します。
@@ -68,6 +71,7 @@ ONTAP Selectの詳細については、 https://docs.netapp.com/us-en/ontap-sele
 
 
 
+[[cloud-volumes-ontap]]
 === Cloud Volumes ONTAP
 
 NetApp Cloud Volumes ONTAP は、Amazon AWS、Microsoft Azure、Google Cloud などのさまざまなパブリック クラウドに導入できるNetApp ONTAPのクラウド導入バージョンです。

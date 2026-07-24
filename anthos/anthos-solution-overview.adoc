@@ -20,6 +20,7 @@ NetApp 、Banu Sundhar 氏と Suresh Thoppay 氏
 
 
 
+[[use-cases]]
 == ユースケース
 
 Anthos with NetAppソリューションは、次のユースケースを持つ顧客に卓越した価値を提供するように設計されています。
@@ -31,6 +32,7 @@ Anthos with NetAppソリューションは、次のユースケースを持つ�
 
 
 
+[[business-value]]
 == ビジネス価値
 
 企業は、新製品の作成、リリース サイクルの短縮、新機能の迅速な追加のために DevOps プラクティスを採用するケースが増えています。コンテナとマイクロサービスは、その本質的なアジャイル性により、DevOps プラクティスのサポートにおいて重要な役割を果たします。ただし、エンタープライズ環境の運用規模で DevOps を実践するには、独自の課題があり、基盤となるインフラストラクチャに次のような特定の要件が課せられます。
@@ -48,12 +50,14 @@ Anthos with NetAppソリューションはこれらの課題を認識し、顧�
 
 
 
+[[technology-overview]]
 == 技術概要
 
 Anthos with NetAppソリューションは、次の主要コンポーネントで構成されています。
 
 
 
+[[anthos-on-prem]]
 === Anthos オンプレミス
 
 Anthos On Prem は、VMware vSphere ハイパーバイザーまたは選択したベアメタル インフラストラクチャにデプロイできる、完全にサポートされているエンタープライズ Kubernetes プラットフォームです。
@@ -62,6 +66,7 @@ Anthosの詳細については、次のAnthosウェブサイトをご覧くだ�
 
 
 
+[[netapp-storage-systems]]
 === NetApp ストレージ システム
 
 NetApp には、エンタープライズ データ センターやハイブリッド クラウドの導入に最適なストレージ システムがいくつかあります。  NetApp のポートフォリオには、 NetApp ONTAP、 Cloud Volumes ONTAP、 Google Cloud NetApp Volumes、 Azure NetApp Files 、 NetApp ONTAPストレージ システム用の FSx ONTAP が含まれており、いずれもコンテナ化されたアプリケーションに永続的なストレージを提供できます。
@@ -70,6 +75,7 @@ NetApp には、エンタープライズ データ センターやハイブリ�
 
 
 
+[[netapp-storage-integrations]]
 === NetAppストレージ統合
 
 Trident は、Anthos を含むコンテナと Kubernetes ディストリビューション向けのオープンソースで完全にサポートされているストレージ オーケストレーターです。
@@ -78,12 +84,14 @@ Trident は、Anthos を含むコンテナと Kubernetes ディストリビュ�
 
 
 
+[[advanced-configuration-options]]
 == 高度な設定オプション
 
 このセクションでは、専用のプライベート イメージ レジストリの作成やカスタム ロード バランサ インスタンスのデプロイなど、このソリューションを本番環境にデプロイするときに実際のユーザーが実行する必要があるカスタマイズについて説明します。
 
 
 
+[[current-support-matrix-for-validated-releases]]
 == 検証済みリリースの現在のサポート マトリックス
 
 見る https://cloud.google.com/anthos/docs/resources/partner-storage#netapp["ここをクリックしてください。"]検証済みリリースのサポート マトリックス。

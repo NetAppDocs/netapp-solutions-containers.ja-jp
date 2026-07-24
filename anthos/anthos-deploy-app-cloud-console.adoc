@@ -18,6 +18,7 @@ summary: Google Cloud Console を使用して、オンプレミスの Anthos GKE
 
 
 
+[[prerequisites]]
 == 前提条件
 
 * オンプレミスにデプロイされ、Google Cloud Console に登録された Anthos クラスタ
@@ -28,6 +29,7 @@ summary: Google Cloud Console を使用して、オンプレミスの Anthos GKE
 
 
 
+[[deploying-an-application]]
 == アプリケーションのデプロイ
 
 このユースケースでは、Google Cloud Console を使用して、シンプルな WordPress アプリケーションを Anthos クラスタの 1 つにデプロイします。このデプロイメントでは、事前定義されたストレージクラスでNetApp ONTAPによって提供される永続ストレージが使用されます。次に、MetalLB ロード バランサがアプリケーションのデフォルト サービスに IP アドレスを提供し、それを世界に公開するように、アプリケーションのデフォルト サービスを変更する 2 つの異なる方法を示します。
@@ -78,12 +80,14 @@ image:a-w-n-use-case-deploy-app-003.png["アプリケーションの実行"]
 
 
 
+[[exposing-the-application]]
 == アプリケーションの公開
 
 アプリケーションをデプロイした後、世界中からアクセス可能な IP を割り当てる方法は 2 つあります。
 
 
 
+[[using-the-google-cloud-console]]
 === Google Cloud Console の使用
 
 Google Cloud Console を使用してブラウザでサービスの YAML 出力を編集し、パブリックにアクセス可能な IP を設定することで、アプリケーションを公開できます。これを行うには、次の手順を実行します。
@@ -111,6 +115,7 @@ image:a-w-n-use-case-deploy-app-015.png["サービス詳細最終"]
 
 
 
+[[patching-the-service-with-kubectl]]
 === Kubectl でサービスにパッチを適用する
 
 アプリケーションを公開するには、CLIと `kubectl patch`コマンドを使用してデプロイメントを変更し、パブリックに到達可能な IP を設定します。これには、次の手順を実行します。
@@ -135,6 +140,7 @@ image:a-w-n-use-case-deploy-app-001.png["パッチサービスに LoadBalancer �
 
 
 
+[[visit-the-application-at-the-exposed-external-ip]]
 == 公開された外部IPでアプリケーションにアクセスします
 
 アプリケーションがパブリックにアクセス可能な IP アドレスで公開されたので、ブラウザを使用して WordPress インスタンスにアクセスできます。

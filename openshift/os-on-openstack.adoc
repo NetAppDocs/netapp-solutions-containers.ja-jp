@@ -24,6 +24,7 @@ OSPの詳細については、link:https://www.redhat.com/en/technologies/linux-
 
 
 
+[[openstack-services]]
 == OpenStackサービス
 
 OpenStack Platform サービスはコンテナとしてデプロイされ、サービスが相互に分離され、簡単にアップグレードできるようになります。 OpenStack プラットフォームは、Kolla で構築および管理されるコンテナのセットを使用します。サービスのデプロイメントは、Red Hat カスタムポータルからコンテナイメージをプルすることによって実行されます。これらのサービス コンテナは Podman コマンドを使用して管理され、Red Hat OpenStack Director を使用してデプロイ、構成、および保守されます。
@@ -63,6 +64,7 @@ image:redhat-openshift-034.png["入出力ダイアログまたは書かれたコ
 |===
 
 
+[[network-design]]
 == ネットワーク設計
 
 Red Hat OpenShift with NetAppソリューションは、2 つのデータ スイッチを使用して 25 Gbps でプライマリ データ接続を提供します。また、ストレージ ノードのインバンド管理と IPMI 機能のアウトオブバンド管理のために 1 Gbps の接続を提供する 2 つの追加管理スイッチも使用します。
@@ -71,6 +73,7 @@ Ironic ベアメタル プロビジョニング サービスを使用して Red 
 
 
 
+[[vlan-requirements]]
 === VLANの要件
 
 NetAppを搭載した Red Hat OpenShift は、仮想ローカル エリア ネットワーク (VLAN) を使用して、さまざまな目的に合わせてネットワーク トラフィックを論理的に分離するように設計されています。この構成は、顧客の要求を満たすために、または特定のネットワーク サービスをさらに分離するために拡張できます。次の表は、 NetAppでソリューションを検証する際にソリューションを実装するために必要な VLAN を示しています。
@@ -108,6 +111,7 @@ NetAppを搭載した Red Hat OpenShift は、仮想ローカル エリア ネ�
 |===
 
 
+[[network-infrastructure-support-resources]]
 === ネットワークインフラストラクチャサポートリソース
 
 OpenShift Container Platform をデプロイする前に、次のインフラストラクチャを準備しておく必要があります。
@@ -119,12 +123,14 @@ OpenShift Container Platform をデプロイする前に、次のインフラス
 
 
 
+[[best-practices-for-production-deployments]]
 == 本番環境への導入に関するベストプラクティス
 
 このセクションでは、このソリューションを本番環境に導入する前に組織が考慮する必要があるベスト プラクティスをいくつか示します。
 
 
 
+[[deploy-openshift-to-an-osp-private-cloud-with-at-least-three-compute-nodes]]
 === 少なくとも3つのコンピューティングノードを持つOSPプライベートクラウドにOpenShiftをデプロイする
 
 このドキュメントで説明する検証済みのアーキテクチャは、3 つの OSP コントローラ ノードと 2 つの OSP コンピューティング ノードを展開することにより、HA 操作に適した最小限のハードウェア展開を示します。このアーキテクチャにより、両方のコンピューティング ノードが仮想インスタンスを起動でき、展開された VM が 2 つのハイパーバイザー間で移行できるフォールト トレラント構成が保証されます。
@@ -133,6 +139,7 @@ Red Hat OpenShift は最初に 3 つのマスターノードでデプロイさ�
 
 
 
+[[configure-virtual-machinehost-affinity]]
 === 仮想マシン/ホストアフィニティを構成する
 
 VM/ホスト アフィニティを有効にすると、OpenShift マスターを複数のハイパーバイザー ノードに分散できます。
@@ -148,6 +155,7 @@ NOTE: OSP サーバー グループには特定のハード アフィニティ/�
 
 
 
+[[use-a-custom-install-file-for-openshift-deployment]]
 === OpenShift のデプロイメントにカスタム インストール ファイルを使用する
 
 IPI は、このドキュメントで前述した対話型ウィザードを通じて OpenShift クラスターのデプロイメントを容易にします。ただし、クラスターの展開の一環として、いくつかのデフォルト値を変更する必要がある場合があります。

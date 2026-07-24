@@ -20,6 +20,7 @@ OpenShift on Bare Metal は OpenShift の仮想デプロイメントに似てお
 
 
 
+[[openshift-on-bare-metal-provides-the-following-features]]
 == OpenShift on Bare Metal は次の機能を提供します。
 
 * *IPI または支援インストーラーの導入* インストーラー プロビジョニング インフラストラクチャ (IPI) によってベアメタル サーバーに導入された OpenShift クラスターを使用すると、顧客はハイパーバイザー レイヤーを管理する必要なく、汎用性が高く、簡単に拡張できる OpenShift 環境をコモディティ サーバーに直接導入できます。
@@ -30,6 +31,7 @@ OpenShift on Bare Metal は OpenShift の仮想デプロイメントに似てお
 
 
 
+[[network-design]]
 == ネットワーク設計
 
 Red Hat OpenShift on NetAppソリューションは、2 つのデータ スイッチを使用して 25 Gbps でプライマリ データ接続を提供します。また、ストレージ ノードのインバンド管理と IPMI 機能のアウトオブバンド管理のために 1 Gbps の接続を提供する 2 つの管理スイッチも使用します。
@@ -50,6 +52,7 @@ image:redhat-openshift-037.png["入出力ダイアログまたは書かれたコ
 
 
 
+[[vlan-requirements]]
 === VLANの要件
 
 NetAppソリューションを使用した Red Hat OpenShift は、仮想ローカル エリア ネットワーク (VLAN) を使用して、さまざまな目的に合わせてネットワーク トラフィックを論理的に分離するように設計されています。
@@ -72,6 +75,7 @@ NOTE: これらの各ネットワークは VLAN によって仮想的に分離�
 
 
 
+[[network-infrastructure-support-resources]]
 === ネットワークインフラストラクチャサポートリソース
 
 OpenShift コンテナ プラットフォームを展開する前に、次のインフラストラクチャを準備しておく必要があります。

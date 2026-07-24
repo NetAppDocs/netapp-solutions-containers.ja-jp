@@ -32,30 +32,35 @@ Tridentのインストールの詳細については、 https://docs.netapp.com/
 
 
 
+[[create-a-storage-system-backend]]
 == ストレージシステムのバックエンドを作成する
 
 Trident Operator のインストールが完了したら、使用している特定のNetAppストレージ プラットフォームのバックエンドを構成する必要があります。  Tridentのセットアップと構成を続行するには、以下のリンクに従ってください。link:https://docs.netapp.com/us-en/trident/trident-use/backends.html["バックエンドを作成します。"]
 
 
 
+[[create-a-storage-class]]
 == ストレージクラスを作成する
 
 バックエンドを作成したら、Kubernetes ユーザーがボリュームを必要とするときに指定するストレージ クラスを作成する必要があります。 Kubernetes ユーザーは、ストレージ クラスを名前で指定する永続ボリューム要求 (PVC) を使用してボリュームをプロビジョニングします。ストレージ クラスを作成するには、以下のリンクに従ってください。link:https://docs.netapp.com/us-en/trident/trident-use/create-stor-class.html["ストレージクラスを作成する"]
 
 
 
+[[dynamically-provision-a-volume]]
 == ボリュームを動的にプロビジョニングする
 
 ボリュームを動的にプロビジョニングするには、ストレージ クラスを使用して Kubernetes 永続ボリューム要求 (PVC) オブジェクトを作成する必要があります。  PVC オブジェクトを作成するには、以下のリンクに従ってください。link:https://docs.netapp.com/us-en/trident/trident-use/vol-provision.html["PVCの作成"]
 
 
 
+[[use-the-volume]]
 == ボリュームを使用する
 
 上記の手順でプロビジョニングしたボリュームは、ポッドにマウントすることでアプリケーションで使用できるようになります。以下のリンクに例を示します。link:https://docs.netapp.com/us-en/trident/trident-use/vol-provision.html#sample-manifests["ボリュームをポッドにマウントする"]
 
 
 
+[[sample-provisioning]]
 == サンプルプロビジョニング
 
 link:anthos-trident-ontap-iscsi.html["iSCSI プロトコルのサンプル マニフェスト、window=_blank"]

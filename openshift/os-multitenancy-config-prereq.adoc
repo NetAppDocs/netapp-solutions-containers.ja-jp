@@ -18,6 +18,7 @@ NetAppを使用して Red Hat OpenShift でマルチテナントを構成する�
 
 
 
+[[prerequisites]]
 == 前提条件
 
 * NetApp ONTAPクラスタ

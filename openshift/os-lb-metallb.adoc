@@ -20,6 +20,7 @@ MetalLB は、OpenShift クラスターにインストールされるセルフ�
 
 
 
+[[metallb-configuration-options]]
 == MetalLB 構成オプション
 
 MetalLB は、OpenShift クラスターの外部の LoadBalancer サービスに割り当てられた IP アドレスをアナウンスする方法に基づいて、次の 2 つのモードで動作します。
@@ -33,6 +34,7 @@ NOTE: このドキュメントでは、MetalLB をレイヤー 2 モードで構
 
 
 
+[[installing-the-metallb-load-balancer]]
 == MetalLBロードバランサのインストール
 
 . MetalLB リソースをダウンロードします。

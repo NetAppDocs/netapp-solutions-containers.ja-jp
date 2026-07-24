@@ -18,6 +18,7 @@ Anthos with NetAppは、オンプレミスの Google Kubernetes Engine（GKE）�
 
 
 
+[[anthos]]
 == アントス
 
 Anthos は、アプリケーション開発に重点を置いたアジャイル ワークフローを採用しながら、組織が最新のハイブリッド クラウド インフラストラクチャを構築および管理できるようにするハイブリッド クラウド Kubernetes データ センター ソリューションです。 Anthos on VMware はオープンソース テクノロジーを基盤とするソリューションで、オンプレミスの VMware vSphere ベースのインフラストラクチャで実行され、Google Cloud の Anthos GKE と接続して相互運用できます。コンテナ、サービス メッシュ、その他の変革テクノロジーを採用することで、組織はローカル環境とクラウドベースの環境で一貫したアプリケーション開発サイクルと本番環境対応のワークロードを実現できます。次の図は、Anthos ソリューションと、オンプレミス データセンターのデプロイメントがクラウド内のインフラストラクチャと相互接続される様子を示しています。
@@ -37,10 +38,12 @@ image:a-w-n-anthos-architecture.png["入出力ダイアログまたは書かれ�
 
 
 
+[[deployment-methods-for-anthos]]
 == Anthos のデプロイメント方法
 
 
 
+[[anthos-clusters-on-vmware]]
 === VMware 上の Anthos クラスタ
 
 VMware vSphere 環境にデプロイされた Anthos クラスタは、ほとんどのエンドユーザーの Kubernetes ワークロードに対して簡単にデプロイ、保守、迅速に拡張できます。
@@ -49,6 +52,7 @@ NetAppで導入されたVMware上のAnthosクラスタの詳細については�
 
 
 
+[[anthos-on-bare-metal]]
 === ベアメタル上の Anthos
 
 ベアメタル サーバーにデプロイされた Anthos クラスタはハードウェアに依存せず、カスタマイズされたユースケースに合わせて最適化されたコンピューティング プラットフォームを選択できます。

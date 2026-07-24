@@ -20,6 +20,7 @@ Seesaw は、バージョン 1.6 から 1.10 までの Anthos Clusters on VMware
 
 
 
+[[installing-the-seesaw-load-balancer]]
 == SeeSawロードバランサのインストール
 
 SeeSaw ロード バランサは、VMware 上の Anthos Clusters と完全に統合されており、管理者およびユーザーのクラスタ設定の一部として自動デプロイメントが実行されます。テキストブロックがあります `cluster.yaml`ロードバランサ情報を提供するために変更する必要がある構成ファイルがあり、クラスタの展開前に組み込みの `gkectl`道具。
@@ -29,6 +30,7 @@ NOTE: SeeSaw ロード バランサは、HA モードまたは非 HA モード�
 
 
 
+[[integration-with-anthos]]
 == Anthosとの統合
 
 各構成ファイルには、管理クラスタ用と、デプロイすることを選択した各ユーザー クラスタ用にそれぞれセクションがあり、ロードバランサが Anthos On-Prem によって管理されるように構成します。

@@ -15,12 +15,14 @@ summary: NetApp ONTAPを使用した AWS 上の Red Hat OpenShift サービス
 
 
 
+[[overview]]
 == 概要
 
 このセクションでは、ROSA 上で実行されるアプリケーションの永続ストレージ レイヤーとして FSx for ONTAPを活用する方法を説明します。 ROSA クラスターへのNetApp Trident CSI ドライバーのインストール、FSx for ONTAPファイルシステムのプロビジョニング、サンプルのステートフル アプリケーションの展開について説明します。また、アプリケーション データのバックアップと復元の戦略も示します。この統合ソリューションを使用すると、AZ 間で簡単に拡張できる共有ストレージ フレームワークを確立でき、 Trident CSI ドライバーを使用してデータの拡張、保護、および復元のプロセスを簡素化できます。
 
 
 
+[[prerequisites]]
 == 前提条件
 
 * link:https://signin.aws.amazon.com/signin?redirect_uri=https://portal.aws.amazon.com/billing/signup/resume&client_id=signup["AWSアカウント"]
@@ -40,6 +42,7 @@ image:redhat-openshift-container-rosa-001.png["ローザ建築"]
 
 
 
+[[initial-setup]]
 == 初期セットアップ
 
 **1.  NetApp ONTAP用の FSx のプロビジョニング**

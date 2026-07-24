@@ -24,6 +24,7 @@ image:redhat-openshift-040.png["NetApp ONTAPを基盤とするTridentを使用�
 
 
 
+[[technology-requirements]]
 == 技術要件
 
 . NetApp ONTAPストレージ クラスタ
@@ -33,6 +34,7 @@ image:redhat-openshift-040.png["NetApp ONTAPを基盤とするTridentを使用�
 
 
 
+[[red-hat-openshift-cluster-resources]]
 == Red Hat OpenShift – クラスターリソース
 
 Red Hat OpenShift クラスターの観点から見ると、最初に開始する最上位のリソースはプロジェクトです。 OpenShift プロジェクトは、OpenShift クラスター全体を複数の仮想クラスターに分割するクラスター リソースとして考えることができます。したがって、プロジェクト レベルでの分離は、マルチテナントを構成するための基盤となります。
@@ -41,18 +43,21 @@ Red Hat OpenShift クラスターの観点から見ると、最初に開始す�
 
 
 
+[[netapp-ontap]]
 == NetApp ONTAP
 
 Red Hat OpenShift クラスターの永続ストレージプロバイダーとして機能する共有ストレージを分離して、各プロジェクトのストレージ上に作成されたボリュームが、ホストに対して個別のストレージ上に作成されたかのように見えるようにすることが重要です。これを行うには、 NetApp ONTAP上にプロジェクトまたはワークロードと同じ数の SVM (ストレージ仮想マシン) を作成し、各 SVM をワークロード専用にします。
 
 
 
+[[trident]]
 == Trident
 
 NetApp ONTAPで異なるプロジェクト用に異なる SVM を作成したら、各 SVM を異なるTridentバックエンドにマップする必要があります。 Tridentのバックエンド構成は、OpenShift クラスター リソースへの永続ストレージの割り当てを制御し、マップする SVM の詳細を必要とします。これは、少なくともバックエンドのプロトコル ドライバーである必要があります。オプションで、ストレージ上でボリュームをプロビジョニングする方法を定義したり、ボリュームのサイズやアグリゲートの使用法などの制限を設定したりすることもできます。  Tridentバックエンドの定義に関する詳細は、 https://docs.netapp.com/us-en/trident/trident-use/backends.html["ここをクリックしてください。"^] 。
 
 
 
+[[red-hat-openshift-storage-resources]]
 == Red Hat OpenShift – ストレージリソース
 
 Tridentバックエンドを構成した後、次のステップは StorageClasses を構成することです。バックエンドと同じ数のストレージ クラスを構成し、各ストレージ クラスに 1 つのバックエンドでのみボリュームを起動するアクセスを提供します。ストレージ クラスを定義するときに storagePools パラメータを使用することで、StorageClass を特定のTridentバックエンドにマップできます。ストレージクラスの定義の詳細については、 https://docs.netapp.com/us-en/trident/trident-use/manage-stor-class.html["ここをクリックしてください。"^] 。したがって、StorageClass から 1 つの SVM を指すTridentバックエンドへの 1 対 1 のマッピングがあります。これにより、そのプロジェクトに割り当てられた StorageClass 経由のすべてのストレージ要求が、そのプロジェクト専用の SVM によってのみ処理されるようになります。

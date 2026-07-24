@@ -18,6 +18,7 @@ ONTAPストレージとNetAppコンテナ ソリューションを統合する�
 
 
 
+[[openshift-deployment-and-integration]]
 == OpenShiftのデプロイメントと統合
 
 * link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Simplifying-Trident-Installation-on-Red-Hat-OpenShift-with-the-New-Certified/ba-p/459710["新しい認定Trident Operator により、Red Hat OpenShift へのTrident のインストールが簡素化されます。"]
@@ -28,6 +29,7 @@ ONTAPストレージとNetAppコンテナ ソリューションを統合する�
 
 
 
+[[data-protection-and-backup]]
 == データ保護とバックアップ
 
 * link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Crash-Consistent-Backup-and-Restore-Operations-for-OpenShift-Virtualization-VMs/ba-p/459417["Trident 25.02 を使用した OpenShift Virtualization VM のクラッシュ整合性バックアップおよびリストア操作"]
@@ -36,6 +38,7 @@ ONTAPストレージとNetAppコンテナ ソリューションを統合する�
 
 
 
+[[virtualization-and-vm-operations]]
 == 仮想化とVM操作
 
 * link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Live-Migration-of-VMs-with-OpenShift-Virtualization-on-ROSA-and-Amazon-FSx-for/ba-p/456213["ROSA とAmazon FSx for NetApp ONTAP上の OpenShift Virtualization を使用した VM のライブマイグレーション"]
@@ -44,6 +47,7 @@ ONTAPストレージとNetAppコンテナ ソリューションを統合する�
 
 
 
+[[storage-integration-and-performance]]
 == ストレージ統合とパフォーマンス
 
 * link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Using-NVMe-TCP-to-consume-ONTAP-storage-for-your-modern-containerized-apps-on/ba-p/453706["NVMe/TCP を使用して、VMware 上の最新のコンテナ化されたアプリケーションでONTAPストレージを使用する"]
@@ -53,6 +57,7 @@ ONTAPストレージとNetAppコンテナ ソリューションを統合する�
 
 
 
+[[kubernetes-and-vmware-ecosystem]]
 == KubernetesとVMwareエコシステム
 
 * link:https://blog.netapp.com/accelerate-your-k8s-journey["ONTAPと VMware Tanzu を使用して Kubernetes の導入を加速"]
