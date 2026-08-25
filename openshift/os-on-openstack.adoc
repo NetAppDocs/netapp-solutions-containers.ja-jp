@@ -29,7 +29,7 @@ OSPの詳細については、link:https://www.redhat.com/en/technologies/linux-
 
 OpenStack Platform サービスはコンテナとしてデプロイされ、サービスが相互に分離され、簡単にアップグレードできるようになります。 OpenStack プラットフォームは、Kolla で構築および管理されるコンテナのセットを使用します。サービスのデプロイメントは、Red Hat カスタムポータルからコンテナイメージをプルすることによって実行されます。これらのサービス コンテナは Podman コマンドを使用して管理され、Red Hat OpenStack Director を使用してデプロイ、構成、および保守されます。
 
-image:redhat-openshift-034.png["入出力ダイアログまたは書かれたコンテンツを示す図"]
+image::redhat-openshift-034.png[入出力ダイアログまたは書かれたコンテンツを示す図]
 
 [cols="15%, 15%, 70%"]
 |===

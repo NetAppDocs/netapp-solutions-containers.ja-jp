@@ -62,7 +62,7 @@ Red Hat OpenShift with NetAppソリューションは、次の主要コンポー
 
 Red Hat OpenShift Container Platform は、完全にサポートされているエンタープライズ Kubernetes プラットフォームです。  Red Hat はオープンソースの Kubernetes にいくつかの機能強化を加え、コンテナ化されたアプリケーションを構築、展開、管理するためのすべてのコンポーネントが完全に統合されたアプリケーション プラットフォームを提供します。
 
-詳細については、OpenShift の Web サイトをご覧ください。 https://www.openshift.com["ここをクリックしてください。"] 。
+詳細については、link:https://www.openshift.com["Red Hat OpenShiftのウェブサイト"^]をご覧ください。
 
 
 
@@ -71,7 +71,7 @@ Red Hat OpenShift Container Platform は、完全にサポートされている�
 
 NetApp には、エンタープライズ データ センターやハイブリッド クラウドの導入に最適なストレージ システムがいくつかあります。  NetAppポートフォリオには、 NetApp ONTAP、 NetApp Element、 NetApp e-Series ストレージ システムが含まれており、いずれもコンテナ化されたアプリケーションに永続的なストレージを提供できます。
 
-詳細については、 NetAppのWebサイトをご覧ください。 https://www.netapp.com["ここをクリックしてください。"] 。
+詳細については、link:https://www.netapp.com["NetApp Webサイト"^]をご覧ください。
 
 
 
@@ -80,7 +80,7 @@ NetApp には、エンタープライズ データ センターやハイブリ�
 
 Trident は、Red Hat OpenShift を含むコンテナおよび Kubernetes ディストリビューション向けのオープンソースで完全にサポートされているストレージ オーケストレーターです。
 
-詳細については、Tridentのウェブサイトをご覧ください。 https://docs.netapp.com/us-en/trident/index.html["ここをクリックしてください。"] 。
+詳細については、link:https://docs.netapp.com/us-en/trident/index.html["Tridentドキュメント"^]をご覧ください。
 
 
 

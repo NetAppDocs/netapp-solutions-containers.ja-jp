@@ -1,0 +1,19 @@
+---
+section: vsphere-kubernetes-service
+title: vSphere Kubernetes サービスと NetApp ストレージ
+pdf-filename: vSphere Kubernetes サービスと NetApp ストレージ
+entries:
+- title: 概要
+  pdf-filename: vSphere Kubernetes サービスと NetApp ストレージの概要
+  url: "/vsphere-kubernetes-service/vks-overview.html"
+- title: ストレージとvSphere Kubernetes Serviceの利用開始
+  pdf-filename: ストレージとvSphere Kubernetes Serviceの利用開始
+  entries:
+  - title: vSphere Kubernetes Serviceのデプロイ
+    url: "/vsphere-kubernetes-service/deploy-vks.html"
+  - title: NetApp ストレージが vSphere Kubernetes Service ワークロードにもたらすメリット
+    url: "/vsphere-kubernetes-service/netapp-storage-vks.html"
+  - title: NetApp VKSワークロード向けストレージプロビジョニング
+    url: "/vsphere-kubernetes-service/install-trident.html"
+  - title: NetApp ストレージを使用して VKS ワークロードをデプロイする
+    url: "/vsphere-kubernetes-service/deploy-vks-workloads.html"

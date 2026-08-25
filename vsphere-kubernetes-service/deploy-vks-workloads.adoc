@@ -1,0 +1,323 @@
+---
+sidebar: sidebar 
+permalink: vsphere-kubernetes-service/deploy-vks-workloads.html 
+keywords: postgresql, deployment, pvc, ontap-nas, iscsi, container application 
+summary: NASまたはSANプロトコルを使用したNetApp ONTAPの永続ストレージを使用して、VKSクラスターにコンテナ化されたアプリケーションをデプロイします。 
+---
+= コンテナアプリケーションを NetApp 永続ストレージでデプロイする
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+NetApp ONTAP 永続ストレージを使用して、vSphere Kubernetes Service クラスターにコンテナ化されたアプリケーションをデプロイします。次の例では、NAS（ontap-nas）または SAN iSCSI（ontap-san）ストレージのいずれかを使用して PostgreSQL データベースをデプロイする方法を示します。
+
+以下のYAML設定では、マニフェスト内でPOSTGRES_USER / POSTGRES_PASSWORDを直接設定します。本番環境では、データベース認証情報などの機密情報を管理するためにKubernetes Secretsを使用することをお勧めします。
+
+[role="tabbed-block"]
+====
+.NASストレージ（ontap-nasドライバ）を使用してPostgreSQLをデプロイする
+--
+ontap-nasドライバによってプロビジョニングされたNFS永続ボリュームをバックエンドとするPostgreSQLコンテナアプリケーションをデプロイできます。次の例は、PersistentVolumeClaim （PVC）とPostgreSQLのデプロイメントを作成する方法を示しています。
+
+[source, yaml]
+----
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-pvc
+spec:
+  storageClassName: sc-nas # Specify the StorageClass for dynamic provisioning
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      securityContext:
+        fsGroup: 999  # Ensures proper permissions for the mounted volume (PostgreSQL default user is 999)
+      containers:
+        - name: postgres
+          image: postgres:15
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            runAsUser: 999  # PostgreSQL default user ID
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
+          env:
+            - name: POSTGRES_DB
+              value: "postgres"
+            - name: POSTGRES_USER
+              value: "<username>"
+            - name: POSTGRES_PASSWORD
+              value: "<password>"
+            - name: PGDATA
+              value: "/var/lib/postgresql/data/pgdata"
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-storage
+              subPath: postgres-data  # Ensures data is stored in a subdirectory to avoid permission issues
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
+      volumes:
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: postgres-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5432
+      targetPort: 5432
+  selector:
+    app: postgres
+----
+--
+.SANストレージ（ontap-san iSCSIドライバ）を使用してPostgreSQLをデプロイする
+--
+以下のYAMLを使用して、ontap-sanドライバによってプロビジョニングされたiSCSI永続ボリュームをバックエンドとするPostgreSQLコンテナアプリケーションをデプロイします。 `Recreate`デプロイメント戦略では、新しいポッドが開始される前にポッドが完全に終了することが保証されます。これは、ReadWriteOnce iSCSIボリュームに必要であり、ポッドの再起動後のデータ破損を防止します。この構成は、ポッドの削除と再作成をまたいだデータの永続性をサポートし、Tridentボリュームのスナップショット、バックアップおよびリストア操作と互換性があります。
+
+[source, yaml]
+----
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-block-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+  storageClassName: sc-iscsi # Must map to an ontap-san driver
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-block-app
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      # 1. POD LEVEL SECURITY CONTEXT
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 999       # Official Postgres image default user ID
+        runAsGroup: 999      # Official Postgres image default group ID
+        fsGroup: 999
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: postgres
+          image: postgres:15
+          # 2. CONTAINER LEVEL SECURITY CONTEXT
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          env:
+            - name: POSTGRES_DB
+              value: "postgres"
+            - name: POSTGRES_USER
+              value: "<username>"
+            - name: POSTGRES_PASSWORD
+              value: "<password>"
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+          ports:
+            - containerPort: 5432
+              name: postgres
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-block-storage
+              subPath: postgres-data
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
+      volumes:
+        - name: postgres-block-storage
+          persistentVolumeClaim:
+            claimName: postgres-block-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5432
+      targetPort: 5432
+  selector:
+    app: postgres
+----
+--
+====
+
+
+[[validate-the-database-deployment]]
+== データベースのデプロイメントを検証する
+
+アプリケーションをデプロイした後、ポッドが実行状態になっていること、およびデータベースが正常に動作していることを確認してください。以下のコマンドを使用して、ポッド、PVC、およびサービスの状態を確認します。ポッドが稼働していること、およびPVCが適切なボリュームにバインドされていることを確認してください。
+
+[source, bash]
+----
+kubectl get all -n <namespace>
+kubectl get pvc -n <namespace>
+----
+image::vks-workload-001.png[永続ストレージを使用してデプロイされたワークロード]
+
+使用するプロトコルに応じて、バックエンドストレージはボリューム、qtree、またはLUNです。ONTAP システムでプロビジョニングされたストレージを確認するには、PersistentVolume（PV）を記述して内部ボリューム名を取得し、それを ONTAP CLI コマンドで使用してストレージの詳細を取得します。次のコマンドを使用して PV を記述し、内部ボリューム名を取得します：
+
+[source, bash]
+----
+kubectl describe pv/<pv-name>
+----
+.サンプルの提示
+image::vks-workload-002.png[NASボリュームの内部ボリューム名]
+
+image::vks-workload-003.png[SAN LUNの内部ボリューム名]
+
+出力から内部ボリューム名をコピーし、次のコマンドを実行して ONTAP CLI からストレージの詳細を取得します。
+
+NASボリュームの場合：
+
+[source, cli]
+----
+volume show -vserver <vserver> -volume <internal-volume-name>
+----
+image::vks-workload-004.png[NAS ボリュームの ONTAP CLI 出力]
+
+SAN LUN の場合は、次のコマンドを実行して ONTAP CLI から LUN の詳細を取得します：
+
+[source, cli]
+----
+lun show -vserver <vserver> -volume <internal-volume-name>
+----
+image::vks-workload-005.png[SAN LUNのONTAP CLI出力]
+
+NASまたはNAS Economyストレージクラスで `nconnect`マウントオプションを使用した場合、ワーカーノードからストレージサーバーへのアクティブなTCP接続数を確認できます。
+
+まず、Trident バックエンド構成を一覧表示してバックエンド名を確認し、それを記述して vserver 名とデータ LIF を取得します。
+
+[source, bash]
+----
+kubectl get tbc -n trident
+kubectl describe tbc <backend-name> -n trident
+----
+次に ONTAP クラスターにログインし、上記の出力からデータ LIF を置き換えて以下のコマンドを実行します：
+
+[source, cli]
+----
+network connections active show -local-address <data-lif> -local-port 2049
+----
+.サンプルの提示
+image::vks-workload-006.png[アクティブな接続のONTAP CLI出力]
+
+ポッドが実行状態になったら、データベースに接続してデータ操作を確認します。
+
+.手順
+. PostgreSQL サービスのポートをローカルマシンに転送します：
++
+[source, bash]
+----
+kubectl port-forward svc/postgres-service 5432:5432 -n <namespace>
+----
+. 別のターミナルから、psql を使用してデータベースに接続します：
++
+[source, bash]
+----
+psql "postgresql://<username>:<password>@127.0.0.1:5432/postgres"
+----
+. データベースとテーブルを作成し、テーブルにデータを入力します。
++
+[source, sql]
+----
+CREATE DATABASE employee;
+----
++
+新しいデータベースに切り替える（psqlメタコマンド）：
+
++
+[source, bash]
+----
+\c employee
+----
++
+テーブルを作成し、行を挿入して、結果をクエリします。
+
++
+[source, sql]
+----
+CREATE TABLE employees (
+    id SERIAL PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    department VARCHAR(50),
+    hire_date DATE DEFAULT CURRENT_DATE,
+    salary NUMERIC(10, 2)
+);
+
+INSERT INTO employees (first_name, last_name, email, department, salary)
+VALUES ('John', 'Doe', 'john.doe@example.com', 'Engineering', 85000.00);
+
+SELECT * FROM employees;
+----
+
+
+
+
+[[video-demonstration]]
+== ビデオデモ
+
+以下のビデオでは、vSphere Kubernetes クラスターへの Trident のインストールと、Trident を使用した永続ストレージを備えた PostgreSQL データベースのデプロイについて説明します。
+
+.Tridentを使用したONTAP永続ストレージによるワークロードのデプロイ
+video::eb8bd0c0-a1fe-4288-a575-b4ac00e004a9[panopto,width=360]

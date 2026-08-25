@@ -27,6 +27,6 @@ summary: NetAppを使用した Red Hat OpenShift 上の Kubernetes 向け高度�
 . Kubernetes向けAdvanced Cluster ManagementのRed Hatサブスクリプション
 
 
-Advanced Cluster Management は OpenShift クラスターのアドオンであるため、ハブおよび管理対象クラスター全体で使用される機能に基づいて、ハードウェア リソースに特定の要件と制限があります。クラスターのサイズを決定する際には、これらの問題を考慮する必要があります。ドキュメントを参照 https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.2/html-single/install/index#network-configuration["ここをクリックしてください。"]詳細についてはこちらをご覧ください。
+Advanced Cluster Management は、OpenShift クラスターのアドオンであるため、ハブクラスターとマネージドクラスター全体で使用される機能に基づいて、ハードウェアリソースに関する特定の要件と制限があります。クラスターのサイズを決定する際には、これらの点を考慮に入れる必要があります。詳細については、link:https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.2/html-single/install/index#network-configuration["ネットワーク構成要件"^]を参照してください。
 
-オプションとして、ハブ クラスターにインフラストラクチャ コンポーネントをホストするための専用ノードがあり、それらのノードにのみ Advanced Cluster Management リソースをインストールする場合は、それに応じてそれらのノードに許容値とセレクターを追加する必要があります。詳細については、ドキュメントを参照してください。 https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.2/html/install/installing#installing-on-infra-node["ここをクリックしてください。"] 。
+オプションとして、ハブクラスタにインフラストラクチャコンポーネントをホストするための専用ノードがあり、それらのノードにのみ Advanced Cluster Management リソースをインストールする場合は、それらのノードに適切なトレランスとセレクタを追加する必要があります。詳細については、link:https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.2/html/install/installing#installing-on-infra-node["インフラストラクチャノードへのインストール"^]を参照してください。

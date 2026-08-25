@@ -18,13 +18,13 @@ Trident は、Red Hat OpenShift を含むコンテナおよび Kubernetes ディ
 
 管理者は、プロジェクトのニーズと、圧縮、特定のディスク タイプ、特定のレベルのパフォーマンスを保証する QoS レベルなどの高度なストレージ機能を有効にするストレージ システム モデルに基づいて、さまざまなストレージ バックエンドを構成できます。これらのバックエンドは定義されると、開発者がプロジェクト内で使用して永続ボリューム要求 (PVC) を作成し、オンデマンドで永続ストレージをコンテナーに接続できるようになります。
 
-image:redhat-openshift-002.png["入出力ダイアログまたは書かれたコンテンツを示す図"]
+image::redhat-openshift-002.png[入出力ダイアログまたは書かれたコンテンツを示す図]
 
 Tridentは開発サイクルが速く、Kubernetes と同様に年に 4 回リリースされます。
 
-どのバージョンのTridentがどのKubernetesディストリビューションでテストされているかのサポートマトリックスは以下から参照できます。 https://docs.netapp.com/us-en/trident/trident-get-started/requirements.html#supported-frontends-orchestrators["ここをクリックしてください。"] 。
+どのバージョンの Trident がどの Kubernetes ディストリビューションでテストされたかのサポートマトリックスは、link:https://docs.netapp.com/us-en/trident/trident-get-started/requirements.html#supported-frontends-orchestrators["サポートされているフロントエンド（オーケストレータ）"^] に記載されています。
 
-詳細はlink:https://docs.netapp.com/us-en/trident/index.html["Trident製品ドキュメント"]インストールと構成の詳細については、こちらをご覧ください。
+インストールと設定の詳細については、link:https://docs.netapp.com/us-en/trident/index.html["Trident製品ドキュメント"^]を参照してください。
 
 
 
@@ -33,7 +33,7 @@ Tridentは開発サイクルが速く、Kubernetes と同様に年に 4 回リ�
 
 デプロイされたユーザー クラスタにTridentをインストールし、永続ボリュームをプロビジョニングするには、次の手順を実行します。
 
-. インストール アーカイブを管理ワークステーションにダウンロードし、内容を抽出します。  Tridentの現在のバージョンはダウンロードできます https://github.com/NetApp/trident/releases?q=25.&expanded=true["ここをクリックしてください。"]。
+. インストールアーカイブを管理用ワークステーションにダウンロードし、内容を解凍してください。現在のバージョンの Trident はlink:https://github.com/NetApp/trident/releases?q=25.&expanded=true["Tridentリリースページ（GitHub）"^]からダウンロードできます。
 . ダウンロードしたバンドルからTridentインストールを抽出します。
 +
 [listing]
@@ -327,8 +327,9 @@ iSCSI サービスを実行するようにワーカーノードを構成する�
 +
 マルチパスを使用しない場合:
 
-+
-[source, cli]
+
+
+[listing]
 ----
 apiVersion: machineconfiguration.openshift.io/v1
 kind: MachineConfig
@@ -347,10 +348,8 @@ spec:
           state: started
   osImageURL: ""
 ----
-+
-マルチパスを使用する場合:
++ マルチパスを使用する場合：
 
-+
 [source, cli]
 ----
 apiVersion: machineconfiguration.openshift.io/v1

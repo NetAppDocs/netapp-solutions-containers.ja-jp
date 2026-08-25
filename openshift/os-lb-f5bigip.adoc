@@ -60,23 +60,23 @@ NOTE: F5 BIG-IP システムは、専用ハードウェア、クラウド、ま�
 [[installation]]
 == インストール
 
-. F5 Application Services 3 拡張機能をインストールすると、BIG-IP システムが命令型コマンドではなく JSON で構成を受け入れることができるようになります。へ移動 https://github.com/F5Networks/f5-appsvcs-extension/releases["F5 AS3 GitHubリポジトリ"^]最新の RPM ファイルをダウンロードします。
+. BIG-IPシステムが命令型コマンドではなくJSON形式の構成を受け入れるようにするには、F5 Application Services 3拡張機能をインストールしてください。link:https://github.com/F5Networks/f5-appsvcs-extension/releases["F5 AS3 GitHubリポジトリ"^]にアクセスし、最新のRPMファイルをダウンロードしてください。
 . F5 BIG-IP システムにログインし、iApps > Package Management LX に移動して、インポートをクリックします。
 . [ファイルの選択] をクリックし、ダウンロードした AS3 RPM ファイルを選択し、[OK] をクリックして、[アップロード] をクリックします。
 +
-image:redhat-openshift-109.png["iAppsアップロード"]
+image::redhat-openshift-109.png[iAppsアップロード]
 
 . AS3 拡張機能が正常にインストールされていることを確認します。
 +
-image:redhat-openshift-110.png["AS3インストール検証"]
+image::redhat-openshift-110.png[AS3インストール検証]
 
 . 次に、OpenShift と BIG-IP システム間の通信に必要なリソースを構成します。まず、OpenShift SDN 用の BIG-IP システム上に VXLAN トンネル インターフェイスを作成して、OpenShift と BIG-IP サーバーの間にトンネルを作成します。 [ネットワーク] > [トンネル] > [プロファイル] に移動し、[作成] をクリックして、親プロファイルを vxlan に、フラッディング タイプをマルチキャストに設定します。プロファイルの名前を入力し、「完了」をクリックします。
 +
-image:redhat-openshift-111.png["VXLANプロファイルを作成する"]
+image::redhat-openshift-111.png[VXLANプロファイルを作成する]
 
 . [ネットワーク] > [トンネル] > [トンネル リスト] に移動し、[作成] をクリックして、トンネルの名前とローカル IP アドレスを入力します。前の手順で作成したトンネル プロファイルを選択し、[完了] をクリックします。
 +
-image:redhat-openshift-112.png["VXLANトンネルを作成する"]
+image::redhat-openshift-112.png[VXLANトンネルを作成する]
 
 . cluster-admin 権限で Red Hat OpenShift クラスターにログインします。
 . F5 BIG-IP サーバー用のホストサブネットを OpenShift 上に作成します。これにより、サブネットが OpenShift クラスターから F5 BIG-IP サーバーに拡張されます。ホストサブネットの YAML 定義をダウンロードします。
@@ -134,11 +134,11 @@ ocp-vmw-nszws-worker-wtgfw   ocp-vmw-nszws-worker-wtgfw   10.63.172.17    10.128
 ----
 . F5 BIG-IP サーバーに対応する OpenShift のホスト サブネット範囲内の IP を使用して、OpenShift VXLAN 上にセルフ IP を作成します。  F5 BIG-IP システムにログインし、「ネットワーク」>「セルフ IP」に移動して「作成」をクリックします。 F5 BIG-IP ホスト サブネット用に作成されたクラスター IP サブネットから IP を入力し、VXLAN トンネルを選択して、その他の詳細を入力します。次に、「完了」をクリックします。
 +
-image:redhat-openshift-113.png["VXLAN 用のセルフ IP を作成する"]
+image::redhat-openshift-113.png[VXLAN 用のセルフ IP を作成する]
 
 . CIS で設定および使用されるパーティションを F5 BIG-IP システムに作成します。 [システム] > [ユーザー] > [パーティション リスト] に移動し、[作成] をクリックして詳細を入力します。次に、「完了」をクリックします。
 +
-image:redhat-openshift-114.png["BIG-IPパーティションの作成"]
+image::redhat-openshift-114.png[BIG-IPパーティションの作成]
 
 +
 
@@ -166,24 +166,24 @@ customresourcedefinition.apiextensions.k8s.io/ingresslinks.cis.f5.com created
 ----
 . 「オペレーター」 > 「OperatorHub」に移動し、キーワード「F5」を検索して、「F5 コンテナー イングレス サービス」タイルをクリックします。
 +
-image:redhat-openshift-115.png["OperatorHub の F5 CIS"]
+image::redhat-openshift-115.png[OperatorHub の F5 CIS]
 
 . オペレーター情報を読み、「インストール」をクリックします。
 +
-image:redhat-openshift-116.png["OperatorHub の F5 CIS 情報タイル"]
+image::redhat-openshift-116.png[OperatorHub の F5 CIS 情報タイル]
 
 . インストール オペレーター画面で、すべてのパラメーターをデフォルトのままにして、[インストール] をクリックします。
 +
-image:redhat-openshift-117.png["F5 CISオペレータをインストールする"]
+image::redhat-openshift-117.png[F5 CISオペレータをインストールする]
 
 . オペレータのインストールにはしばらく時間がかかります。
 +
-image:redhat-openshift-118.png["F5 CIS オペレーターのインストールの進行状況"]
+image::redhat-openshift-118.png[F5 CIS オペレーターのインストールの進行状況]
 
 . オペレータがインストールされると、「インストール成功」メッセージが表示されます。
 . [オペレーター] > [インストール済みオペレーター] に移動し、[F5 コンテナー イングレス サービス] をクリックして、F5BigIpCtlr タイルの下の [インスタンスの作成] をクリックします。
 +
-image:redhat-openshift-119.png["F5BigIpCtlr を作成する"]
+image::redhat-openshift-119.png[F5BigIpCtlr を作成する]
 
 . YAML ビューをクリックし、必要なパラメータを更新した後、次のコンテンツを貼り付けます。
 +
@@ -227,7 +227,7 @@ spec:
 ----
 . このコンテンツを貼り付けた後、「作成」をクリックします。これにより、CIS ポッドが kube-system 名前空間にインストールされます。
 +
-image:redhat-openshift-120.png["F5 CIS ポッドを検証する"]
+image::redhat-openshift-120.png[F5 CIS ポッドを検証する]
 
 +
 
@@ -464,6 +464,6 @@ f5-demo-test-57c46f6f98-cl2m8   1/1     Running   0          27s
 ----
 . OpenShift の LoadBalancer タイプのサービスに対して、BIG-IP システム内に対応する仮想サーバーが作成されているかどうかを確認します。  [ローカル トラフィック] > [仮想サーバー] > [仮想サーバー リスト] に移動します。
 +
-image:redhat-openshift-121.png["対応するサービスタイプ LoadBalancer の BIG-IP 仮想サーバーの作成を検証します。"]
+image::redhat-openshift-121.png[対応するサービスタイプ LoadBalancer の BIG-IP 仮想サーバーの作成を検証します。]
 
 

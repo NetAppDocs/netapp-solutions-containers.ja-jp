@@ -27,7 +27,7 @@ RHV は次の機能を提供します。
 * *強化されたセキュリティ* RHV から継承された Secure Virtualization (sVirt) および Security Enhanced Linux (SELinux) テクノロジは、ホストと VM のセキュリティと強化を強化するために RHV によって採用されています。これらの機能の主な利点は、VM とその関連リソースの論理的な分離です。
 
 
-image:redhat-openshift-003.png["入出力ダイアログまたは書かれたコンテンツを示す図"]
+image::redhat-openshift-003.png[入出力ダイアログまたは書かれたコンテンツを示す図]
 
 
 

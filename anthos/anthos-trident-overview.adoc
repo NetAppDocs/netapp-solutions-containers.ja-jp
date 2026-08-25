@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: anthos/anthos-trident-overview.html 
 keywords: Trident, Trident, Helm, Operator, iSCSI, NFS 
-summary: Trident は、Anthos を含むコンテナと Kubernetes ディストリビューション向けの、完全にサポートされているオープンソースのストレージ オーケストレーターです。 
+summary: Tridentは、Anthosを含むコンテナおよびKubernetesディストリビューション向けの、完全にサポートされたオープンソースのストレージオーケストレーターです。 
 ---
 = Tridentの概要
 :hardbreaks:
@@ -22,47 +22,47 @@ image:a-w-n-astra-trident.png["入出力ダイアログまたは書かれたコ�
 
 Tridentは開発サイクルが速く、Kubernetes と同様に年に 4 回リリースされます。
 
-Tridentの最新バージョンのドキュメントは以下にあります。 https://docs.netapp.com/us-en/trident/index.html["ここをクリックしてください。"] 。どのバージョンのTridentがどのKubernetesディストリビューションでテストされているかのサポートマトリックスは以下から参照できます。 https://docs.netapp.com/us-en/trident/trident-get-started/requirements.html#supported-frontends-orchestrators["ここをクリックしてください。"] 。
+最新バージョン情報については、link:https://docs.netapp.com/us-en/trident/index.html["Tridentドキュメント"^]を参照してください。Trident と Kubernetes ディストリビューションのバージョン互換性に関するサポートマトリックスは、link:https://docs.netapp.com/us-en/trident/trident-get-started/requirements.html#supported-frontends-orchestrators["サポートされているフロントエンド（オーケストレータ）"^]で確認できます。
 
 20.04 リリース以降、 Trident のセットアップはTridentオペレーターによって実行されます。オペレーターは大規模な導入を容易にし、 Tridentインストールの一部として導入されるポッドの自己修復などの追加サポートを提供します。
 
 22.04 リリースでは、 Trident Operator のインストールを容易にする Helm チャートが利用可能になりました。
 
-Tridentのインストールの詳細については、 https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy.html["ここをクリックしてください。"] 。
+詳細については、link:https://docs.netapp.com/us-en/trident/trident-install/kubernetes-deploy.html["Tridentインストールの詳細"^]を参照してください。
 
 
 
 [[create-a-storage-system-backend]]
 == ストレージシステムのバックエンドを作成する
 
-Trident Operator のインストールが完了したら、使用している特定のNetAppストレージ プラットフォームのバックエンドを構成する必要があります。  Tridentのセットアップと構成を続行するには、以下のリンクに従ってください。link:https://docs.netapp.com/us-en/trident/trident-use/backends.html["バックエンドを作成します。"]
+Trident Operatorのインストールが完了したら、使用している特定のNetAppストレージプラットフォームのバックエンドを設定する必要があります。以下のリンクに従って、Tridentのセットアップと設定を続行してください。link:https://docs.netapp.com/us-en/trident/trident-use/backends.html["バックエンドを作成する"^]
 
 
 
 [[create-a-storage-class]]
 == ストレージクラスを作成する
 
-バックエンドを作成したら、Kubernetes ユーザーがボリュームを必要とするときに指定するストレージ クラスを作成する必要があります。 Kubernetes ユーザーは、ストレージ クラスを名前で指定する永続ボリューム要求 (PVC) を使用してボリュームをプロビジョニングします。ストレージ クラスを作成するには、以下のリンクに従ってください。link:https://docs.netapp.com/us-en/trident/trident-use/create-stor-class.html["ストレージクラスを作成する"]
+バックエンドを作成した後、Kubernetesユーザーがボリュームを使用する際に指定するストレージクラスを作成する必要があります。Kubernetesユーザーは、ストレージクラスを名前で指定する永続ボリューム要求（PVC）を使用してボリュームをプロビジョニングします。ストレージクラスを作成するには、以下のリンクをクリックしてください。link:https://docs.netapp.com/us-en/trident/trident-use/create-stor-class.html["ストレージクラスを作成する"^]
 
 
 
 [[dynamically-provision-a-volume]]
 == ボリュームを動的にプロビジョニングする
 
-ボリュームを動的にプロビジョニングするには、ストレージ クラスを使用して Kubernetes 永続ボリューム要求 (PVC) オブジェクトを作成する必要があります。  PVC オブジェクトを作成するには、以下のリンクに従ってください。link:https://docs.netapp.com/us-en/trident/trident-use/vol-provision.html["PVCの作成"]
+ボリュームを動的にプロビジョニングするには、ストレージクラスを使用してKubernetes永続ボリューム要求（PVC）オブジェクトを作成する必要があります。以下のリンクをクリックして、PVCオブジェクトを作成してください。link:https://docs.netapp.com/us-en/trident/trident-use/vol-provision.html["PVCの作成"^]
 
 
 
 [[use-the-volume]]
 == ボリュームを使用する
 
-上記の手順でプロビジョニングしたボリュームは、ポッドにマウントすることでアプリケーションで使用できるようになります。以下のリンクに例を示します。link:https://docs.netapp.com/us-en/trident/trident-use/vol-provision.html#sample-manifests["ボリュームをポッドにマウントする"]
+上記の手順でプロビジョニングされたボリュームは、Pod にマウントすることでアプリケーションから使用できます。以下のリンクに例を示します。link:https://docs.netapp.com/us-en/trident/trident-use/vol-provision.html#sample-manifests["ボリュームをポッドにマウントする"^]
 
 
 
 [[sample-provisioning]]
 == サンプルプロビジョニング
 
-link:anthos-trident-ontap-iscsi.html["iSCSI プロトコルのサンプル マニフェスト、window=_blank"]
+link:anthos-trident-ontap-iscsi.html["iSCSIプロトコルのサンプルマニフェスト"]
 
-link:anthos-trident-ontap-nfs.html["NFS プロトコルのサンプル マニフェスト、window=_blank"]
+link:anthos-trident-ontap-nfs.html["NFSプロトコルのサンプルマニフェスト"]

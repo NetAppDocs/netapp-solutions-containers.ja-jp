@@ -1,0 +1,32 @@
+---
+sidebar: sidebar 
+permalink: videos/vks-videos.html 
+keywords: video, demonstration, deployment 
+summary: このドキュメントに記載されている機能の一部を紹介します。 
+---
+= NetAppを使用したvSphere Kubernetes Serviceに関するビデオを視聴する
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+vSphere Kubernetes Service と NetApp の統合を、主要な機能を実演する一連のビデオでご紹介します。
+
+
+
+[[deploying-a-vsphere-kubernetes-service-cluster-with-netapp-storage]]
+== NetAppストレージを使用したvSphere Kubernetes Serviceクラスターのデプロイ
+
+.NetAppストレージを使用したvSphere Kubernetes Serviceクラスターのデプロイ
+video::4ef64b3c-7a68-41d5-bacf-b4a8012b49f8[panopto,width=360]
+
+
+[[deploying-workloads-with-ontap-persistent-storage-using-trident]]
+== Tridentを使用したONTAP永続ストレージによるワークロードのデプロイ
+
+.Tridentを使用したONTAP永続ストレージによるワークロードのデプロイ
+video::eb8bd0c0-a1fe-4288-a575-b4ac00e004a9[panopto,width=360]

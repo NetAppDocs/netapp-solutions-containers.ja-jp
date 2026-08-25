@@ -16,4 +16,4 @@ summary: NetAppを使用した Red Hat OpenShift 上の Kubernetes 向け高度�
 [role="lead"]
 Kubernetes の高度なクラスター管理を使用すると、ユーザーはコンソールから 1 つ以上の管理対象クラスター上に同時にリソースを作成できます。たとえば、異なるNetApp ONTAPクラスターでバックアップされた異なるサイトの OpenShift クラスターがあり、両方のサイトで PVC をプロビジョニングする場合は、上部のバーの (+) 記号をクリックします。次に、PVC を作成するクラスターを選択し、リソース YAML を貼り付けて、「作成」をクリックします。
 
-image:redhat-openshift-086.png["リソースを作成する"]
+image::redhat-openshift-086.png[リソースを作成する]

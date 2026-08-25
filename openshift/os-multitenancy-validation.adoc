@@ -23,14 +23,16 @@ summary: NetAppを使用した Red Hat OpenShift でのマルチテナントの�
 
 . project-1 の開発者、ocp-project-1-user としてログインします。
 . 新しいプロジェクトを作成するにはアクセスを確認してください。
-+
-[source, console]
+
+
+[listing]
 ----
 oc create ns sub-project-1
 ----
 . project-1 に割り当てられているストレージクラスを使用して、project-1 に PVC を作成します。
-+
-[source, console]
+
+
+[listing]
 ----
 cat << EOF | oc create -f -
 kind: PersistentVolumeClaim
@@ -50,20 +52,23 @@ spec:
 EOF
 ----
 . PVC に関連付けられている PV を確認します。
-+
-[source, console]
+
+
+[listing]
 ----
 oc get pv
 ----
 . NetApp ONTAP上の project-1 専用の SVM に PV とそのボリュームが作成されていることを確認します。
-+
-[source, console]
+
+
+[listing]
 ----
 volume show -vserver project-1-svm
 ----
 . project-1 にポッドを作成し、前の手順で作成した PVC をマウントします。
-+
-[source, console]
+
+
+[listing]
 ----
 cat << EOF | oc create -f -
 kind: Pod
@@ -88,13 +93,12 @@ spec:
 EOF
 ----
 . ポッドが実行中かどうか、ボリュームがマウントされているかどうかを確認します。
-+
-[source, console]
+
+
+[listing]
 ----
 oc describe pods test-pvc-pod -n project-1
 ----
-
-
 
 
 [[validate-access-to-create-pvcs-or-pods-in-another-project-or-use-resources-dedicated-to-another-project]]
@@ -102,8 +106,9 @@ oc describe pods test-pvc-pod -n project-1
 
 . project-1 の開発者、ocp-project-1-user としてログインします。
 . project-2 に割り当てられているストレージクラスを使用して、project-1 に PVC を作成します。
-+
-[source, console]
+
+
+[listing]
 ----
 cat << EOF | oc create -f -
 kind: PersistentVolumeClaim
@@ -123,8 +128,9 @@ spec:
 EOF
 ----
 . プロジェクト 2 に PVC を作成します。
-+
-[source, console]
+
+
+[listing]
 ----
 cat << EOF | oc create -f -
 kind: PersistentVolumeClaim
@@ -144,15 +150,17 @@ spec:
 EOF
 ----
 . PVCが `test-pvc-project-1-sc-2`そして `test-pvc-project-2-sc-1`作成されませんでした。
-+
-[source, console]
+
+
+[listing]
 ----
 oc get pvc -n project-1
 oc get pvc -n project-2
 ----
 . project-2 にポッドを作成します。
-+
-[source, console]
+
+
+[listing]
 ----
 cat << EOF | oc create -f -
 kind: Pod
@@ -171,42 +179,44 @@ EOF
 ----
 
 
-
-
 [[validate-access-to-view-and-edit-projects-resourcequotas-and-storageclasses]]
 == プロジェクト、リソースクォータ、ストレージクラスの表示と編集へのアクセスを検証する
 
 . project-1 の開発者、ocp-project-1-user としてログインします。
 . 新しいプロジェクトを作成するためのアクセスを確認します。
-+
-[source, console]
+
+
+[listing]
 ----
 oc create ns sub-project-1
 ----
 . プロジェクトを表示するためのアクセスを検証します。
-+
-[source, console]
+
+
+[listing]
 ----
 oc get ns
 ----
 . ユーザーが project-1 の ResourceQuotas を表示または編集できるかどうかを確認します。
-+
-[source, console]
+
+
+[listing]
 ----
 oc get resourcequotas -n project-1
 oc edit resourcequotas project-1-sc-rq -n project-1
 ----
 . ユーザーがストレージクラスを表示するアクセス権を持っていることを確認します。
-+
-[source, console]
+
+
+[listing]
 ----
 oc get sc
 ----
 . ストレージクラスを記述するためのアクセスを確認します。
 . ストレージクラスを編集するためのユーザーのアクセスを検証します。
-+
-[source, console]
+
+
+[listing]
 ----
 oc edit sc project-1-sc
 ----
-

@@ -16,9 +16,9 @@ summary: NetApp Elementソフトウェアは、モジュール式のスケーラ
 [role="lead"]
 NetApp Elementソフトウェアは、モジュール式のスケーラブルなパフォーマンスを提供し、各ストレージ ノードが環境に保証された容量とスループットを提供します。  NetApp Elementシステムは、単一のクラスター内で 4 ノードから 100 ノードまで拡張でき、高度なストレージ管理機能を多数提供します。
 
-image:redhat-openshift-064.png["入出力ダイアログまたは書かれたコンテンツを示す図"]
+image::redhat-openshift-064.png[入出力ダイアログまたは書かれたコンテンツを示す図]
 
-NetApp Elementストレージシステムの詳細については、 https://www.netapp.com/data-storage/solidfire/["NetApp Solidfire ウェブサイト"^] 。
+NetApp Element ストレージシステムの詳細については、link:https://www.netapp.com/data-storage/solidfire/["NetApp Solidfire ウェブサイト"^]を参照してください。
 
 
 

@@ -46,9 +46,9 @@ OpenShift ベアメタル IPI デプロイメントでは、ネットワーク �
 
 次の画像は、IPI の展開中と展開が完了した後の環境を示しています。
 
-image:redhat-openshift-036.png["入出力ダイアログまたは書かれたコンテンツを示す図"]
+image::redhat-openshift-036.png[入出力ダイアログまたは書かれたコンテンツを示す図]
 
-image:redhat-openshift-037.png["入出力ダイアログまたは書かれたコンテンツを示す図"]
+image::redhat-openshift-037.png[入出力ダイアログまたは書かれたコンテンツを示す図]
 
 
 

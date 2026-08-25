@@ -22,3 +22,9 @@ indexpage:
       url: openshift-videos.html#automation-and-integration
     - title: クラウドとハイブリッドの統合
       url: openshift-videos.html#cloud-and-hybrid-integrations
+  - title: vSphere Kubernetes サービスと NetApp ストレージ
+    links:
+    - title: NetAppストレージを使用したvSphere Kubernetes Serviceのデプロイ
+      url: vks-videos.html#deploying-a-vsphere-kubernetes-service-cluster-with-netapp-storage
+    - title: NetApp Storageを使用したvSphere Kubernetes Serviceワークロードのデプロイ
+      url: vks-videos.html#deploying-workloads-with-ontap-persistent-storage-using-trident

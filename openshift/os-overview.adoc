@@ -34,7 +34,7 @@ Red Hat OpenShift Container Platform は、開発と IT 運用を単一のプラ
 * *セキュリティとコンテナ カタログ* OpenShift は、Security-Enhanced Linux (SELinux)、CGroups、および Secure Computing Mode (seccomp) による確立されたセキュリティを使用してコンテナを分離および保護し、マルチテナント機能を提供し、有害なコード実行からユーザーを保護します。また、さまざまなサブシステムの TLS 証明書による暗号化や、セキュリティに特に重点を置いたスキャンとグレード付けが行われた Red Hat 認定コンテナ (access.redhat.com/containers) へのアクセスも提供し、認定された、信頼できる、安全なアプリケーション コンテナをエンド ユーザーに提供します。
 
 
-image:redhat-openshift-004.png["入出力ダイアログまたは書かれたコンテンツを示す図"]
+image::redhat-openshift-004.png[入出力ダイアログまたは書かれたコンテンツを示す図]
 
 
 
@@ -55,13 +55,13 @@ OpenShift の Installer Provisioned Infrastructure (IPI) デプロイメント�
 . Red Hat OpenShiftをご覧くださいlink:https://www.openshift.com["Webサイト"^]SSO 資格情報を使用してログインします。
 . Red Hat OpenShift をデプロイする環境を選択します。
 +
-image:redhat-openshift-008.png["入出力ダイアログまたは書かれたコンテンツを示す図"]
+image::redhat-openshift-008.png[入出力ダイアログまたは書かれたコンテンツを示す図]
 
 . 次の画面で、インストーラー、一意のプル シークレット、および管理用の CLI ツールをダウンロードします。
 +
-image:redhat-openshift-009.png["入出力ダイアログまたは書かれたコンテンツを示す図"]
+image::redhat-openshift-009.png[入出力ダイアログまたは書かれたコンテンツを示す図]
 
-. フォローlink:https://docs.openshift.com/container-platform/4.7/installing/index.html["インストール手順"]選択した環境にデプロイするために Red Hat によって提供されます。
+. Red Hat が提供するlink:https://docs.openshift.com/container-platform/4.7/installing/index.html["インストール手順"^]に従って、選択した環境にデプロイしてください。
 
 
 

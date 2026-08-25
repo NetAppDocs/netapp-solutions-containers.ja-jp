@@ -20,7 +20,7 @@ NetApp ONTAPに裏打ちされた Red Hat OpenShift とTridentは、デフォル
 
 次の図は、 NetApp ONTAPを搭載したTridentを搭載した Red Hat OpenShift クラスター上のマルチテナント ソリューションを示しています。
 
-image:redhat-openshift-040.png["NetApp ONTAPを基盤とするTridentを使用した Red Hat OpenShift クラスタのマルチテナント"]
+image::redhat-openshift-040.png[NetApp ONTAPを基盤とするTridentを使用した Red Hat OpenShift クラスタのマルチテナント]
 
 
 
@@ -39,7 +39,7 @@ image:redhat-openshift-040.png["NetApp ONTAPを基盤とするTridentを使用�
 
 Red Hat OpenShift クラスターの観点から見ると、最初に開始する最上位のリソースはプロジェクトです。 OpenShift プロジェクトは、OpenShift クラスター全体を複数の仮想クラスターに分割するクラスター リソースとして考えることができます。したがって、プロジェクト レベルでの分離は、マルチテナントを構成するための基盤となります。
 
-次は、クラスターで RBAC を構成します。ベスト プラクティスは、単一のプロジェクトまたはワークロードで作業するすべての開発者を、アイデンティティ プロバイダー (IdP) 内の単一のユーザー グループに構成することです。 Red Hat OpenShift では、IdP の統合とユーザー グループの同期が可能になり、IdP からのユーザーとグループをクラスターにインポートできるようになります。これにより、クラスター管理者は、プロジェクト専用のクラスター リソースへのアクセスを、そのプロジェクトで作業しているユーザー グループに分離し、クラスター リソースへの不正アクセスを制限できるようになります。  Red Hat OpenShiftとのIdP統合の詳細については、ドキュメントを参照してください。 https://docs.openshift.com/container-platform/4.7/authentication/understanding-identity-provider.html["ここをクリックしてください。"^] 。
+次は、クラスタ内でRBACを設定することです。ベストプラクティスとしては、単一のプロジェクトまたはワークロードに取り組むすべての開発者を、IDプロバイダー（IdP）内の単一のユーザーグループに構成することです。Red Hat OpenShiftはIdP統合とユーザーグループの同期をサポートしており、IdPのユーザーとグループをクラスターにインポートできます。これにより、クラスター管理者は、プロジェクト専用のクラスターリソースへのアクセスを、そのプロジェクトに取り組むユーザーグループまたは複数のユーザーグループに分離することができ、クラスターリソースへの不正アクセスを制限できます。Red Hat OpenShiftとのIdP統合の詳細については、link:https://docs.openshift.com/container-platform/4.7/authentication/understanding-identity-provider.html["IDプロバイダーについて"^]を参照してください。
 
 
 
@@ -53,15 +53,15 @@ Red Hat OpenShift クラスターの永続ストレージプロバイダーと�
 [[trident]]
 == Trident
 
-NetApp ONTAPで異なるプロジェクト用に異なる SVM を作成したら、各 SVM を異なるTridentバックエンドにマップする必要があります。 Tridentのバックエンド構成は、OpenShift クラスター リソースへの永続ストレージの割り当てを制御し、マップする SVM の詳細を必要とします。これは、少なくともバックエンドのプロトコル ドライバーである必要があります。オプションで、ストレージ上でボリュームをプロビジョニングする方法を定義したり、ボリュームのサイズやアグリゲートの使用法などの制限を設定したりすることもできます。  Tridentバックエンドの定義に関する詳細は、 https://docs.netapp.com/us-en/trident/trident-use/backends.html["ここをクリックしてください。"^] 。
+異なるプロジェクト用に異なる SVM が NetApp ONTAP 上に作成されたら、各 SVM を異なる Trident バックエンドにマッピングする必要があります。Trident のバックエンド構成は、OpenShift クラスタリソースへの永続ストレージの割り当てを制御するものであり、マッピング先の SVM の詳細が必要です。最低限、バックエンドのプロトコルドライバを指定する必要があります。オプションとして、ストレージ上でボリュームがどのようにプロビジョニングされるかを定義したり、ボリュームのサイズやアグリゲートの使用量などの制限を設定したりすることができます。Trident バックエンドの定義に関する詳細は、link:https://docs.netapp.com/us-en/trident/trident-use/backends.html["バックエンドを設定"^] を参照してください。
 
 
 
 [[red-hat-openshift-storage-resources]]
 == Red Hat OpenShift – ストレージリソース
 
-Tridentバックエンドを構成した後、次のステップは StorageClasses を構成することです。バックエンドと同じ数のストレージ クラスを構成し、各ストレージ クラスに 1 つのバックエンドでのみボリュームを起動するアクセスを提供します。ストレージ クラスを定義するときに storagePools パラメータを使用することで、StorageClass を特定のTridentバックエンドにマップできます。ストレージクラスの定義の詳細については、 https://docs.netapp.com/us-en/trident/trident-use/manage-stor-class.html["ここをクリックしてください。"^] 。したがって、StorageClass から 1 つの SVM を指すTridentバックエンドへの 1 対 1 のマッピングがあります。これにより、そのプロジェクトに割り当てられた StorageClass 経由のすべてのストレージ要求が、そのプロジェクト専用の SVM によってのみ処理されるようになります。
+Trident バックエンドを設定したら、次のステップは StorageClasses の設定です。バックエンドと同じ数だけストレージクラスを設定し、各ストレージクラスが1つのバックエンド上でのみボリュームを起動できるようにアクセスを制限します。ストレージクラスを定義する際に storagePools パラメータを使用することで、StorageClass を特定の Trident バックエンドにマッピングできます。ストレージクラスを定義するための詳細については、link:https://docs.netapp.com/us-en/trident/trident-use/create-stor-class.html["ストレージクラスを作成する"^]を参照してください。これにより、StorageClass から Trident バックエンドへの1対1のマッピングが確立され、それが1つの SVM を指すようになります。これにより、そのプロジェクトに割り当てられた StorageClass を介したすべてのストレージ要求が、そのプロジェクト専用の SVM のみから提供されるようになります。
 
-ストレージ クラスは名前空間リソースではないため、別の名前空間またはプロジェクトのポッドによる 1 つのプロジェクトのストレージ クラスへのストレージ要求が拒否されることをどのように保証するのでしょうか。答えは、ResourceQuotas を使用することです。 ResourceQuotas は、プロジェクトごとのリソースの合計使用量を制御するオブジェクトです。プロジェクト内のオブジェクトが消費できるリソースの数と合計量を制限できます。 ResourceQuotas を使用すると、プロジェクトのほぼすべてのリソースを制限できます。これを効率的に使用することで、組織はリソースの過剰プロビジョニングや過剰消費によるコストと停止を削減できます。ドキュメントを参照してください https://docs.openshift.com/container-platform/4.7/applications/quotas/quotas-setting-per-project.html["ここをクリックしてください。"^]詳細についてはこちらをご覧ください。
+ストレージクラスは名前空間リソースではないため、別の名前空間またはプロジェクトのポッドが、あるプロジェクトのストレージクラスに対してストレージ要求を行った場合に、その要求が拒否されるようにするにはどうすればよいでしょうか？答えは ResourceQuotas を使用することです。ResourceQuotas は、プロジェクトごとのリソースの総使用量を制御するオブジェクトです。これにより、プロジェクト内のオブジェクトが消費できるリソースの数と総量を制限できます。プロジェクトのほぼすべてのリソースは ResourceQuotas を使用して制限でき、これを効率的に活用することで、組織はリソースの過剰供給や過剰消費によるコストや障害を削減できます。詳細については、link:https://docs.openshift.com/container-platform/4.7/applications/quotas/quotas-setting-per-project.html["プロジェクトごとにリソース割り当てを設定する"^] を参照してください。
 
 このユースケースでは、特定のプロジェクト内のポッドが、そのプロジェクト専用ではないストレージ クラスからストレージを要求することを制限する必要があります。そのためには、他のストレージクラスの永続ボリュームの要求を制限する必要があります。 `<storage-class-name>.storageclass.storage.k8s.io/persistentvolumeclaims` 0 にします。さらに、クラスター管理者は、プロジェクト内の開発者が ResourceQuotas を変更するアクセス権を持たないようにする必要があります。

@@ -1,0 +1,134 @@
+---
+sidebar: sidebar 
+permalink: vsphere-kubernetes-service/netapp-storage-vks.html 
+keywords: netapp, ONTAP, trident, persistent storage, kubernetes, vks 
+summary: NetApp ONTAP ストレージを vSphere Kubernetes Service ワークロードで使用する主なメリットについて説明します。 
+---
+= vSphere Kubernetes Service向けのNetAppストレージについて説明します
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+NetAppをvSphere Kubernetes Service （VKS）のストレージとして使用することは、NetAppの堅牢なストレージソリューションを活用してKubernetesワークロードのパフォーマンス、拡張性、信頼性を向上させる強力な組み合わせです。NetApp Tridentは、Kubernetes向けのオープンソースの動的ストレージプロビジョナーであり、vSphere Kubernetes Serviceのワークロードとストレージを統合するために使用されます。
+
+
+
+[[key-benefits-of-using-netapp-storage-with-vks]]
+== VKSでNetAppストレージを使用する主なメリット
+
+. *動的ストレージプロビジョニング：* NetApp Trident はストレージボリュームの動的なプロビジョニングを可能にし、Kubernetes ポッドが要件に基づいてその場でストレージを要求できるようにします。
+. *永続ストレージ：* NetApp ソリューションは永続的なストレージ機能を提供し、ポッドの再起動や障害発生時にもデータの耐久性と可用性を確保します。
+. *ハイパフォーマンス：* NetAppのストレージソリューション（ONTAPなど）は、低レイテンシのハイパフォーマンスストレージを提供しており、Kubernetes上で動作するI/O負荷の高いアプリケーションに最適です。
+. *拡張性：* NetAppストレージシステムは、増大するKubernetesワークロードの需要に合わせて拡張でき、大規模な展開をサポートできます。
+. *データ管理：* NetApp は、スナップショット、クローニング、データレプリケーションなどの高度なデータ管理機能を提供しており、バックアップ、ディザスタリカバリ、開発ワークフローに役立ちます。
+. *マルチクラウドおよびハイブリッドクラウドのサポート：* NetAppのストレージソリューションは、オンプレミス、パブリッククラウド、およびハイブリッドクラウド環境に対応し、ストレージ管理における柔軟性と一貫性を提供します。
+
+
+
+
+[[netapp-ontap-integration-overview]]
+== NetApp ONTAP統合の概要
+
+NetApp ONTAPは、データ重複排除、圧縮、暗号化などの機能を備えたエンタープライズクラスのストレージを提供します。NetApp Tridentを使用して、NetAppストレージをKubernetesと統合します。NetApp Tridentは、オンプレミスのONTAP、AWSのFSx for NetApp ONTAP、AzureのAzure NetApp Files、Google CloudのGoogle Cloud NetApp Volumesなど、さまざまなNetAppストレージプラットフォームをサポートしています。
+
+Trident Protect を使用して、Kubernetes ワークロードのデータ保護とディザスタリカバリを処理します。Trident Protect を使用すると、スナップショットやクローンを作成し、異なるストレージバックエンド間でデータをレプリケートできるため、障害発生時にもデータが安全に保護され、復旧可能になります。
+
+
+
+[[key-features-of-trident]]
+=== Trident の主な機能
+
+**CSI準拠** 最新のKubernetesストレージ機能および標準との互換性を確保します。**宣言型構成** ユーザーがYAMLファイルでストレージ要件を定義できるようにし、その後Tridentによって自動的に管理されます。**ドライバー** TridentはONTAPがサポートするNFS、CIFS/SMB、iSCSI、FC、NVMe/TCPプロトコルのドライバーをサポートします。**ハイブリッドおよびマルチクラウドサポート** TridentはオンプレミスのONTAPストレージおよびハイパースケーラーにおけるマネージドストレージサービス（具体的にはAWSのFSx for NetApp ONTAP、AzureのAzure NetApp Files、Google CloudのGoogle Cloud NetApp Volumes）のドライバーをサポートします。**高度なデータ管理** ONTAPのスナップショットおよびクローニング機能を活用し、効率的なデータ保護とテスト環境および開発環境の迅速なプロビジョニングを実現します。
+
+Trident の詳細については、link:https://docs.netapp.com/us-en/trident/["Tridentドキュメント"^]を参照してください。
+
+
+
+[[trident-protect]]
+== Trident Protect
+
+Trident Protect は Trident とは別にインストールされます。デプロイ前に、Kubernetes プラットフォーム、ストレージバックエンド、スナップショットコンポーネント、およびオブジェクトストレージがlink:https://docs.netapp.com/us-en/trident/trident-protect/trident-protect-requirements.html["Trident Protect の要件"^]を満たしていることを確認してください。
+
+
+
+[[key-features-of-trident-protect]]
+=== Trident Protect の主な機能
+
+**自動バックアップ** Trident Protect は、自動化されたポリシーベースの Kubernetes アプリケーションのバックアップを実現し、手動による介入なしに定期的にバックアップが行われるようにします。
+
+**スナップショット管理** ONTAPのスナップショット機能を活用して、コンテナアプリケーションおよびVMのポイントインタイムコピーを頻繁に作成し、信頼性の高い復旧メカニズムを提供します。
+
+**バックアップリポジトリの暗号化** Trident Protect は、Restic および Kopia バックアップリポジトリのパスワードベースの暗号化をサポートしています。ストレージ層とネットワーク層で、永続ボリューム暗号化と転送中暗号化をそれぞれ個別に設定してください。
+
+**コンプライアンスと監査** 組織がコンプライアンス要件を満たし、データ保護慣行の定期的な監査を実施するのに役立つツールと機能を提供します。
+
+**ディザスタリカバリ** ONTAPのレプリケーション機能と統合することで、堅牢なディザスタリカバリソリューションを提供し、壊滅的な事態が発生した場合でも事業継続性を確保します。
+
+Trident Protect の詳細については、link:https://docs.netapp.com/us-en/trident/trident-protect/learn-about-trident-protect.html["Trident Protect ドキュメント"^]を参照してください。
+
+
+
+[[netapp-ontap-hardware-models-and-protocols-supported]]
+== NetApp ONTAPのサポートされているハードウェアモデルとプロトコル
+
+NetApp ONTAP ソフトウェアは、さまざまなハードウェアモデル上で動作し、それぞれが異なる性能および容量要件に対応するように設計されています。Trident は、All Flash FAS （AFF）、All SAN Array （ASA）、および ASA R2 システムを含むさまざまな NetApp ONTAP システムをサポートする堅牢な機能を拡張します。このサポートにより、組織はコンテナ化された環境においてハイパフォーマンス ストレージ ソリューションの潜在能力を最大限に活用できるようになります。
+
+**オールフラッシュ FAS （AFF）システム** AFF システムは優れたパフォーマンスと低レイテンシを実現し、高負荷アプリケーションに最適です。
+
+**All SAN Array （ASA） システム** ASA システムは専用の SAN 環境向けに設計されており、堅牢なパフォーマンスと信頼性を提供します。
+
+**ASA R2 Systems** ASA R2システムは、SAN環境向けに強化された機能と性能を提供します。
+
+**AFX** NetApp AFX は、エンタープライズ AI ワークロード向けに設計された、目的に即した分散型オールフラッシュ ストレージ アーキテクチャです。ハイパフォーマンス NAS を提供し、コンピューティングと容量を独立してスケーリングできます。NetApp AFX ストレージシステムは、ストレージ レイヤの実装において、他の ONTAP ベースのシステム（ASA、AFF、FAS）とは異なります。AFX は高性能と拡張性を実現する分散ファイルシステムを使用しますが、他の ONTAP ベースのシステムは従来型のストレージ アーキテクチャを使用します。
+
+. AFF でサポートされているプロトコル：NFS、CIFS/SMB、iSCSI、FC、NVMe/TCP
+. ASA でサポートされているプロトコル：iSCSI、FC、NVMe/TCP
+. ASA R2 でサポートされているプロトコル：iSCSI、FC、NVMe/TCP
+. AFX でサポートされているプロトコル：Trident 25.10 以降、NFS プロトコルのみがサポートされており、SMB プロトコルはサポートされていません。
+
+
+
+
+[[trident-drivers-for-ontap-storage]]
+== ONTAP ストレージ向け Trident ドライバー
+
+Tridentには、バックエンドストレージにボリュームをプロビジョニングできる以下のCSIドライバが含まれています。
+
+
+
+[[for-nas-protocols-on-supported-hardware-models]]
+=== サポートされているハードウェアモデルにおけるNASプロトコルの場合
+
+. ontap-nas：1 つの PVC が 1 つの PV にマッピングされ、これは専用の FlexVol volume です。
+. ontap-nas-economy: プロビジョニングされた各 PV は qtree であり、FlexVol volume あたりの qtree 数は設定可能です（デフォルトは 200、50 ～ 300 の間で設定可能）。
++
+1つのPVCは1つのPVに対応し、これは共有FlexVol volume上のqtreeです。
+
+
+
+
+NOTE: 仮想マシンのすべてのディスクをqtreeとして、単一のボリューム内に配置できます。ただし、スナップショット、クローン、レプリケーション機能はTridentではサポートされていないことにご注意ください。これらの機能がストレージ管理者によって管理される場合、PVの粒度には対応していません。
+
+. ontap-nas-flexgroup: プロビジョニングされた各 PV は完全な ONTAP FlexGroup であり、SVM に割り当てられたすべてのアグリゲートが使用されます。
+
+
+
+
+[[for-san-protocols-on-supported-hardware-models]]
+=== サポートされているハードウェアモデルにおけるSANプロトコルの場合
+
+. ontap-san: 1 つの PVC が 1 つの PV にマッピングされます。これは専用の FlexVol volume 上の LUN です。
+. ontap-san-economy: 1 つの PVC が 1 つの PV にマッピングされ、これは共有 FlexVol volume 上の LUN です。共有 FlexVol volume には複数の LUN を設定できます（デフォルトは 100、FlexVol volume あたり 50～200 LUN/PV で設定可能）。
+
+
+
+NOTE: 仮想マシンのすべてのディスクをLUNとして、単一のボリューム内に配置できます。ただし、このドライバーはスナップショットとクローンはサポートしていますが、レプリケーションはサポートしていません。ストレージ管理者がレプリケーションを管理する場合、PV単位の粒度には対応していません。
+
+image::vks-trident-storage-001.png[ONTAP ストレージ向け Trident ドライバー]
+
+Trident ドライバを通じて公開されている機能と、ストレージ管理者が適用する必要がある機能の完全なリストについては、Trident ドキュメントの link:https://docs.netapp.com/us-en/trident/trident-reco/integrate-trident.html#ontap-backend-drivers["ONTAP バックエンドドライバ"^] セクションを参照してください。

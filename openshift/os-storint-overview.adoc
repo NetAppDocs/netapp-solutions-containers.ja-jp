@@ -18,10 +18,10 @@ OpenShift Virtualizationソリューション向けにアプリケーション�
 
 Tridentは、NetAppが管理するオープンソースのストレージプロビジョナーおよびオーケストレーターであり、そのアドオンであるNetApp Trident Protectとともに、Red Hat OpenShiftのようなコンテナベースの環境で永続的なデータをオーケストレーションおよび管理するための堅牢なソリューションを提供します。
 
-image:redhat-openshift-108.png["入出力ダイアログまたは書かれたコンテンツを示す図"]
+image::redhat-openshift-108.png[入出力ダイアログまたは書かれたコンテンツを示す図]
 
 次のページには、Red Hat OpenShift with NetAppソリューションにおけるアプリケーションおよび永続ストレージ管理用に検証されたNetApp製品に関する追加情報が記載されています。
 
-* link:https://docs.netapp.com/us-en/trident/["Tridentドキュメント"]
-* link:https://docs.netapp.com/us-en/trident/trident-protect/learn-about-trident-protect.html["Trident Protect ドキュメント"]
+* link:https://docs.netapp.com/us-en/trident/["Tridentドキュメント"^]
+* link:https://docs.netapp.com/us-en/trident/trident-protect/learn-about-trident-protect.html["Trident Protect ドキュメント"^]
 

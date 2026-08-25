@@ -18,15 +18,17 @@ Red Hat OpenShift クラスター管理者によって次のタスクが実行�
 
 . Red Hat OpenShift クラスターに cluster-admin としてログインします。
 . 異なるプロジェクトに対応する 2 つのプロジェクトを作成します。
-+
-[source, console]
+
+
+[listing]
 ----
 oc create namespace project-1
 oc create namespace project-2
 ----
 . project-1 の開発者ロールを作成します。
-+
-[source, console]
+
+
+[listing]
 ----
 cat << EOF | oc create -f -
 apiVersion: rbac.authorization.k8s.io/v1
@@ -82,15 +84,14 @@ rules:
 EOF
 ----
 
-
-
 NOTE: このセクションで提供されているロール定義は単なる例です。開発者の役割は、エンドユーザーの要件に基づいて定義する必要があります。
 
 . 同様に、プロジェクト 2 の開発者ロールを作成します。
 . すべての OpenShift およびNetAppストレージ リソースは通常、ストレージ管理者によって管理されます。ストレージ管理者のアクセスは、Tridentのインストール時に作成される Trident オペレーター ロールによって制御されます。これに加えて、ストレージ管理者は、ストレージの消費方法を制御するために ResourceQuotas へのアクセス権も必要とします。
 . クラスター内のすべてのプロジェクトで ResourceQuotas を管理するためのロールを作成し、それをストレージ管理者にアタッチします。
-+
-[source, console]
+
+
+[listing]
 ----
 cat << EOF | oc create -f -
 kind: ClusterRole
@@ -123,8 +124,9 @@ ocp-project-1               ocp-project-1-user
 ocp-project-2               ocp-project-2-user
 ....
 . ストレージ管理者の ClusterRoleBindings を構成します。
-+
-[source, console]
+
+
+[listing]
 ----
 cat << EOF | oc create -f -
 kind: ClusterRoleBinding
@@ -155,13 +157,12 @@ roleRef:
 EOF
 ----
 
-
-
 NOTE: ストレージ管理者の場合、 trident-operator と resource-quotas の 2 つのロールをバインドする必要があります。
 
 . 開発者用の RoleBinding を作成し、developer-project-1 ロールを project-1 内の対応するグループ (ocp-project-1) にバインドします。
-+
-[source, console]
+
+
+[listing]
 ----
 cat << EOF | oc create -f -
 kind: RoleBinding
@@ -179,7 +180,5 @@ roleRef:
   name: developer-project-1
 EOF
 ----
-
-
 . 同様に、開発者ロールをプロジェクト 2 の対応するユーザー グループにバインドする開発者用の RoleBinding を作成します。
 

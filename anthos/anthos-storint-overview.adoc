@@ -78,6 +78,6 @@ NetApp は、 Trident CSI 準拠のストレージ オーケストレーター�
 
 NetApp は、Anthos などのコンテナベースの環境で永続的なデータをオーケストレーションおよび管理するのに役立つさまざまな製品を提供しています。
 
-NetApp Trident は、Anthos を含むコンテナおよび Kubernetes ディストリビューション向けのオープンソースで完全にサポートされているストレージ オーケストレーターです。詳細については、Tridentのウェブサイトをご覧ください。 https://docs.netapp.com/us-en/trident/index.html["ここをクリックしてください。"] 。
+NetApp Tridentは、Anthosを含むコンテナおよびKubernetesディストリビューション向けの、オープンソースで完全サポートされたストレージオーケストレーターです。詳細については、link:https://docs.netapp.com/us-en/trident/index.html["Tridentドキュメント"^]をご参照ください。
 
 次のページには、 NetAppソリューションを使用した Anthos のアプリケーションおよび永続ストレージ管理用に検証されたNetApp製品に関する追加情報が記載されています。

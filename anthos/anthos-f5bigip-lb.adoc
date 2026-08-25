@@ -31,7 +31,7 @@ NOTE: F5 BIG-IP システムは、専用ハードウェア、クラウド、ま�
 [[validated-releases]]
 == 検証済みリリース
 
-このソリューションは、VMware vSphere に展開された仮想アプライアンスを利用します。 F5 Big-IP 仮想アプライアンスのネットワークは、ネットワーク環境に基づいて 2 アーム構成または 3 アーム構成で構成できます。このドキュメントの展開は、2 アーム構成に基づいています。  Anthosで使用するための仮想アプライアンスの構成に関する詳細は、 https://cloud.google.com/solutions/partners/installing-f5-big-ip-adc-for-gke-on-prem["ここをクリックしてください。"] 。
+このソリューションは、VMware vSphere にデプロイされた仮想アプライアンスを利用します。F5 Big-IP 仮想アプライアンスのネットワーク構成は、ネットワーク環境に応じて、2アーム構成または3アーム構成に設定できます。本書におけるデプロイは、2アーム構成に基づいています。Anthos で使用するための仮想アプライアンスの設定に関する詳細は、link:https://cloud.google.com/solutions/partners/installing-f5-big-ip-adc-for-gke-on-prem["GKE On-Prem向けF5 BIG-IP ADCインストールガイド"^] を参照してください。
 
 NetAppのソリューション エンジニアリング チームは、次の表のリリースが Anthos On-Prem のデプロイメントで動作することをラボで検証しました。
 
@@ -53,7 +53,7 @@ NetAppのソリューション エンジニアリング チームは、次の表
 
 F5 BIG-IP をインストールするには、次の手順を実行します。
 
-. F5から仮想アプリケーションのOpen Virtual Appliance（OVA）ファイルをダウンロードします。 https://downloads.f5.com/esd/serveDownload.jsp?path=/big-ip/big-ip_v15.x/15.0.1/english/virtual-edition/&sw=BIG-IP&pro=big-ip_v15.x&ver=15.0.1&container=Virtual-Edition&file=BIGIP-15.0.1-0.0.11.ALL-vmware.ova["ここをクリックしてください。"] 。
+. 仮想アプリケーション Open Virtual Appliance (OVA) ファイルをlink:https://downloads.f5.com/esd/serveDownload.jsp?path=/big-ip/big-ip_v15.x/15.0.1/english/virtual-edition/&sw=BIG-IP&pro=big-ip_v15.x&ver=15.0.1&container=Virtual-Edition&file=BIGIP-15.0.1-0.0.11.ALL-vmware.ova["F5ダウンロードポータル"^]からダウンロードします。
 +
 
 NOTE: アプライアンスをダウンロードするには、ユーザーは F5 に登録する必要があります。  Big-IP Virtual Edition Load Balancer の 30 日間のデモ ライセンスが提供されます。  NetApp、アプライアンスの実稼働展開には永続的な 10 Gbps ライセンスを推奨しています。

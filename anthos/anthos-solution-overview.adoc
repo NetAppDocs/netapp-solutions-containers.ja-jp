@@ -71,7 +71,7 @@ Anthosの詳細については、次のAnthosウェブサイトをご覧くだ�
 
 NetApp には、エンタープライズ データ センターやハイブリッド クラウドの導入に最適なストレージ システムがいくつかあります。  NetApp のポートフォリオには、 NetApp ONTAP、 Cloud Volumes ONTAP、 Google Cloud NetApp Volumes、 Azure NetApp Files 、 NetApp ONTAPストレージ システム用の FSx ONTAP が含まれており、いずれもコンテナ化されたアプリケーションに永続的なストレージを提供できます。
 
-詳細については、 NetAppのWebサイトをご覧ください。 https://www.netapp.com["ここをクリックしてください。"] 。
+詳細については、link:https://www.netapp.com["NetApp Webサイト"^]をご覧ください。
 
 
 
@@ -80,7 +80,7 @@ NetApp には、エンタープライズ データ センターやハイブリ�
 
 Trident は、Anthos を含むコンテナと Kubernetes ディストリビューション向けのオープンソースで完全にサポートされているストレージ オーケストレーターです。
 
-詳細については、Tridentのウェブサイトをご覧ください。 https://docs.netapp.com/us-en/trident/index.html["ここをクリックしてください。"] 。
+詳細については、link:https://docs.netapp.com/us-en/trident/index.html["Tridentドキュメント"^]をご覧ください。
 
 
 
@@ -94,4 +94,4 @@ Trident は、Anthos を含むコンテナと Kubernetes ディストリビュ�
 [[current-support-matrix-for-validated-releases]]
 == 検証済みリリースの現在のサポート マトリックス
 
-見る https://cloud.google.com/anthos/docs/resources/partner-storage#netapp["ここをクリックしてください。"]検証済みリリースのサポート マトリックス。
+検証済みリリースについては、link:https://cloud.google.com/anthos/docs/resources/partner-storage#netapp["Anthosストレージパートナーサポートマトリックス"^]を参照してください。

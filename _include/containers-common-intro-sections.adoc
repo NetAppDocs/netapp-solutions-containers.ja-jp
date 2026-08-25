@@ -15,11 +15,11 @@
 
 Red Hat OpenShift Container Platform は、完全にサポートされているエンタープライズ Kubernetes プラットフォームです。  Red Hat はオープンソースの Kubernetes にいくつかの機能強化を加え、コンテナ化されたアプリケーションを構築、展開、管理するためのすべてのコンポーネントが完全に統合されたアプリケーション プラットフォームを提供します。
 
-詳細については、OpenShift の Web サイトをご覧ください。 https://www.openshift.com["ここをクリックしてください。"] 。
+詳細については、link:https://www.openshift.com["Red Hat OpenShiftのウェブサイト"^]をご覧ください。
 
 NetApp には、エンタープライズ データ センターやハイブリッド クラウドの導入に最適なストレージ システムがいくつかあります。  NetAppポートフォリオには、 NetApp ONTAP、 NetApp Element、 NetApp e-Series ストレージ システムが含まれており、いずれもコンテナ化されたアプリケーションに永続的なストレージを提供できます。
 
-詳細については、 NetAppのWebサイトをご覧ください。 https://www.netapp.com["ここをクリックしてください。"] 。
+詳細については、link:https://www.netapp.com["NetApp Webサイト"^]をご覧ください。
 
 Trident は、{k8s_distribution_name} などのコンテナおよび Kubernetes ディストリビューション向けのオープンソースで完全にサポートされているストレージ オーケストレーターです。
 
@@ -94,7 +94,7 @@ NetApp は、低遅延パフォーマンス、統合データ保護、および�
 
 どちらのシステムも、業界最先端のデータ管理ソフトウェアであるNetApp ONTAPデータ管理ソフトウェアを搭載しており、簡素化された高可用性のクラウド統合ストレージ管理を実現し、データ ファブリックのニーズに合わせてエンタープライズ クラスの速度、効率、セキュリティを実現します。
 
-NETAPP AFF/ FASプラットフォームの詳細については、こちらをクリックしてください。 https://docs.netapp.com/platstor/index.jsp["ここをクリックしてください。"] 。
+NetApp AFF/FAS プラットフォームの詳細については、link:https://docs.netapp.com/platstor/index.jsp["NetApp ハードウェア プラットフォームドキュメント"^]を参照してください。
 
 
 
@@ -103,7 +103,7 @@ NETAPP AFF/ FASプラットフォームの詳細については、こちらを�
 
 ONTAP Select は、環境内のハイパーバイザーに導入できるNetApp ONTAPのソフトウェア定義の導入です。  VMware vSphere または KVM にインストールでき、ハードウェアベースのONTAPシステムの完全な機能とエクスペリエンスを提供します。
 
-ONTAP Selectの詳細については、 https://docs.netapp.com/us-en/ontap-select/["ここをクリックしてください。"] 。
+ONTAP Select の詳細については、link:https://docs.netapp.com/us-en/ontap-select/["ONTAP Selectのドキュメント"^]を参照してください。
 
 
 
@@ -112,14 +112,14 @@ ONTAP Selectの詳細については、 https://docs.netapp.com/us-en/ontap-sele
 
 NetApp Cloud Volumes ONTAP は、 Amazon AWS、Microsoft Azure、Google Cloud などのさまざまなパブリック クラウドに導入できるNetApp ONTAPのクラウド導入バージョンです。
 
-Cloud Volumes ONTAPの詳細については、 https://docs.netapp.com/us-en/occm/#discover-whats-new["ここをクリックしてください。"] 。
+Cloud Volumes ONTAP の詳細については、link:https://docs.netapp.com/us-en/occm/#discover-whats-new["Cloud Volumes ONTAPのドキュメント"^]を参照してください。
 
 [role="normal"]
 NetApp は、ステートフルなコンテナ化されたアプリケーションとそのデータのオーケストレーション、管理、保護、移行を支援するさまざまな製品を提供しています。
 
 image:devops-with-netapp-001.png["入出力ダイアログまたは書かれたコンテンツを示す図"]
 
-NetApp Trident は、{k8s_distribution_name} などのコンテナおよび Kubernetes ディストリビューション向けのオープンソースで完全にサポートされているストレージ オーケストレーターです。詳細については、Tridentのウェブサイトをご覧ください。 https://docs.netapp.com/us-en/trident/index.html["ここをクリックしてください。"] 。
+NetApp Tridentは、{k8s_distribution_name}などのコンテナやKubernetesディストリビューション向けのオープンソースで完全にサポートされているストレージオーケストレーターです。詳細については、link:https://docs.netapp.com/us-en/trident/index.html["Tridentドキュメント"^]を参照してください。
 
 次のページには、{solution_name} ソリューションのアプリケーションおよび永続ストレージ管理用に検証されたNetApp製品に関する追加情報が記載されています。
 
@@ -135,7 +135,7 @@ image:redhat-openshift-002.png["入出力ダイアログまたは書かれたコ
 
 Tridentは開発サイクルが速く、Kubernetes と同様に年に 4 回リリースされます。
 
-Tridentの最新バージョンは、2022 年 4 月にリリースされた 22.04 です。どのバージョンのTridentがどのKubernetesディストリビューションでテストされているかのサポートマトリックスは以下から参照できます。 https://docs.netapp.com/us-en/trident/trident-get-started/requirements.html#supported-frontends-orchestrators["ここをクリックしてください。"] 。
+どのバージョンの Trident がどの Kubernetes ディストリビューションでテストされたかのサポートマトリックスは、link:https://docs.netapp.com/us-en/trident/trident-get-started/requirements.html#supported-frontends-orchestrators["サポートされているフロントエンド（オーケストレータ）"^] に記載されています。
 
 20.04 リリース以降、 Trident のセットアップはTridentオペレーターによって実行されます。オペレーターは大規模な導入を容易にし、 Tridentインストールの一部として導入されるポッドの自己修復などの追加サポートを提供します。
 

@@ -26,6 +26,6 @@ Red Hat Advanced Cluster Management for Kubernetes を使用すると、次の�
 
 Red Hat Advanced Cluster Management for Kubernetes は、Red Hat OpenShift クラスターのアドオンとしてインストールされ、このクラスターをすべての操作の中央コントローラーとして使用します。このクラスターはハブ クラスターと呼ばれ、ユーザーが Advanced Cluster Management に接続するための管理プレーンを公開します。 Advanced Cluster Management コンソールを使用してインポートまたは作成された他のすべての OpenShift クラスターは、ハブ クラスターによって管理され、管理対象クラスターと呼ばれます。管理対象クラスターに Klusterlet と呼ばれるエージェントをインストールして、それらをハブ クラスターに接続し、クラスター ライフサイクル管理、アプリケーション ライフサイクル管理、可観測性、セキュリティ コンプライアンスに関連するさまざまなアクティビティの要求に応えます。
 
-image:redhat-openshift-065.png["ACMアーキテクチャ"]
+image::redhat-openshift-065.png[ACMアーキテクチャ]
 
-詳細については、ドキュメントを参照してください。 https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.2/["ここをクリックしてください。"] 。
+詳細については、link:https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.2/["Red Hat Advanced Cluster Management のドキュメント"^]をご覧ください。

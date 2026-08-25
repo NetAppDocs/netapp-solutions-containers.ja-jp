@@ -1,0 +1,216 @@
+---
+sidebar: sidebar 
+permalink: vsphere-kubernetes-service/deploy-vks.html 
+keywords: vks, cluster, install, worker nodes, iscsi, nvme, custom image 
+summary: 適切なワーカーノード構成を備えた vSphere Kubernetes Service クラスタを VCF 環境にインストールします。 
+---
+= vSphere Kubernetes Service クラスタのインストール
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+vSphere Kubernetes Service（VKS）クラスタをVCF 9.1環境にインストールし、ワークロードに適したストレージユーティリティを使用してワーカーノードを構成します。
+
+.タスク概要
+NFSユーティリティは、作成したクラスターのワーカーノードに自動的にインストールされます。iSCSIまたはNVMeユーティリティがインストールされたワーカーノードを作成する場合は、カスタムOVAイメージを作成し、そのイメージをワーカーノードに使用する必要があります。カスタムイメージはDockerを使用して作成でき、 `vcf`コマンドラインツールを使用して、このイメージからOVAファイルを作成できます。このOVAファイルは、vSphereのコンテンツライブラリにアップロードできます。VKSクラスタを作成する際、コンテンツライブラリからこのイメージをノードプール用に選択できます。
+
+.手順
+. VKSクラスターを作成します。
++
+VKSクラスタは、デフォルトのワーカーノードイメージ、または独自に作成したカスタムイメージのいずれかを使用して作成できます。デフォルトのワーカーノードイメージにはNFSユーティリティがプリインストールされていますが、カスタムイメージにはiSCSIおよびNVMeユーティリティを含めることができます。以下のオプションが利用可能です：
+
++
+** *NASのみ（デフォルト）：* NFSユーティリティがプリインストールされたデフォルトのワーカーノードイメージを使用して VKS クラスタを作成します。
+** *SAN 有効（カスタム イメージ）：* iSCSI および NVMe ユーティリティを含むカスタム Docker イメージを作成し、 `vcf`コマンドラインツールを使用して OVA ファイルを生成し、OVA を vSphere コンテンツ ライブラリにアップロードして、そのカスタム イメージをノード プールに選択して VKS クラスターを作成します。
++
+.デフォルトのワーカーノードイメージを使用したNAS専用のvSphere Kubernetes Serviceクラスタを作成する手順を表示する
+[%collapsible]
+====
+デフォルトのワーカーノードイメージを使用してVKSクラスタを作成します。画面の指示に従って、クラスター名、ノードプール構成、その他の設定を指定してください。
+
+vSphere Client から、vSphere Kubernetes クラスターを作成する名前空間に移動します。その名前空間の「リソース」タブで、Kubernetes セクションの「クラスターの作成」をクリックするか、「サービスへ移動」をクリックしてから「クラスターの作成」をクリックします。
+
+クラスターの詳細をフォームに入力してください。
+
+*** セクション1の「構成タイプ」で、「カスタム」を選択します。
+*** セクション2の「一般設定」で、クラスターの名前を指定し、その他の設定はすべてデフォルト値のままにしてください。
+*** セクション3のデフォルト設定をすべて受け入れてください。
+*** セクション 4「ノード プール」で、ノード プールの横にある省略記号（…）をクリックし、「編集」をクリックします。レプリカ数を 3 に増やし、OS イメージには最新の Ubuntu バージョンを選択します。「次へ」をクリックし、次に「確認と確定」をクリックします。
+
+
+クラスターの詳細を確認したら、「完了」をクリックします。vSphere Kubernetes クラスターは数分以内に作成されます。
+
+image::vks-create-001.png[vCenter の名前空間]
+
+image::vks-create-002.png[クラスタ構成タイプを作成する]
+
+image::vks-create-003.png[クラスターの作成 一般設定]
+
+image::vks-create-004.png[クラスタコントロールプレーンを作成する]
+
+image::vks-create-005.png[クラスタノードプールを作成する]
+
+image::vks-create-006.png[クラスターの作成完了]
+
+image::vks-create-007.png[クラスターの作成が完了しました]
+
+====
++
+.SAN対応ワーカーノード用のカスタムOVAイメージを作成する手順を表示する
+[%collapsible]
+====
+必要なユーティリティがインストールされた Docker イメージを作成します。以下の例は、iSCSI およびマルチパスユーティリティがインストールされた Ubuntu 24.04 ベースの Docker イメージを作成する方法を示しています。
+
+[source, docker]
+----
+#san-dockerfile.txt
+FROM ubuntu:24.04
+# Prevent interactive prompts during package installation
+ENV DEBIAN_FRONTEND=noninteractive
+# Install required system packages for iSCSI and Multipathing
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    nvme-cli \
+    kmod \
+    linux-tools-common \
+    open-iscsi \
+    lsscsi \
+    sg3-utils \
+    multipath-tools \
+    scsitools  \
+    chrony \
+    networkd-dispatcher &&\
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+# Set iSCSI session scanning to manual as required by Trident
+RUN sed -i 's/^\(node.session.scan\).*/\1 = manual/' /etc/iscsi/iscsid.conf
+# Configure device-mapper-multipath with Trident recommendations
+RUN printf "defaults {\n    user_friendly_names yes\n    find_multipaths no\n}\n" > /etc/multipath.conf
+RUN mkdir -p /etc/networkd-dispatcher/off.d /etc/networkd-dispatcher/routable.d/
+CMD ["bash"]
+----
+以下の方法でDockerイメージをビルドします：
+
+[source, docker]
+----
+docker build -f san-dockerfile.txt -t ubuntu-2404:san .
+----
+Docker レジストリが利用できない場合は、次のコマンドを実行してローカルレジストリを起動し、そこにイメージをプッシュしてください：
+
+[source, docker]
+----
+docker run -d -p 5000:5000 --restart=always --name registry registry:2
+----
+イメージにタグを付けてプッシュします。
+
+[source, docker]
+----
+docker tag ubuntu-2404:san localhost:5000/ubuntu-2404:san
+docker push localhost:5000/ubuntu-2404:san
+----
+イメージ設定ファイルを作成し（ `ubuntu2404vkr135-san.yml`として保存）、イメージを参照します：
+
+[source, yaml]
+----
+#ubuntu2404vkr135-san.yml
+apiVersion: imageconfiguration.vmware.com/v1alpha1
+kind: Image
+metadata:
+    name: ubuntu-2404-amd64-v1.35.5---vmware.1-vkr.1
+spec:
+    osSpec:
+        name: ubuntu
+        version: "24.04"
+        image: "localhost:5000/ubuntu-2404:san"
+    kubernetesSpec:
+        image: projects.packages.broadcom.com/vsphere/iaas/kubernetes-release/1.35.5/kubernetes-distribution-image:v1.35.5_vmware.1-vkr.1
+    diskSize: 20Gi
+    repositorySpec:
+        debs:
+            - name: noble
+              url: http://archive.ubuntu.com/ubuntu
+              suites:
+                  - noble
+              components:
+                  - main
+                  - restricted
+                  - universe
+                  - multiverse
+            - name: noble-security
+              url: http://security.ubuntu.com/ubuntu
+              suites:
+                  - noble-security
+              components:
+                  - main
+                  - restricted
+                  - universe
+                  - multiverse
+    packages:
+      present:                  # Packages to install
+        - name: open-iscsi
+        - name: lsscsi
+        - name: sg3-utils
+        - name: multipath-tools
+        - name: scsitools
+        - name: nvme-cli
+    services:
+      - name: multipath-tools.service
+        status: enabled
+      - name: open-iscsi.service
+        status: enabled
+----
+
+NOTE: メタデータ名は、事前に承認されたリストの中から選択する必要があります。そうでない場合、OVAファイルを作成しようとしたときに、以下に示すようなエラーが表示されます。事前承認リストは、 `kr bake`コマンドのVCF CLIヘルプで確認できます。
+
+image::vks-006.png[メタデータ名が事前承認リストにない場合のエラー]
+
+VCF CLIを使用してOVAファイルを作成します。
+
+[source, cli]
+----
+vcf kr bake -f <path/to/ubuntu2404vkr135-san.yml> --log-level DEBUG --log-format plain
+----
+SCP を使用して OVA ファイルを、vSphere コンテンツライブラリにアップロードできるマシンに転送します。
+
+====
+
+
+. クラスターのインストール後、vCenter でクラスターを見つけて、kubeconfig ファイルをダウンロードします。
++
+.. メインメニューから *Supervisor Management* をクリックし、クラスターが作成された名前空間を選択します。
+.. 「コンピューティング」タブを選択し、次に「Kubernetes クラスター」を選択します。名前空間内のすべてのクラスターが表示されます。
+.. 「リソース」タブに移動し、必要な Kubernetes クラスターを選択して、その kubeconfig ファイルをダウンロードします。
++
+image::vks-001.png[vCenter のスーパーバイザー管理メニュー]
+
++
+image::vks-002.png[vCenter の Kubernetes クラスター一覧]
+
++
+image::vks-003.png[リソースタブ]
+
++
+image::vks-004.png[クラスター用のkubeconfigのダウンロード]
+
+
+
+. 踏み台ホストから、kubeconfig ファイルを使用してクラスターに接続し、CLI から管理します。
++
+image::vks-005.png[kubeconfigを使用したVKSクラスターへのCLI接続]
+
+
+
+
+
+[[video-demonstration]]
+== ビデオデモ
+
+次のビデオでは、vSphere Kubernetes クラスターの作成方法を説明します。
+
+.スーパーバイザークラスタに vSphere Kubernetes クラスタを作成する
+video::4ef64b3c-7a68-41d5-bacf-b4a8012b49f8[panopto,width=360]

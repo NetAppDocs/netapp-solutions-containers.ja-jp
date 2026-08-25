@@ -20,12 +20,13 @@ summary: NetAppを使用した Red Hat OpenShift でのマルチテナントの�
 . [ストレージ] > [ストレージ VM] に移動し、[追加] をクリックします。必要な詳細を指定して、プロジェクト 1 用とプロジェクト 2 用の 2 つの SVM を作成します。また、SVM とそのリソースを管理するための vsadmin アカウントも作成します。
 
 
-image:redhat-openshift-041.png["ONTAPでのSVMの作成"]
+image::redhat-openshift-041.png[ONTAPでのSVMの作成]
 
 . ストレージ管理者として Red Hat OpenShift クラスターにログインします。
 . project-1 のバックエンドを作成し、それをプロジェクト専用の SVM にマップします。  NetApp、 ONTAPクラスタ管理者を使用する代わりに、SVM の vsadmin アカウントを使用してバックエンドを SVM に接続することをお勧めします。
-+
-[source, console]
+
+
+[listing]
 ----
 cat << EOF | tridentctl -n trident create backend -f
 {
@@ -41,8 +42,6 @@ cat << EOF | tridentctl -n trident create backend -f
 EOF
 ----
 
-
-
 NOTE: この例では、ontap-nas ドライバーを使用しています。ユースケースに基づいてバックエンドを作成するときは、適切なドライバーを使用します。
 
 
@@ -50,8 +49,9 @@ NOTE: Trident がtrident プロジェクトにインストールされている�
 
 . 同様に、project-2 のTridentバックエンドを作成し、それを project-2 専用の SVM にマップします。
 . 次に、ストレージ クラスを作成します。  project-1 のストレージ クラスを作成し、storagePools パラメータを設定して、project-1 専用のバックエンドのストレージ プールを使用するように構成します。
-+
-[source, console]
+
+
+[listing]
 ----
 cat << EOF | oc create -f -
 apiVersion: storage.k8s.io/v1
@@ -66,8 +66,9 @@ EOF
 ----
 . 同様に、project-2 のストレージ クラスを作成し、project-2 専用のバックエンドのストレージ プールを使用するように構成します。
 . ResourceQuota を作成して、他のプロジェクト専用のストレージクラスからストレージを要求する project-1 のリソースを制限します。
-+
-[source, console]
+
+
+[listing]
 ----
 cat << EOF | oc create -f -
 kind: ResourceQuota
