@@ -1,0 +1,523 @@
+---
+sidebar: sidebar 
+permalink: vsphere-kubernetes-service/backup-restore-trident-protect.html 
+keywords: vks, Trident, Trident Protect, NetApp ONTAP, vSphere Kubernetes Service, VCF, data protection, backup, restore, snapshots, container application protection 
+summary: Trident Protect のスナップショットとバックアップおよび ONTAP S3 オブジェクトストレージを使用して、VKS クラスタ内のコンテナアプリケーションをバックアップおよびリストアします。 
+---
+= vSphere Kubernetes Service クラスタのコンテナアプリケーションを Trident Protect を使用してバックアップおよびリストアする
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+vSphere Kubernetes Service （VKS） クラスター内のコンテナアプリケーションを、Trident Protect のスナップショットとバックアップを使用してバックアップおよびリストアします。この手順には、ONTAP S3 オブジェクトストレージを使用した AppVault の作成、Kubernetes リソースオブジェクトと永続ボリュームを含むアプリケーションデータをキャプチャするための Trident Protect の設定、および必要に応じたデータのリストアが含まれます。
+
+VKSクラスタ内で実行されるコンテナアプリケーションは、ワーカーノードの名前空間においてKubernetesワークロードとして管理されます。アプリケーションのメタデータと永続ボリュームの両方を保護することが重要です。そうすることで、それらが失われたり破損したりした場合でも、復旧できるようになります。
+
+VKSアプリケーションの永続ボリュームは、link:https://docs.netapp.com/us-en/trident/["Trident CSI"]を使用してVKSクラスターと統合されたONTAPストレージによってバックアップできます。この手順では、link:https://docs.netapp.com/us-en/trident/trident-protect/learn-about-trident-protect.html["Trident Protect"]を使用してアプリケーションスナップショットを作成します。スナップショットのメタデータはONTAPオブジェクトストレージに保存され、ボリュームスナップショットデータはストレージバックエンドに残ります。また、バックアップのデータはONTAPオブジェクトストレージにコピーされます。必要に応じて、スナップショットまたはバックアップから復元できます。
+
+Trident Protectは、Kubernetesクラスタ上のアプリケーションのスナップショット、バックアップ、復元、およびディザスタリカバリを可能にします。Trident Protectで保護できるデータには、アプリケーションに関連付けられたKubernetesリソースオブジェクトと、それらの永続ボリュームが含まれます。
+
+*以下は、このセクションの例で使用されている各種コンポーネントのバージョンです*
+
+* VMware Cloud Foundation (VCF) 9.1 と vSphere Kubernetes サービス
+* link:https://docs.netapp.com/us-en/trident/trident-get-started/quickstart.html["Trident 26.06"]
+* link:https://docs.netapp.com/us-en/trident/trident-protect/trident-protect-installation.html["Trident Protect 26.06"]
+* link:https://docs.netapp.com/us-en/ontap/["ONTAP 9.16"]
+
+
+
+
+[[install-trident-protect-on-the-vsphere-kubernetes-cluster]]
+== vSphere Kubernetes クラスターに Trident Protect をインストールする
+
+.Trident Protectのインストール
+[%collapsible]
+====
+Helm を使用して、vSphere Kubernetes Service クラスタに Trident Protect をインストールします。このセクションの例では、Trident Protect CLI である `tridentctl-protect`を使用します。link:https://docs.netapp.com/us-en/trident/trident-protect/trident-protect-cli.html["Trident Protect CLI ドキュメント"]の手順に従ってインストールしてください。Trident Protect のその他のインストール方法については、link:https://docs.netapp.com/us-en/trident/trident-protect/learn-about-trident-protect.html["Trident Protect ドキュメント"]を参照してください。
+
+まず、 `trident-protect`名前空間を作成してラベルを付けます。Trident Protect は特権ワークロードを実行するため、 `enforce=privileged`ラベルが必要です。これがないと、Kubernetes Pod セキュリティアドミッションコントローラーが Trident Protect Pod の起動をブロックします。
+
+[source, cli]
+----
+kubectl create namespace trident-protect
+kubectl label namespace trident-protect pod-security.kubernetes.io/enforce=privileged
+----
+次に、Helmリポジトリを追加し、Trident Protectを名前空間にインストールします。
+
+[source, cli]
+----
+helm repo add netapp-trident-protect https://netapp.github.io/trident-protect-helm-chart
+helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name-of-cluster> --version 100.2606.0 --namespace trident-protect
+----
+
+NOTE: Trident Protect ポッドが `PodSecurity`アドミッションエラーで起動しない場合、インストール前にポッドのセキュリティラベルが `trident-protect`ネームスペースに適用されていない可能性があります。 `--overwrite`を使用して再適用し、ポッドが起動することを確認してください。
+
+[source, cli]
+----
+kubectl label namespace trident-protect pod-security.kubernetes.io/enforce=privileged --overwrite
+----
+[source, cli]
+----
+kubectl get pods -n trident-protect
+----
+image::vks-tp-024.png[Trident Protect ポッドが実行中]
+
+image::vks-tp-025.png[Trident Protect ポッドが実行中]
+
+====
+
+
+[[create-app-vault-for-object-storage]]
+== オブジェクトストレージ用のApp Vaultを作成する
+
+.AppVaultを作成する
+[%collapsible]
+====
+アプリケーションのスナップショットとバックアップを作成する前に、Trident Protect でオブジェクトストレージを構成する必要があります。これは、AppVault CR を作成することで行います。管理者のみが AppVault CR を作成および構成できます。
+
+AppVaultオブジェクトは、ストレージバケットのKubernetesカスタムリソース表現です。AppVault CRには、バックアップ、スナップショット、リストア操作、SnapMirrorレプリケーションなどの保護操作でバケットを使用するために必要な設定が含まれています。
+
+以下の手順では、ONTAP S3 用に設定された AppVault CR を作成します。ONTAP クラスタの SVM に S3 オブジェクトストアサーバーを作成します。.オブジェクトストアサーバーにバケットを作成します。.SVM に S3 ユーザーを作成します。アクセスキーとシークレットキーは安全な場所に保管してください。
+
++ 注記：Trident Protect では、S3 ユーザーが少なくとも `PutObject`、 `GetObject`、 `ListBucket`、および `DeleteObject`の権限を持つ必要があります。これらの権限がない場合、AppVault のバックアップおよびリストア操作はアクセス拒否エラーで失敗します。詳細については、link:https://docs.netapp.com/us-en/trident/trident-protect/trident-protect-appvault-custom-resources.html#s3-compatible-storage-iam-permissions["Trident Protect AppVault ドキュメント"]を参照してください。.VKS クラスターで、ONTAP S3 クレデンシャルを格納するシークレットを作成します。.ONTAP S3 の AppVault オブジェクトを作成します。
+
+*ONTAP S3 向けの Trident Protect AppVault の設定*
+
+
+IMPORTANT: 以下のマニフェストは、本番環境で必須となる証明書検証を有効にしたHTTPSを使用しています。ONTAP S3エンドポイントがクラスターによってすでに信頼されている公開CAによって署名された証明書を使用している場合、追加の証明書設定は不要です。自己署名証明書または内部CA証明書を使用する場合は、マニフェストに示されているように、 `rootCA`フィールドを使用してカスタムルートCA証明書を指定してください。隔離された非本番環境テスト用のHTTP設定が必要な場合は、このセクションの最後にあるラボ専用バリアントを参照してください。
+
+[source, yaml]
+----
+# alias tp='tridentctl-protect'
+
+# cat appvault-secret.yaml
+apiVersion: v1
+data:
+  accessKeyID: <base64 encoded access key>
+  secretAccessKey: <base64 encoded secret access key>
+# Alternatively, remove the data section above and use:
+# stringData:
+#   accessKeyID: "<access key of S3>"
+#   secretAccessKey: "<secret access key of S3>"
+kind: Secret
+metadata:
+  name: ontap-s3-appvault-secret1
+  namespace: trident-protect
+type: Opaque
+
+# cat appvault.yaml
+apiVersion: protect.trident.netapp.io/v1
+kind: AppVault
+metadata:
+  name: ontap-s3-appvault1
+  namespace: trident-protect
+spec:
+  providerConfig:
+    azure:
+      accountName: ""
+      bucketName: ""
+      endpoint: ""
+    gcp:
+      bucketName: ""
+      projectID: ""
+    s3:
+      bucketName: trident-protect
+      endpoint: <lif for S3 access>
+      secure: "true"
+      skipCertValidation: "false"
+      # If your ONTAP S3 endpoint uses a certificate signed by a public CA
+      # already trusted by the cluster, no additional certificate config is needed.
+      # If it uses a self-signed or internal CA certificate, provide the
+      # root CA certificate:
+      # rootCA: <root CA certificate>
+  providerCredentials:
+    accessKeyID:
+      valueFromSecret:
+        key: accessKeyID
+        name: ontap-s3-appvault-secret1
+    secretAccessKey:
+      valueFromSecret:
+        key: secretAccessKey
+        name: ontap-s3-appvault-secret1
+  providerType: OntapS3
+
+# kubectl create -f appvault-secret.yaml -n trident-protect
+# kubectl create -f appvault.yaml -n trident-protect
+----
+*ラボ専用バリアント（HTTP、証明書検証なし）*
+
+機密データが存在する隔離されたラボ環境でのみ、以下の `s3`設定を使用してください。本番環境ではこれらの設定を使用しないでください。
+
+[source, yaml]
+----
+    s3:
+      bucketName: trident-protect
+      endpoint: <lif for S3 access>
+      secure: "false"
+      skipCertValidation: "true"
+----
+image::vks-tp-001.png[ONTAP S3 AppVault 作成済み]
+
+====
+
+
+[[create-a-trident-protect-application]]
+== Trident Protect アプリケーションの作成
+
+.Trident Protect アプリケーションの作成
+[%collapsible]
+====
+この例では、postgres名前空間にインストールされているサンプルpostgresアプリケーションのデータ保護について説明します。インストールの詳細については、link:/vsphere-kubernetes-service/deploy-vks-workloads.html["NetApp ストレージを使用して VKS ワークロードをデプロイする"]を参照してください。
+
+
+NOTE: サンプルPostgreSQL PVCはRWOアクセスモードを要求します。アクセスモードはPVCマニフェスト内で明示的に指定する必要があります。Tridentはストレージ プロトコルに基づいてアクセスモードを自動的に選択しません。RWXはNASを基盤とするPVCでサポートされており、SANを基盤とするPVCも追加設定を行うことでRWXをサポートできます。詳細については、link:https://docs.netapp.com/us-en/trident/trident-protect/learn-about-trident-protect.html["Trident Protect ドキュメント"]を参照してください。
+
+この例では、postgres 名前空間には 1 つのアプリケーションがあり、Trident Protect Application の作成時に名前空間のすべてのリソースが含まれます。
+
+[source, yaml]
+----
+# alias tp='tridentctl-protect'
+# tp create app postgres-app --namespaces postgres -n postgres --dry-run > postgres-app.yaml
+
+# cat postgres-app.yaml
+apiVersion: protect.trident.netapp.io/v1
+kind: Application
+metadata:
+  name: postgres-app
+spec:
+  includedNamespaces:
+  - namespace: postgres
+  resourceFilter: {}
+# kubectl create -f postgres-app.yaml -n postgres
+----
+image::vks-tp-002.png[Trident Protectアプリケーションが作成されました]
+
+====
+
+
+[[protect-the-app-by-creating-a-backup]]
+== バックアップを作成してアプリを保護する
+
+.バックアップを作成する
+[%collapsible]
+====
+*オンデマンドバックアップを作成する*
+
+以前作成した postgres-app のバックアップを作成します。このバックアップには、postgres 名前空間内のすべてのリソースを含めます。バックアップを保存する appvault 名を指定してください。
+
+[source, yaml]
+----
+# cat postgres-backup-on-demand.yaml
+apiVersion: protect.trident.netapp.io/v1
+kind: Backup
+metadata:
+  name: postgres-backup-on-demand
+spec:
+  appVaultRef: ontap-s3-appvault1
+  applicationRef: postgres-app
+  cleanupSnapshot: true
+  replicateSnapshot: false
+----
+[source, cli]
+----
+kubectl create -f postgres-backup-on-demand.yaml -n postgres
+----
+image::vks-tp-003.png[オンデマンド バックアップが作成されました]
+
+image::vks-tp-004.png[アプリケーションの保護状態は部分的です]
+
+*スケジュールに基づいてバックアップを作成する*
+
+バックアップのスケジュールを作成し、保持するバックアップの粒度と数を指定します。
+
+[source, yaml]
+----
+# tp create schedule backup-schedule1 --app postgres-app --appvault ontap-s3-appvault1 --granularity Hourly --minute 45 --backup-retention 1 -n postgres --dry-run>postgres-backup-schedule1.yaml
+
+#cat postgres-backup-schedule1.yaml
+apiVersion: protect.trident.netapp.io/v1
+kind: Schedule
+metadata:
+  name: backup-schedule1
+  namespace: postgres
+spec:
+  appVaultRef: ontap-s3-appvault1
+  applicationRef: postgres-app
+  backupRetention: "1"
+  dayOfMonth: ""
+  dayOfWeek: ""
+  enabled: true
+  granularity: Hourly
+  hour: ""
+  minute: "45"
+  recurrenceRule: ""
+  replicationRetention: "0"
+  runImmediately: false
+  snapshotRetention: "0"
+# kubectl create -f postgres-backup-schedule1.yaml -n postgres
+----
+image::vks-tp-005.png[バックアップスケジュールが作成されました]
+
+image::vks-tp-006.png[バックアップスケジュール]
+
+====
+
+
+[[restore-from-backup]]
+== バックアップからの復元
+
+.バックアップから復元する
+[%collapsible]
+====
+*アプリケーションを同じ名前空間に復元する*
+
+この例では、バックアップ postgres-backup-on-demand には postgres-app のバックアップが含まれています。
+
+アプリケーションを削除する前に、復元に使用する予定のバックアップが `Completed`状態であることを確認してください。進行中または失敗したバックアップは、アプリケーションの復元には使用できません。
+
+[source, cli]
+----
+kubectl get backup -n postgres
+----
+バックアップ状態が `Completed`であることを確認した後、postgresアプリケーションを削除し、PVCとpodオブジェクトが名前空間「postgres」から削除されていることを確認してください。
+
+image::vks-tp-007.png[Postgresアプリのオブジェクト]
+
+image::vks-tp-008.png[Postgresアプリのオブジェクト]
+
+image::vks-tp-009.png[Postgres-appオブジェクトが削除されました]
+
+次に、バックアップIn Placeリストアオブジェクトを作成します。
+
+[source, yaml]
+----
+# tp create bir postgres-app-restore --backup postgres/postgres-backup-on-demand -n postgres --dry-run>postgres-app-bir.yaml
+
+# cat postgres-app-bir.yaml
+apiVersion: protect.trident.netapp.io/v1
+kind: BackupInplaceRestore
+metadata:
+  annotations:
+    protect.trident.netapp.io/max-parallel-restore-jobs: "25"
+  name: postgres-app-restore
+  namespace: postgres
+spec:
+  appArchivePath: postgres-app_314bbaf6-2ce3-4065-b3c1-ab85c7bb7c7c/backups/postgres-backup-on-demand_63efc9d1-92d7-45ce-84fe-846ce7db7b29
+  appVaultRef: ontap-s3-appvault1
+  cleanUpAdditionalExecHooks: true
+  cleanUpArchivedExecHooks: false
+  resourceFilter: {}
+  runArchivedExecHooks: true
+
+# kubectl create -f postgres-app-bir.yaml -n postgres
+----
+image::vks-tp-010.png[バックアップIn Placeリストア作成済み]
+
+PostgreSQLアプリケーションのデプロイメント、サービス、Pod、およびPVCが復元されていることを確認してください。
+
+image::vks-tp-011.png[アプリケーションが復元されました]
+
+*アプリケーションを別の名前空間に復元する*
+
+まず、アプリを復元する新しい名前空間を作成します。この例では、postgres2 を使用します。postgres-app では、スケジュールによって作成された 1 時間ごとのバックアップが利用可能になりました。このバックアップを使用して、アプリケーションを新しい名前空間 postgres2 に復元してください。
+
+image::vks-tp-012.png[時間単位でバックアップが可能です]
+
+[source, yaml]
+----
+# tp create backuprestore --appvault ontap-s3-appvault1 --path postgres-app_314bbaf6-2ce3-4065-b3c1-ab85c7bb7c7c/backups/hourly-cbd11-20260831124500_2b57bda9-5cb0-4c8f-ae7a-20f94c23c3b9 --namespace-mapping postgres:postgres2 -n postgres2 --dry-run>postgres-app-postgres2-br.yaml
+----
+
+NOTE: バックアップのパスを取得するには、次のコマンドを使用します `kubectl get backups <backup-name> -n postgres -o jsonpath='{.status.appArchivePath}'`。
+
+image::vks-tp-013.png[時間ごとのバックアップパス]
+
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: BackupRestore
+metadata:
+  annotations:
+    protect.trident.netapp.io/max-parallel-restore-jobs: "25"
+  name: postgres-app-z2woek
+  namespace: postgres2
+spec:
+  appArchivePath: postgres-app_314bbaf6-2ce3-4065-b3c1-ab85c7bb7c7c/backups/hourly-cbd11-20260831124500_2b57bda9-5cb0-4c8f-ae7a-20f94c23c3b9
+  appVaultRef: ontap-s3-appvault1
+  cleanUpAdditionalExecHooks: true
+  cleanUpArchivedExecHooks: false
+  namespaceMapping:
+  - destination: postgres2
+    source: postgres
+  resourceFilter: {}
+  runArchivedExecHooks: true
+  skipApplicationCreation: false
+
+# kubectl create -f postgres-app-postgres2-br.yaml -n postgres2
+----
+image::vks-tp-014.png[バックアップ復元が作成されました]
+
+新しい名前空間 postgres2 に postgres アプリケーション オブジェクトと PVC が作成されていることを確認してください。
+
+image::vks-tp-015.png[新しい名前空間でPostgresアプリケーションが復元されました]
+
+====
+
+
+[[protect-the-app-using-snapshots]]
+== スナップショットを使用してアプリを保護する
+
+.スナップショットを作成する
+[%collapsible]
+====
+*オンデマンドスナップショットの作成* アプリのスナップショットを作成し、スナップショットのメタデータが保存される AppVault を指定します。ボリュームスナップショットデータ自体はオブジェクトストレージにコピーされず、ストレージバックエンドに残ります。
+
+[source, yaml]
+----
+# tp create snapshot postgres-app-snapshot-ondemand --app postgres-app --appvault ontap-s3-appvault1 -n postgres --dry-run>postgres-app-snapshot-ondemand.yaml
+
+# cat postgres-app-snapshot-ondemand.yaml
+apiVersion: protect.trident.netapp.io/v1
+kind: Snapshot
+metadata:
+  name: postgres-app-snapshot-ondemand
+  namespace: postgres
+spec:
+  appVaultRef: ontap-s3-appvault1
+  applicationRef: postgres-app
+  cleanupSnapshot: false
+  completionTimeout: 0s
+  volumeSnapshotsCreatedTimeout: 0s
+  volumeSnapshotsReadyToUseTimeout: 0s
+
+# kubectl create -f postgres-app-snapshot-ondemand.yaml
+snapshot.protect.trident.netapp.io/postgres-app-snapshot-ondemand created
+
+----
+image::vks-tp-016.png[オンデマンドスナップショット]
+
+*スナップショットのスケジュールを作成する* スナップショットのスケジュールを作成します。保持するスナップショットの粒度と数を指定します。
+
+[source, yaml]
+----
+# tp create schedule snapshot-schedule1 --app postgres-app --appvault ontap-s3-appvault1 --granularity Hourly --minute 55 --snapshot-retention 1 -n postgres --dry-run>postgres-app-snapshot-schedule1.yaml
+
+# cat postgres-app-snapshot-schedule1.yaml
+apiVersion: protect.trident.netapp.io/v1
+kind: Schedule
+metadata:
+  name: snapshot-schedule1
+  namespace: postgres
+spec:
+  appVaultRef: ontap-s3-appvault1
+  applicationRef: postgres-app
+  backupRetention: "0"
+  dayOfMonth: ""
+  dayOfWeek: ""
+  enabled: true
+  granularity: Hourly
+  hour: ""
+  minute: "55"
+  recurrenceRule: ""
+  replicationRetention: "0"
+  runImmediately: false
+  snapshotRetention: "1"
+
+# kubectl create -f postgres-app-snapshot-schedule1.yaml
+schedule.protect.trident.netapp.io/snapshot-schedule1 created
+----
+image::vks-tp-017.png[スケジュールとスナップショットはスケジュールに基づいて作成されます]
+
+====
+
+
+[[restore-from-snapshot]]
+== スナップショットから復元する
+
+.スナップショットから復元する
+[%collapsible]
+====
+*スナップショットから同じ名前空間にアプリケーションを復元する*
+
+アプリケーションを削除する前に、リストア元として使用する予定のスナップショットが `Completed`状態であることを確認してください。進行中または失敗したスナップショットは、アプリケーションのリストアには使用できません。
+
+[source, cli]
+----
+kubectl get snapshot -n postgres
+----
+スナップショットの状態が `Completed`であることを確認した後、postgres名前空間からpostgres用のアプリケーションオブジェクトとPVCを削除します。
+
+image::vks-tp-019.png[アプリケーションオブジェクトが削除されました]
+
+スナップショットからスナップショットIn Placeリストアオブジェクトを作成します。
+
+[source, yaml]
+----
+# tp create sir postgres-restore-from-snapshot --snapshot postgres/hourly-f1dd9-20260831135500 -n postgres --dry-run > postgres-sir.yaml
+
+# cat postgres-sir.yaml
+apiVersion: protect.trident.netapp.io/v1
+kind: SnapshotInplaceRestore
+metadata:
+  name: postgres-restore-from-snapshot
+  namespace: postgres
+spec:
+  appArchivePath: postgres-app_314bbaf6-2ce3-4065-b3c1-ab85c7bb7c7c/snapshots/20260831135500_hourly-f1dd9-20260831135500_36c2bd2a-9405-4424-88a7-75e6bbc5b315
+  appVaultRef: ontap-s3-appvault1
+  cleanUpAdditionalExecHooks: true
+  cleanUpArchivedExecHooks: false
+  resourceFilter: {}
+  runArchivedExecHooks: true
+
+# kubectl create -f postgres-sir.yaml
+snapshotinplacerestore.protect.trident.netapp.io/postgres-restore-from-snapshot created
+----
+アプリケーションのオブジェクトとPVCがpostgres名前空間に作成されていることを確認してください。
+
+image::vks-tp-020.png[スナップショットから復元されたPostgresアプリ]
+
+*スナップショットから別の名前空間にアプリケーションを復元する*
+
+バックアップから復元したpostgres2名前空間内のアプリケーションを削除します。
+
+image::vks-tp-021.png[アプリケーションオブジェクトとPVCを削除する]
+
+スナップショットからスナップショット復元オブジェクトを作成し、名前空間マッピングを指定します。
+
+[source, yaml]
+----
+# tp create sr postgres-sr --snapshot postgres/hourly-f1dd9-20260831135500 --namespace-mapping postgres:postgres2 -n postgres2 --dry-run>postgres-sr.yaml
+
+# cat postgres-sr.yaml
+apiVersion: protect.trident.netapp.io/v1
+kind: SnapshotRestore
+metadata:
+  name: postgres-sr
+  namespace: postgres2
+spec:
+  appArchivePath: postgres-app_314bbaf6-2ce3-4065-b3c1-ab85c7bb7c7c/snapshots/20260831135500_hourly-f1dd9-20260831135500_36c2bd2a-9405-4424-88a7-75e6bbc5b315
+  appVaultRef: ontap-s3-appvault1
+  cleanUpAdditionalExecHooks: true
+  cleanUpArchivedExecHooks: false
+  namespaceMapping:
+  - destination: postgres2
+    source: postgres
+  resourceFilter: {}
+  runArchivedExecHooks: true
+  skipApplicationCreation: false
+
+# kubectl create -f postgres-sr.yaml
+snapshotrestore.protect.trident.netapp.io/postgres-sr created
+----
+image::vks-tp-022.png[スナップショット復元が作成されました]
+
+アプリケーションのオブジェクトとPVCがpostgres2名前空間に復元されていることを確認してください。
+
+image::vks-tp-023.png[アプリケーションが別の名前空間にリストアされました]
+
+====

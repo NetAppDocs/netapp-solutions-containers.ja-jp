@@ -4,7 +4,7 @@ permalink: vsphere-kubernetes-service/vks-overview.html
 keywords: vks, vSphere Kubernetes Service, ONTAP, kubernetes, overview 
 summary: vSphere Kubernetes Service と、それが NetApp ONTAP とコンテナ化されたワークロード向けにどのように統合されるかについて説明します。 
 ---
-= vSphere Kubernetes Service と NetApp ONTAP について学ぶ
+= NetApp ONTAPを使用したVMware vSphere Kubernetes Serviceについて学びます
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,9 +14,9 @@ summary: vSphere Kubernetes Service と、それが NetApp ONTAP とコンテナ
 
 
 [role="lead"]
-vSphere Kubernetes Service（VKS）は、VMwareが提供するマネージドKubernetesサービスであり、組織がKubernetesを使用してコンテナ化されたアプリケーションをデプロイ、管理、拡張することを可能にします。NetApp ONTAPストレージと組み合わせることで、VKSはクラウドネイティブワークロードにエンタープライズクラスの永続性、パフォーマンス、およびデータ管理を提供します。
+VMware vSphere Kubernetes Service（VKS）は、VMwareが提供するマネージドKubernetesサービスであり、組織がKubernetesを使用してコンテナ化されたアプリケーションをデプロイ、管理、スケールすることを可能にします。NetApp ONTAPストレージと組み合わせることで、VKSはクラウドネイティブワークロードにエンタープライズクラスの永続性、パフォーマンス、およびデータ管理を提供します。
 
-vSphere Kubernetes Service は通常、VMware Tanzu などの VMware のより広範なエコシステムに統合されており、Kubernetes 管理、アプリケーションの最新化、および DevOps プラクティスのための包括的なツールスイートを提供します。
+VKSはVMware Cloud Foundation（VCF）に組み込まれており、上流のCNCF Kubernetesに準拠しているため、より広範なKubernetesエコシステムおよびツールとの互換性が確保されています。
 
 
 
@@ -27,10 +27,10 @@ vSphere Kubernetes Service は通常、VMware Tanzu などの VMware のより�
 . *VMware インフラストラクチャとの統合：* VKS は VMware vSphere、NSX-T、およびその他の VMware ソリューションとシームレスに統合し、組織が既存の VMware インフラストラクチャを Kubernetes ワークロードに活用できるようにします。
 . *マルチクラウドおよびハイブリッドクラウドのサポート：* vSphere Kubernetes Serviceは、プライベートクラウド、パブリッククラウド（AWS、Azure、Google Cloudなど）、およびハイブリッドクラウド環境へのデプロイをサポートしており、組織がアプリケーションを管理する上での柔軟性を提供します。
 . *組み込みセキュリティ：* VKSには、ロールベースのアクセス制御（RBAC）、ポリシー適用、およびネットワークセキュリティのためのVMware NSXとの統合などのセキュリティ機能が含まれています。
-. *開発者向けツール：* vSphere Kubernetes Serviceは、Tanzu Application Platformなどの開発者ツールと統合することで、コンテナ化されたアプリケーションの開発とデプロイを簡素化します。
+. *Kubernetesエコシステムのサポート：* VKSは、Kubernetesの完全なアップストリームAPIをサポートしており、環境間での移植性と、サービスメッシュ用のIstio、監視用のPrometheus、その他のCNCF認定ツールなどのツールを含む、より広範なKubernetesエコシステムとの互換性を保証します。組織は、標準的なKubernetesのスキルと統合機能をVKSクラスターに直接適用できます。
+. *開発者向けツール：* VKS は、CI/CD パイプライン、GitOps プラクティス、および kubectl や Helm などのツールを含む標準的な Kubernetes 開発者ワークフローをサポートしており、開発チームは独自のインターフェースを学習することなく、コンテナ化されたアプリケーションを構築・デプロイできます。
 . *拡張性と高可用性：* VKSは、アプリケーションの高い可用性とパフォーマンスを維持するために、自動スケーリングやフォールトトレランスなどの機能を提供します。
-. *可観測性と監視：* vSphere Kubernetes Service は VMware Tanzu Observability （旧 Wavefront） およびその他の監視ツールと統合し、クラスターおよびアプリケーションのパフォーマンスに関するリアルタイムの洞察を提供します。
-. *Kubernetesエコシステムのサポート：* VKSはアップストリームのKubernetesに完全に準拠しており、Kubernetes APIをサポートし、Helm、Istio、PrometheusなどのKubernetesネイティブツールと連携します。
+. *可観測性と監視：* VKSは、標準的なKubernetes互換の監視ツールと統合し、クラスターおよびアプリケーションのパフォーマンスに関するリアルタイムの洞察を提供します。
 
 
 

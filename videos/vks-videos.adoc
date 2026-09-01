@@ -18,15 +18,22 @@ vSphere Kubernetes Service と NetApp の統合を、主要な機能を実演す
 
 
 
-[[deploying-a-vsphere-kubernetes-service-cluster-with-netapp-storage]]
-== NetAppストレージを使用したvSphere Kubernetes Serviceクラスターのデプロイ
+[[create-a-vsphere-kubernetes-cluster-on-a-supervisor-cluster]]
+== スーパーバイザークラスター上に vSphere Kubernetes クラスターを作成する
 
-.NetAppストレージを使用したvSphere Kubernetes Serviceクラスターのデプロイ
+.スーパーバイザークラスター上に vSphere Kubernetes クラスターを作成する
 video::4ef64b3c-7a68-41d5-bacf-b4a8012b49f8[panopto,width=360]
 
 
-[[deploying-workloads-with-ontap-persistent-storage-using-trident]]
-== Tridentを使用したONTAP永続ストレージによるワークロードのデプロイ
+[[create-a-vsphere-kubernetes-cluster-with-vcf-automation]]
+== VCF Automationを使用してvSphere Kubernetesクラスターを作成する
 
-.Tridentを使用したONTAP永続ストレージによるワークロードのデプロイ
+.VCF Automationを使用してvSphere Kubernetesクラスターを作成する
+video::571ced1a-58e8-4bf4-9c24-b4b10118bc22[panopto,width=360]
+
+
+[[deploying-workloads-on-a-vks-cluster-backed-by-ontap-persistent-storage-using-trident]]
+== Tridentを使用したONTAP永続ストレージを基盤とするVKSクラスタへのワークロードのデプロイ
+
+.Tridentを使用したONTAP永続ストレージを基盤とするVKSクラスタへのワークロードのデプロイ
 video::eb8bd0c0-a1fe-4288-a575-b4ac00e004a9[panopto,width=360]

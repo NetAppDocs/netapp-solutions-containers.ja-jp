@@ -17,3 +17,10 @@ entries:
     url: "/vsphere-kubernetes-service/install-trident.html"
   - title: NetApp ストレージを使用して VKS ワークロードをデプロイする
     url: "/vsphere-kubernetes-service/deploy-vks-workloads.html"
+- title: データ保護
+  pdf-filename: データ保護
+  entries:
+  - title: NetApp Consoleを使用したバックアップとリストア
+    url: "/vsphere-kubernetes-service/backup-restore-console.html"
+  - title: Trident Protect を使用したバックアップとリストア
+    url: "/vsphere-kubernetes-service/backup-restore-trident-protect.html"

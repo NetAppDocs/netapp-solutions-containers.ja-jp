@@ -1,0 +1,196 @@
+---
+sidebar: sidebar 
+permalink: vsphere-kubernetes-service/backup-restore-console.html 
+keywords: vks, vSphere Kubernetes Service, VCF, Trident, NetApp ONTAP, NetApp Console, Backup and Recovery, data protection, container application protection, ONTAP S3 
+summary: VKS クラスター内のコンテナアプリケーションのバックアップと復元には、NetApp Console を介した NetApp Backup and Recovery Service を使用します。 
+---
+= NetApp Consoleを使用した、vSphere Kubernetes Serviceクラスターにおけるコンテナアプリケーションのバックアップとリストア
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+vSphere Kubernetes Service （VKS）クラスターのコンテナアプリケーションをNetApp Consoleを使用してバックアップおよびリストアします。この手順では、ONTAP S3オブジェクトストレージをバックアップターゲットとして使用し、NetApp ConsoleのBackup and Recovery Serviceを通じてバックアップとリストア操作を作成および管理する方法について説明します。
+
+NetApp Console は、オンプレミスおよびクラウド環境全体にわたるストレージとデータサービスの一元管理を提供します。統合されたコントロール、運用の簡素化、および安全な管理を実現します。link:https://console.netapp.com["console.netapp.com"^] のユーザーインターフェースからアクセスできるデータサービスと管理機能がいくつかあります。NetApp Console の詳細については、link:https://docs.netapp.com/us-en/console-family/["NetApp Console のドキュメント"] を参照してください。
+
+このセクションでは、Kubernetesワークロード（具体的にはvSphere Kubernetes Serviceクラスター上のコンテナアプリケーション）向けのNetApp Backup and Recoveryデータサービスに焦点を当てます。NetApp Backup and Recoveryサービスを使用すると、単一のインターフェイスからKubernetesアプリケーションを検出、管理、作成し、保護ポリシーに関連付けることができます。完全なガイドについては、link:https://docs.netapp.com/us-en/data-services-backup-recovery/br-use-kubernetes-protect-overview.html["NetApp Backup and Recovery ドキュメント"]を参照してください。
+
+
+
+[[backup-and-recovery-workflow]]
+== バックアップとリカバリのワークフロー
+
+. *Console エージェントがあることを確認してください*
++
+VKSクラスタが稼働している環境に、コンソールエージェントがデプロイされていることを確認してください。コンソールエージェントのインストールの詳細については、link:https://docs.netapp.com/us-en/console-setup-admin/task-install-agent-on-prem-ova.html#install-a-console-agent-in-your-vcenter-environment["NetApp Console Setupドキュメント"]を参照してください。
+
++
+.例を表示
+[%collapsible]
+====
+NetApp Console で、スクリーンショットに示すように「Deploy Agent」をクリックし、VKS クラスタが稼働している環境にエージェントをデプロイします。
+
+この例では、*オンプレミス > OVA を使用* を選択し、OVA URL をコピーして、その URL を vCenter で使用してコンソールエージェントをデプロイします。
+
+URLにエージェントのIPアドレスを使用して登録してください。詳細な手順については、link:https://docs.netapp.com/us-en/console-setup-admin/task-install-agent-on-prem-ova.html["ドキュメント"]を参照してください。エージェントが登録されると、以下のスクリーンショットに示すように NetApp Console で確認できます。
+
+image::vks-console-br-001.png[コンソールエージェントのインストール]
+
+image::vks-console-br-002.png[エージェントインストーラーのURLを使用する]
+
+====
+. *ONTAP クラスターを NetApp Console に追加してバックアップとリカバリを有効にする*
++
+ワークロードを保護するには、プライマリ ONTAP クラスターを NetApp Console に追加し、Backup and Recovery サービスを有効にする必要があります。手順については、link:https://docs.netapp.com/us-en/data-services-backup-recovery/br-start-setup.html["NetApp Backup and Recoveryのセットアップ"]を参照してください。
+
+. *NetApp Console で vSphere Kubernetes クラスターを検出する*
++
+.例を表示
+[%collapsible]
+====
+この手順を実行するには、vSphere Kubernetesクラスターが実行されており、同じ環境にConsoleエージェントがデプロイされている必要があります。次の手順に従って、NetApp ConsoleでvSphere Kubernetesクラスターを検出します。
+
+.. NetApp Console で、*インベントリ > Kubernetes* を選択し、vSphere Kubernetes クラスターの詳細を入力します。
+.. vSphere Kubernetes クラスターが配置されているのと同じ環境にデプロイされたエージェントを選択します。
+.. 提供されたコマンドをコピーしてTrident Protectをインストールし、vSphere Kubernetesクラスターへ接続されたマシンから実行します。
+.. Trident Protect のインストールが正常に完了したら、*Discover* をクリックします。NetApp Console は、エージェントを介して vSphere Kubernetes クラスターとそのすべてのリソースを検出し、UI に表示します。
+
+
+image::vks-console-br-007.png[vSphere Kubernetes クラスターの検出]
+
+image::vks-console-br-008.png[Trident Protect をインストールし、「Discover」をクリックします。]
+
+image::vks-console-br-009.png[Trident Protect のインストールが完了しました]
+
+image::vks-console-br-010.png[NetApp Consoleで検出されたvSphere Kubernetesクラスター]
+
+====
+. *ONTAP S3をバックアップターゲットとして設定する*
++
+この例では、バックアップ先としてONTAP S3オブジェクトストレージを使用します。AWS S3、Azure Blob、Google Cloud Storage、またはStorageGRIDをバックアップターゲットとして使用することもできます。
+
++
+詳細については、link:https://docs.netapp.com/us-en/data-services-backup-recovery/br-start-setup.html#prepare-the-backup-destination["NetApp Console のドキュメント"]を参照してください。
+
++
+ONTAP S3をNetApp Consoleのバックアップターゲットとして追加するには、ONTAPクラスターから次の情報が必要になります。
+
++
+[listing]
+----
+S3 Endpoint:
+Access Key:
+Secret Key:
+Bucket Name:
+----
++
+これらの値を取得するには、System Manager を使用して ONTAP クラスタで次の手順を実行します。
+
++
+.. バックアップデータを保存するために、ONTAPクラスタにS3対応のSVMを作成します。このSVMのS3エンドポイントURLをメモしておいてください。
+.. SVMのS3設定で、ユーザーを作成し、必要なアクセス権限を割り当てます。このユーザーのアクセスキーとシークレットキーを控えておいてください。
++
+
+NOTE: Trident Protectでは、S3ユーザーに少なくとも `PutObject`、 `GetObject`、 `ListBucket`、および `DeleteObject`の権限が必要です。これらの権限がない場合、AppVaultのバックアップおよびリストア操作はアクセス拒否エラーで失敗します。詳細については、link:https://docs.netapp.com/us-en/trident/trident-protect/trident-protect-appvault-custom-resources.html#s3-compatible-storage-iam-permissions["Trident Protect AppVault ドキュメント"]を参照してください。
+
++
+.例を表示
+[%collapsible]
+====
+... *S3ユーザーを作成し、アクセスキーとシークレットキーをダウンロードします*
++
+image::vks-console-br-003.png[S3ユーザーを作成し、アクセスキーとシークレットキーをダウンロードします]
+
++
+.... S3対応のSVMにバケットを作成します。NetApp ConsoleでONTAP S3オブジェクト ストレージをバックアップ ターゲットとして追加する際に使用するバケット名をメモしておきます。
+
+
+
+
+image::vks-console-br-004.png[ストレージアカウント]
+
+S3エンドポイント、アクセスキー、シークレットキー、バケット名を使用して、ONTAP S3オブジェクトストレージをバックアップターゲットとして NetApp Console に追加します。
+
+image::vks-console-br-005.png[NetApp ConsoleでONTAP S3オブジェクト ストレージをバックアップ ターゲットとして検出します]
+
+image::vks-console-br-006.png[NetApp Consoleでの検出に必要なONTAP S3オブジェクト ストレージの詳細]
+
+====
+
+
+. *NetApp Console で、コンテナワークロード用のアプリケーションを作成し、バックアップを使用して保護します*
++
+
+NOTE: Kubernetesアプリケーションを作成および保護するには、バックアップおよびリカバリのスーパー管理者、またはバックアップおよびリカバリのバックアップ管理者ロールが必要です。Kubernetesアプリケーションを復元するには、バックアップおよびリカバリのスーパー管理者、またはバックアップおよびリカバリの復元管理者ロールが必要です。
+
++
+.例を表示
+[%collapsible]
+====
+この手順では、保護が必要な vSphere Kubernetes クラスター内のコンテナアプリケーション用に、NetApp Console でアプリケーションを作成します。ネームスペースを使用すると、vSphere Kubernetes クラスター内のネームスペースにあるすべてのコンテナアプリケーションを保護するためのアプリケーションを作成できます。
+
+また、アプリケーションに関連付ける保護ポリシーも必要です。新しい保護ポリシーを作成するか、既存のものを使用することができます。
+
+image::vks-console-br-011.png[コンテナアプリケーション用のアプリケーションを作成する]
+
+アプリケーションの詳細を入力し、アプリケーションの条件を定義します。この例では、vSphere Kubernetesクラスターの名前空間内のすべてのコンテナアプリケーションに対してアプリケーションが作成されます。「検索」をクリックすると、アプリケーションに含まれる名前空間スコープのリソースの一覧が表示されます。「次へ」をクリックして続行します。
+
+image::vks-console-br-012.png[アプリケーションの詳細を入力し、アプリケーションの基準を定義します。]
+
+次に、アプリケーションの保護設定を行う必要があります。新しい保護ポリシーを作成するか、既存のものを使用することができます。この例では、アプリケーション用に新しい保護ポリシーが作成され、アプリケーションに関連付けられます。「ポリシー」を展開し、「新しいポリシーを作成」をクリックします。
+
+image::vks-console-br-013.png[新しい保護ポリシーを作成]
+
+ポリシーに名前を付け、バックアップアーキテクチャを選択してください。この例では、ディスクからオブジェクトストレージへの構成が選択されています。プライマリストレージでスナップショットが取得される頻度を制御するローカルスナップショットスケジュールを定義します。次に、オブジェクトストレージのバックアップ設定を個別に構成します。バックアップターゲットを選択し（この例では ONTAP S3）、スナップショットデータがオブジェクトストレージにコピーされるタイミングを制御する転送スケジュールを設定して、保持コピーの数を指定します。転送スケジュールはスナップショットスケジュールとは独立しているため、リソースは各スナップショットが取得された直後ではなく、転送スケジュールに従ってオブジェクトストレージにコピーされます。必要に応じて、最大再試行回数と再試行間隔を変更することもできます。続行するには「作成」をクリックしてください。アプリケーションが検出され、保護ポリシーがそれに関連付けられます。
+
+image::vks-console-br-014.png[保護ポリシー名を入力してください]
+
+image::vks-console-br-015.png[バックアップアーキテクチャを選択]
+
+image::vks-console-br-016.png[ローカルスナップショットスケジュール]
+
+image::vks-console-br-017.png[バックアップ用のオブジェクトストア設定]
+
+image::vks-console-br-018.png[アプリケーションが作成され、保護が完了しました。]
+
+====
+. *バックアップからアプリケーションを復元する*
++
+
+NOTE: Kubernetesアプリケーションを復元するには、Backup and Recoveryのスーパー管理者ロール、またはBackup and Recoveryの復元管理者ロールが必要です。
+
++
+.例を表示
+[%collapsible]
+====
+** アプリケーションを復元するには、ローカルスナップショット、オブジェクトストレージバックアップ、またはセカンダリターゲットからのバックアップなど、利用可能な復元ポイントのいずれかを選択できます。
+** アプリケーションを元の名前空間に復元することも、別の名前空間に復元することもできます。
+** 復元に含めるリソースを選択できます。
+** 復元したアプリケーションリソースに使用するストレージクラスを選択できます。
+
+
+image::vks-console-br-019.png[バックアップからアプリケーションを復元する]
+
+image::vks-console-br-020.png[復元ポイントを選択してください]
+
+image::vks-console-br-021.png[復元オプションを選択]
+
+image::vks-console-br-022.png[復元するリソースをすべてまたは一部選択します。]
+
+image::vks-console-br-023.png[復元されたリソースのストレージクラスを選択]
+
+復元ジョブの進行状況は、NetApp Console のモニターセクションで確認できます。復元ジョブが完了すると、vSphere Kubernetes クラスターで復元されたリソースを確認できます。
+
+image::vks-console-br-024.png[復元作業の進捗状況を監視する]
+
+image::vks-console-br-025.png[復元作業が完了しました]
+
+image::vks-console-br-026.png[復元されたアプリケーション]
+
+====
+

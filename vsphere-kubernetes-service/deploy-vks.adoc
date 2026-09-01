@@ -210,7 +210,9 @@ image::vks-005.png[kubeconfigを使用したVKSクラスターへのCLI接続]
 [[video-demonstration]]
 == ビデオデモ
 
-次のビデオでは、vSphere Kubernetes クラスターの作成方法を説明します。
+以下のビデオでは、vSphere Kubernetes クラスターを作成する2つの方法を説明します。
 
-.スーパーバイザークラスタに vSphere Kubernetes クラスタを作成する
+.スーパーバイザークラスタ上に vSphere Kubernetes クラスタを作成する
 video::4ef64b3c-7a68-41d5-bacf-b4a8012b49f8[panopto,width=360]
+.VCF Automationを使用してvSphere Kubernetesクラスターを作成する
+video::571ced1a-58e8-4bf4-9c24-b4b10118bc22[panopto,width=360]

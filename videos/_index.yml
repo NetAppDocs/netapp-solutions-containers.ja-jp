@@ -2,7 +2,7 @@
 indexpage:
   title: NetAppのコンテナに関するビデオとデモを見る
   summary: NetAppのコンテナソリューションの多くの機能を説明するビデオとデモのシリーズ
-  lead: Anthos および OpenShift プラットフォーム全体のコンテナ ソリューションを紹介する NetApp の包括的なビデオ ライブラリをご覧ください。各コレクションは、特定のユースケースと統合シナリオに重点を置いています。
+  lead: NetAppの包括的なビデオライブラリをご覧ください。Anthos、OpenShift、およびvSphere Kubernetes Serviceプラットフォームにわたるコンテナソリューションを紹介しています。各コレクションは、特定のユースケースと統合シナリオに焦点を当てています。
   tiles:
   - title: NetAppと Anthos
     links:
@@ -24,7 +24,9 @@ indexpage:
       url: openshift-videos.html#cloud-and-hybrid-integrations
   - title: vSphere Kubernetes サービスと NetApp ストレージ
     links:
-    - title: NetAppストレージを使用したvSphere Kubernetes Serviceのデプロイ
-      url: vks-videos.html#deploying-a-vsphere-kubernetes-service-cluster-with-netapp-storage
-    - title: NetApp Storageを使用したvSphere Kubernetes Serviceワークロードのデプロイ
-      url: vks-videos.html#deploying-workloads-with-ontap-persistent-storage-using-trident
+    - title: スーパーバイザークラスター上に vSphere Kubernetes クラスターを作成する
+      url: vks-videos.html#create-a-vsphere-kubernetes-cluster-on-a-supervisor-cluster
+    - title: VCF Automationを使用してvSphere Kubernetesクラスターを作成する
+      url: vks-videos.html#create-a-vsphere-kubernetes-cluster-with-vcf-automation
+    - title: Tridentを使用してONTAP永続ストレージでワークロードをデプロイする
+      url: vks-videos.html#deploying-workloads-on-a-vks-cluster-backed-by-ontap-persistent-storage-using-trident

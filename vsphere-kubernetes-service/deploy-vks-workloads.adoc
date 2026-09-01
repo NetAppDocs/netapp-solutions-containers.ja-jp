@@ -319,5 +319,5 @@ SELECT * FROM employees;
 
 以下のビデオでは、vSphere Kubernetes クラスターへの Trident のインストールと、Trident を使用した永続ストレージを備えた PostgreSQL データベースのデプロイについて説明します。
 
-.Tridentを使用したONTAP永続ストレージによるワークロードのデプロイ
+.vSphere Kubernetes Service クラスター上でワークロードをデプロイする（Tridentを使用したONTAP永続ストレージ）
 video::eb8bd0c0-a1fe-4288-a575-b4ac00e004a9[panopto,width=360]
