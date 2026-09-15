@@ -211,15 +211,21 @@ spec:
 kubectl get all -n <namespace>
 kubectl get pvc -n <namespace>
 ----
+.例を表示
+[%collapsible]
+====
 image::vks-workload-001.png[永続ストレージを使用してデプロイされたワークロード]
 
+====
 使用するプロトコルに応じて、バックエンドストレージはボリューム、qtree、またはLUNです。ONTAP システムでプロビジョニングされたストレージを確認するには、PersistentVolume（PV）を記述して内部ボリューム名を取得し、それを ONTAP CLI コマンドで使用してストレージの詳細を取得します。次のコマンドを使用して PV を記述し、内部ボリューム名を取得します：
 
 [source, bash]
 ----
 kubectl describe pv/<pv-name>
 ----
-.サンプルの提示
+.例を表示
+[%collapsible]
+====
 image::vks-workload-002.png[NASボリュームの内部ボリューム名]
 
 image::vks-workload-003.png[SAN LUNの内部ボリューム名]
@@ -242,10 +248,14 @@ lun show -vserver <vserver> -volume <internal-volume-name>
 ----
 image::vks-workload-005.png[SAN LUNのONTAP CLI出力]
 
+====
 NASまたはNAS Economyストレージクラスで `nconnect`マウントオプションを使用した場合、ワーカーノードからストレージサーバーへのアクティブなTCP接続数を確認できます。
 
 まず、Trident バックエンド構成を一覧表示してバックエンド名を確認し、それを記述して vserver 名とデータ LIF を取得します。
 
+.例を表示
+[%collapsible]
+====
 [source, bash]
 ----
 kubectl get tbc -n trident
@@ -257,11 +267,14 @@ kubectl describe tbc <backend-name> -n trident
 ----
 network connections active show -local-address <data-lif> -local-port 2049
 ----
-.サンプルの提示
 image::vks-workload-006.png[アクティブな接続のONTAP CLI出力]
 
+====
 ポッドが実行状態になったら、データベースに接続してデータ操作を確認します。
 
+.例を表示
+[%collapsible]
+====
 .手順
 . PostgreSQL サービスのポートをローカルマシンに転送します：
 +
@@ -312,6 +325,7 @@ SELECT * FROM employees;
 ----
 
 
+====
 
 
 [[video-demonstration]]
@@ -319,5 +333,5 @@ SELECT * FROM employees;
 
 以下のビデオでは、vSphere Kubernetes クラスターへの Trident のインストールと、Trident を使用した永続ストレージを備えた PostgreSQL データベースのデプロイについて説明します。
 
-.vSphere Kubernetes Service クラスター上でワークロードをデプロイする（Tridentを使用したONTAP永続ストレージ）
-video::eb8bd0c0-a1fe-4288-a575-b4ac00e004a9[panopto,width=360]
+.Tridentを使用したONTAP永続ストレージを基盤とするVKSクラスタへのワークロードのデプロイ
+video::ea2cd302-d556-4450-bd68-b4c0012a9b49[panopto,width=360]
