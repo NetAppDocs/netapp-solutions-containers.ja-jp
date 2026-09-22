@@ -2018,4 +2018,10 @@
   <block id="089b40cea675d4e9ce25bad5ebb3b652" category="paragraph">次のビデオでは、NetApp Console を使用して VKS クラスター上のワークロードを ONTAP S3 オブジェクトストレージにバックアップし、vSphere Kubernetes クラスターに復元する方法を説明します。</block>
   <block id="4476e254c8f5abaf8b630ceda9d4a0b9" category="paragraph">以下のビデオでは、NetApp Console Local の機能の概要を説明します。</block>
   <block id="07a543f5080cf583128d23fd6f478822" category="paragraph">この例では、<block ref="e8a48653851e28c69d0506508fb27fc5" prefix=" " category="inline-code"></block>名前空間にインストールされているサンプル PostgreSQL アプリケーションのデータ保護について説明します。インストールの詳細については、<block ref="d5a8c06422b41e848d51e76dd84c3ef1" category="inline-link-macro-rx"></block>を参照してください。</block>
+  <block id="6aa44f095b485d103684660cbb7f9328" category="section-title">2026年9月21日</block>
+  <block id="e0d0e8ae0af3a4ee574586d2d9e6da59" category="inline-link-macro">vSphere Kubernetes サービスソリューション</block>
+  <block id="8f96584025cae51d2c0118261a3be8e7" category="paragraph">VMware vSphere Kubernetes Service と NetApp ONTAP ソリューションを NetApp コンテナソリューションに追加しました：<block ref="f8cc2605c7c10f20f97e696844c3cb9b" category="inline-link-macro-rx"></block>。</block>
+  <block id="2a7082b3041267482d987446d5d04d6a" category="sidebar">vSphere Kubernetes サービス（NetApp）</block>
+  <block id="7e7397a7b79323762c61941fc0e6b5f9" category="sidebar">データ保護</block>
+  <block id="07c4740cbbae657ab5643e7f4cd45995" category="sidebar">vSphere Kubernetes Serviceのウェブサイト</block>
 </blocks>

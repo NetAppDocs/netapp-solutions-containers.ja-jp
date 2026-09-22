@@ -15,6 +15,13 @@ summary: NetAppコンテナ ソリューション資料への最近の変更の�
 
 
 
+[[21-september-2026]]
+== 2026年9月21日
+
+VMware vSphere Kubernetes Service と NetApp ONTAP ソリューションを NetApp コンテナソリューションに追加しました：link:https://docs.netapp.com/us-en/netapp-solutions-containers/vsphere-kubernetes-service/vks-overview.html["vSphere Kubernetes サービスソリューション"^]。
+
+
+
 [[18-august-2025]]
 == 2025年8月18日
 
