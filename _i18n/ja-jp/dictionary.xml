@@ -2024,4 +2024,6 @@
   <block id="2a7082b3041267482d987446d5d04d6a" category="sidebar">vSphere Kubernetes サービス（NetApp）</block>
   <block id="7e7397a7b79323762c61941fc0e6b5f9" category="sidebar">データ保護</block>
   <block id="07c4740cbbae657ab5643e7f4cd45995" category="sidebar">vSphere Kubernetes Serviceのウェブサイト</block>
+  <block id="afafad34831fd7bf5a2da8e40c7a486a" category="paragraph">このマトリックスに記載されているリリースは、このドキュメントの公開時点で、ソリューションの検証に使用されたリリースです。</block>
+  <block id="c36ad65c3abcd6fccd80322445b32436" category="paragraph">追加機能は、ONTAP、NetApp Trident、およびTridentがサポートするRed Hat OpenShiftの最新バージョンで継続的にテストされています。Tridentがサポートする最新のOpenShiftバージョンについては、<block ref="c63c485b5af8afb2964e185bd11227c5" category="inline-link-macro-rx"></block>をご覧ください。</block>
 </blocks>

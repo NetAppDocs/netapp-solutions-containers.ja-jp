@@ -94,6 +94,8 @@ Trident は、Red Hat OpenShift を含むコンテナおよび Kubernetes ディ
 [[current-support-matrix-for-validated-releases]]
 == 検証済みリリースの現在のサポート マトリックス
 
+このマトリックスに記載されているリリースは、このドキュメントの公開時点で、ソリューションの検証に使用されたリリースです。
+
 |===
 
 
@@ -114,3 +116,4 @@ Trident は、Red Hat OpenShift を含むコンテナおよび Kubernetes ディ
 
 | VMware vSphere | データセンター仮想化 | 7.0、8.0.2 
 |===
+追加機能は、ONTAP、NetApp Trident、およびTridentがサポートするRed Hat OpenShiftの最新バージョンで継続的にテストされています。Tridentがサポートする最新のOpenShiftバージョンについては、link:https://docs.netapp.com/us-en/trident/trident-get-started/requirements.html#supported-frontends-orchestrators["Tridentドキュメント"^]をご覧ください。
